@@ -1,0 +1,366 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13411,        358]
+NotebookOptionsPosition[     12882,        340]
+NotebookOutlinePosition[     13240,        356]
+CellTagsIndexPosition[     13197,        353]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Model C13.2: Pong", "Title",
+ CellChangeTimes->{{3.752704224201933*^9, 3.752704238248266*^9}, {
+  3.7527044080473843`*^9, 
+  3.75270440813374*^9}},ExpressionUUID->"6ed05829-eb62-42b5-b5d8-\
+536e9f049b80"],
+
+Cell[TextData[{
+ StyleBox["Pong",
+  FontSlant->"Italic"],
+ " is one of the earliest arcade games. The concept is simple - a ball \
+bounces back and forth, the players move paddles up and down to hit it back, \
+if the ball gets past you the other player gets a point."
+}], "Text",
+ CellChangeTimes->{{3.752704240991599*^9, 3.752704259143566*^9}, {
+  3.752704322250429*^9, 
+  3.752704357743805*^9}},ExpressionUUID->"ff255bba-054d-41a7-87a2-\
+2b93a3bd787d"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xInit", "=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0"}], "}"}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Initial", " ", "Position", " ", "Vector"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vInit", "=", 
+    RowBox[{"RandomReal", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", ".1"}], ",", ".1"}], "}"}], ",", "2"}], "]"}]}], ";"}], 
+  " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Initial", " ", "Velocity", " ", "Vector"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"paddleSpeed", "=", ".7"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DynamicModule", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"x", "=", "xInit"}], ",", 
+      RowBox[{"v", "=", "vInit"}], ",", 
+      RowBox[{"leftPaddle", "=", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "8"}], ",", "0"}], "}"}]}], ",", 
+      RowBox[{"rightPaddle", "=", 
+       RowBox[{"{", 
+        RowBox[{"8", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"p1Score", "=", "0"}], ",", 
+      RowBox[{"p2Score", "=", "0"}]}], "}"}], ",", 
+    RowBox[{"Column", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Dynamic", "[", 
+        RowBox[{"x", "=", 
+         RowBox[{"x", "+", "v"}]}], "]"}], ",", 
+       RowBox[{"Dynamic", "[", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"7.7", "\[LessEqual]", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", "8.3"}], "&&", 
+             
+             RowBox[{
+              RowBox[{
+               RowBox[{"rightPaddle", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "-", "1"}], "\[LessEqual]", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "\[LessEqual]", 
+              RowBox[{
+               RowBox[{"rightPaddle", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}]}], ")"}], "||", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "8.3"}], "\[LessEqual]", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", 
+              RowBox[{"-", "7.7"}]}], "&&", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"leftPaddle", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "-", "1"}], "\[LessEqual]", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "\[LessEqual]", 
+              RowBox[{
+               RowBox[{"leftPaddle", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}]}], ")"}]}], ",", 
+          
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"v", "=", 
+             RowBox[{"1.2", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", 
+                 RowBox[{"v", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}]}], ",", 
+                RowBox[{"v", "[", 
+                 RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}]}], ",", 
+            RowBox[{
+             RowBox[{"x", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "=", 
+             RowBox[{".97", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}]}]}], "}"}]}], "]"}], "]"}], 
+       ",", 
+       RowBox[{"Dynamic", "[", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Abs", "[", 
+            RowBox[{"x", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "]"}], ">", "9.8"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"v", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "=", 
+             RowBox[{"-", 
+              RowBox[{"v", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}]}], ",", 
+            RowBox[{
+             RowBox[{"x", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "=", 
+             RowBox[{".97", 
+              RowBox[{"x", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}], "]"}], 
+       ",", 
+       RowBox[{"Dynamic", "[", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"x", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "\[GreaterEqual]", "9.9"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "=", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+            RowBox[{"v", "=", 
+             RowBox[{"RandomReal", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", ".1"}], ",", ".1"}], "}"}], ",", "2"}], "]"}]}],
+             ",", 
+            RowBox[{"p1Score", "++"}], ",", 
+            RowBox[{"Pause", "[", "1", "]"}]}], "}"}]}], "]"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Dynamic", "[", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"x", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "\[LessEqual]", 
+           RowBox[{"-", "9.9"}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "=", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+            RowBox[{"v", "=", 
+             RowBox[{"RandomReal", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", ".1"}], ",", ".1"}], "}"}], ",", "2"}], "]"}]}],
+             ",", 
+            RowBox[{"p2Score", "++"}], ",", 
+            RowBox[{"Pause", "[", "1", "]"}]}], "}"}]}], "]"}], "]"}], ",", 
+       RowBox[{"EventHandler", "[", 
+        RowBox[{
+         RowBox[{"Graphics", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"White", ",", 
+             RowBox[{"EdgeForm", "[", "Black", "]"}], ",", 
+             RowBox[{"Apply", "[", 
+              RowBox[{"Rectangle", ",", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"-", "10"}], ",", 
+                   RowBox[{"-", "10"}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"10", ",", "10"}], "}"}]}], "}"}]}], "]"}], ",", 
+             "Black", ",", 
+             RowBox[{"PointSize", "[", ".03", "]"}], ",", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"Point", "[", "x", "]"}], "]"}], ",", "Magenta", ",", 
+             RowBox[{"EdgeForm", "[", "None", "]"}], ",", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"-", "8.3"}], ",", 
+                  RowBox[{
+                   RowBox[{"leftPaddle", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "-", "1"}]}], "}"}], ",", 
+                
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"-", "7.7"}], ",", 
+                  RowBox[{
+                   RowBox[{"leftPaddle", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}], "}"}]}], 
+               "]"}], "]"}], ",", "Cyan", ",", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"Rectangle", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"7.7", ",", 
+                  RowBox[{
+                   RowBox[{"rightPaddle", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "-", "1"}]}], "}"}], ",", 
+                
+                RowBox[{"{", 
+                 RowBox[{"8.3", ",", 
+                  RowBox[{
+                   RowBox[{"rightPaddle", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}], "}"}]}], 
+               "]"}], "]"}], ",", 
+             RowBox[{"FontSize", "\[Rule]", "20"}], ",", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"Text", "[", 
+               RowBox[{
+                RowBox[{"Style", "[", 
+                 RowBox[{
+                  RowBox[{"ToString", "[", "p1Score", "]"}], ",", "Magenta"}],
+                  "]"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"-", ".8"}], ",", "8"}], "}"}]}], "]"}], "]"}], ",", 
+             RowBox[{"Text", "[", 
+              RowBox[{
+               RowBox[{"Style", "[", 
+                RowBox[{"\"\<-\>\"", ",", "Black"}], "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "8"}], "}"}]}], "]"}], ",", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"Text", "[", 
+               RowBox[{
+                RowBox[{"Style", "[", 
+                 RowBox[{
+                  RowBox[{"ToString", "[", "p2Score", "]"}], ",", "Cyan"}], 
+                 "]"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{".8", ",", "8"}], "}"}]}], "]"}], "]"}]}], "}"}], 
+           ",", 
+           RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"\"\<KeyDown\>\"", ",", "\"\<1\>\""}], "}"}], 
+            "\[RuleDelayed]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"leftPaddle", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "+=", "paddleSpeed"}], ")"}]}],
+            ",", 
+           RowBox[{"\"\<UpArrowKeyDown\>\"", "\[RuleDelayed]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"rightPaddle", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "+=", "paddleSpeed"}], ")"}]}],
+            ",", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"\"\<KeyDown\>\"", ",", "\"\<2\>\""}], "}"}], 
+            "\[RuleDelayed]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"leftPaddle", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "-=", "paddleSpeed"}], ")"}]}],
+            ",", 
+           RowBox[{"\"\<DownArrowKeyDown\>\"", "\[RuleDelayed]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"rightPaddle", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "-=", "paddleSpeed"}], 
+             ")"}]}]}], "}"}]}], "]"}]}], "}"}], "]"}]}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.752706017923237*^9, 3.752706176373177*^9}, {
+   3.7527062468460703`*^9, 3.752706588366955*^9}, {3.752706628137711*^9, 
+   3.75270670878598*^9}, {3.7527067438286047`*^9, 3.7527067659979687`*^9}, {
+   3.752706928964532*^9, 3.752706937811325*^9}, 3.7527071506750383`*^9, {
+   3.7527099461164503`*^9, 3.752711347520328*^9}, {3.75271137891017*^9, 
+   3.752711419735519*^9}, 3.752711477627236*^9, {3.752712851815918*^9, 
+   3.7527129336766148`*^9}, {3.752712996809045*^9, 3.752713118582675*^9}, {
+   3.752713261820403*^9, 3.752713282922152*^9}, {3.752713314115616*^9, 
+   3.752713509060306*^9}, 3.752713540538681*^9, {3.75271568355247*^9, 
+   3.7527157676656237`*^9}, 3.7527158026797953`*^9, {3.7527158438038197`*^9, 
+   3.7527158481965847`*^9}, 3.752715893242115*^9, {3.752715925077158*^9, 
+   3.752716220296579*^9}, {3.7527162554706182`*^9, 3.75271629858917*^9}, {
+   3.7527163290142317`*^9, 3.752716329240588*^9}, 3.75271636153452*^9, {
+   3.75271654227866*^9, 3.752716584186192*^9}, {3.752720862961722*^9, 
+   3.752720881502194*^9}, 3.7527209138200703`*^9, 3.7527245235844193`*^9, 
+   3.752724615410184*^9, {3.752724684376939*^9, 3.752724786164858*^9}, 
+   3.752724922248309*^9, {3.75273329466335*^9, 3.7527333339832067`*^9}, {
+   3.752733393747561*^9, 
+   3.752733415490472*^9}},ExpressionUUID->"d51d4e0a-e5cf-4fde-a40a-\
+833385ccc06f"]
+}, Open  ]]
+},
+WindowSize->{1425, 793},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 210, 4, 98, "Title",ExpressionUUID->"6ed05829-eb62-42b5-b5d8-536e9f049b80"],
+Cell[793, 28, 454, 10, 35, "Text",ExpressionUUID->"ff255bba-054d-41a7-87a2-2b93a3bd787d"],
+Cell[1250, 40, 11616, 297, 346, "Input",ExpressionUUID->"d51d4e0a-e5cf-4fde-a40a-833385ccc06f"]
+}, Open  ]]
+}
+]
+*)
+

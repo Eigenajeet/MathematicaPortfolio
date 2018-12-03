@@ -1,0 +1,1446 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     56969,       1438]
+NotebookOptionsPosition[     53802,       1380]
+NotebookOutlinePosition[     54774,       1405]
+CellTagsIndexPosition[     54731,       1402]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Model C6: Geometric Circle Area Proof", "Title",
+ CellChangeTimes->{{3.744724202513939*^9, 3.744724214335045*^9}, {
+  3.745291925461315*^9, 3.745291932934738*^9}, {3.745900883259386*^9, 
+  3.745900886011331*^9}, {3.747245187069413*^9, 3.747245195992565*^9}, {
+  3.747246594524613*^9, 3.747246596065734*^9}, {3.747254353218663*^9, 
+  3.747254353423963*^9}, {3.747706813717703*^9, 
+  3.747706821226145*^9}},ExpressionUUID->"e1e0f35a-ef8d-4fa5-b091-\
+fb8a849582a4"],
+
+Cell[TextData[{
+ "Here we present a proof of the area of a circle, together with a \
+visualization. The plan of the proof is to find the area of the general \
+regular n-gon that is inscribed in the circle and circumscribed, and then \
+take their the limits of those areas as n goes to infinity, and finally to \
+utilize the Squeeze Theorem to show that the unit circle, trapped between \
+them, has area ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Pi]", " ", 
+    SuperscriptBox["r", "2"]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "a5f54022-b360-45a8-a7b4-d54fb6c3b150"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.747707343524415*^9, 3.747707370503749*^9}, {
+  3.7477074592919397`*^9, 3.7477075387838593`*^9}, {3.7477078441994658`*^9, 
+  3.747707854031232*^9}, {3.7477078852164373`*^9, 
+  3.747707889576481*^9}},ExpressionUUID->"0e178632-7b28-46db-8fa4-\
+185bb00b25db"],
+
+Cell["We start with the area of the inscribed polygon.", "Text",
+ CellChangeTimes->{{3.747707544114193*^9, 
+  3.747707555311159*^9}},ExpressionUUID->"088d27e6-4120-444e-8c31-\
+4f8b258eb0c9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "n", ",", "\[Theta]", ",", "r", ",", "h", ",", "shif", ",", "\[Phi]"}], 
+    "}"}], ",", 
+   RowBox[{
+    RowBox[{"n", "=", "11"}], ";", 
+    RowBox[{"\[Theta]", "=", 
+     FractionBox[
+      RowBox[{"\[Pi]", 
+       RowBox[{"(", 
+        RowBox[{"n", "-", "2"}], ")"}]}], "n"]}], ";", 
+    RowBox[{"r", "=", "1"}], ";", 
+    RowBox[{"h", "=", 
+     RowBox[{"r", " ", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"\[Theta]", "/", "2"}], "]"}]}]}], ";", 
+    RowBox[{"shif", "=", "0"}], ";", 
+    RowBox[{"\[Phi]", "=", 
+     RowBox[{
+      RowBox[{"\[Pi]", "/", "2"}], "-", "\[Theta]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Graphics", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Black", ",", 
+        RowBox[{"Circle", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
+        "LightGray", ",", 
+        RowBox[{"Polygon", "[", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Cos", "[", "\[Theta]", "]"}], ",", 
+             RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\[Theta]", ",", "0", ",", 
+             RowBox[{"2", "\[Pi]"}], ",", 
+             RowBox[{"2", 
+              RowBox[{"\[Pi]", "/", "n"}]}]}], "}"}]}], "]"}], "]"}], ",", 
+        "Blue", ",", 
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<r\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".39", ",", 
+              RowBox[{"-", ".07"}]}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Blue", ",", 
+            RowBox[{"FontSize", "\[Rule]", "45"}]}], "}"}]}], "]"}], ",", 
+        "Red", ",", 
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", 
+           RowBox[{"h", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Cos", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}], ",", 
+              RowBox[{"Sin", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}]}], "}"}]}]}], "}"}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<h\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".2", ",", ".3"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Red", ",", 
+            RowBox[{"FontSize", "\[Rule]", "45"}]}], "}"}]}], "]"}], ",", 
+        "Black", ",", 
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0"}], "}"}], ",", 
+           RowBox[{"h", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Cos", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}], ",", 
+              RowBox[{"Sin", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}]}], "}"}]}]}], "}"}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<\[Theta]\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".2", ",", ".06"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", 
+            RowBox[{"FontSize", "\[Rule]", "30"}]}], "}"}]}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<b\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".75", ",", ".24"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", 
+            RowBox[{"FontSize", "\[Rule]", "45"}]}], "}"}]}], "]"}]}], "}"}], 
+      ",", 
+      RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}]}], "]"}]], "Input",\
+
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGCQBGIQLVVVE6L/5rUj2yu5FBB951lANYg28fKZAKKjlJ5N
+BdFz1F7OBNEWzxXng+i+xw+WgOhgNvk7IHrKpLJHILpnv90zEL3vkMUHEG1z
+MvcXiP5UVvYbRGvNuf4fRPM+mshoAKSXHZ3BCqJd7NzYQPSJmvNcIJptrqMQ
+iFZ94SsBon9tT9QC0WtzlhmBaAEvb2sQnZWw3wFEGzVKuIPojFvTftkDaQ2p
+mYwOIPuFpwmB6EscueIgesrUpdIg+q/dTTB9JneHGYi2spb1BdEvfk9PBtE6
+vbPB9Im9ewtA9BefbUUges69tTUgWs/rUztYPNCvH0RvelY2F0Qb/DBZDaK/
+M01YD6IXOR494gikM49qHAXRfp4TLrsCaecS1isgmltq9h0QrXB1LZgGAF+M
+11E=
+  "],ExpressionUUID->"592c8067-c6c1-44b9-ab81-6ed07051417b"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[0], CircleBox[{0, 0}]}, 
+   {GrayLevel[0.85], 
+    PolygonBox[
+     NCache[{{1, 0}, {Cos[Rational[2, 11] Pi], Sin[Rational[2, 11] Pi]}, {
+       Sin[Rational[3, 22] Pi], Cos[Rational[3, 22] Pi]}, {-
+        Sin[Rational[1, 22] Pi], Cos[Rational[1, 22] Pi]}, {-
+        Sin[Rational[5, 22] Pi], Cos[Rational[5, 22] Pi]}, {-
+        Cos[Rational[1, 11] Pi], Sin[Rational[1, 11] Pi]}, {-
+        Cos[Rational[1, 11] Pi], -Sin[Rational[1, 11] Pi]}, {-
+        Sin[Rational[5, 22] Pi], -Cos[Rational[5, 22] Pi]}, {-
+        Sin[Rational[1, 22] Pi], -Cos[Rational[1, 22] Pi]}, {
+       Sin[Rational[3, 22] Pi], -Cos[Rational[3, 22] Pi]}, {
+       Cos[Rational[2, 11] Pi], -Sin[Rational[2, 11] Pi]}, {1, 0}}, {{1, 0}, {
+       0.8412535328311812, 0.5406408174555976}, {0.4154150130018864, 
+       0.9096319953545184}, {-0.14231483827328514`, 
+       0.9898214418809327}, {-0.654860733945285, 
+       0.7557495743542584}, {-0.9594929736144974, 
+       0.28173255684142967`}, {-0.9594929736144974, -0.28173255684142967`}, \
+{-0.654860733945285, -0.7557495743542584}, {-0.14231483827328514`, \
+-0.9898214418809327}, {0.4154150130018864, -0.9096319953545184}, {
+       0.8412535328311812, -0.5406408174555976}, {1, 0}}]]}, 
+   {RGBColor[0, 0, 1], LineBox[{{0, 0}, {1, 0}}], 
+    {RGBColor[0, 0, 1], 
+     StyleBox[InsetBox["\<\"r\"\>", {0.39, -0.07}],
+      StripOnInput->False,
+      FontSize->45]}}, 
+   {RGBColor[1, 0, 0], 
+    LineBox[NCache[{{0, 0}, {
+       Cos[Rational[1, 11] Pi]^2, Cos[Rational[1, 11] Pi] 
+        Sin[Rational[1, 11] Pi]}}, {{0, 0}, {0.9206267664155905, 
+       0.2703204087277988}}]], 
+    {RGBColor[1, 0, 0], 
+     StyleBox[InsetBox["\<\"h\"\>", {0.2, 0.3}],
+      StripOnInput->False,
+      FontSize->45]}}, 
+   {GrayLevel[0], 
+    LineBox[NCache[{{1, 0}, {
+       Cos[Rational[1, 11] Pi]^2, Cos[Rational[1, 11] Pi] 
+        Sin[Rational[1, 11] Pi]}}, {{1, 0}, {0.9206267664155905, 
+       0.2703204087277988}}]], 
+    {GrayLevel[0], 
+     StyleBox[InsetBox["\<\"\[Theta]\"\>", {0.2, 0.06}],
+      StripOnInput->False,
+      FontSize->30]}, 
+    {GrayLevel[0], 
+     StyleBox[InsetBox["\<\"b\"\>", {0.75, 0.24}],
+      StripOnInput->False,
+      FontSize->45]}}},
+  ImageSize->Large]], "Output",
+ CellChangeTimes->{{3.747707915008555*^9, 3.747707952747414*^9}, 
+   3.747708190039226*^9, 3.747708646980455*^9, {3.7477086810626783`*^9, 
+   3.747708692036606*^9}, 3.747708734252409*^9, {3.7477087705613737`*^9, 
+   3.747708793181033*^9}, 3.747708940984001*^9, 3.747708979021524*^9, 
+   3.7477090764863777`*^9, {3.747709248758008*^9, 3.747709253708433*^9}, 
+   3.747709284675612*^9, {3.747709341301181*^9, 3.747709349571007*^9}, 
+   3.74770940287645*^9, {3.747709446684168*^9, 3.747709497223715*^9}, {
+   3.747741669732483*^9, 3.747741709343068*^9}, {3.747741847355762*^9, 
+   3.747741883865527*^9}, 3.7477419200821342`*^9, {3.747742134446989*^9, 
+   3.747742162299399*^9}, {3.747742192388343*^9, 3.7477423137661247`*^9}, {
+   3.747742490739019*^9, 3.7477424931444283`*^9}, {3.747742610308847*^9, 
+   3.747742614142177*^9}, {3.7477427042871733`*^9, 3.747742784012554*^9}, {
+   3.747742856341761*^9, 3.7477428600066347`*^9}, {3.747742904529151*^9, 
+   3.747742955937313*^9}, {3.7477430750142527`*^9, 3.747743100725877*^9}, 
+   3.7477444407987137`*^9, 3.747745124701727*^9, {3.747745321680685*^9, 
+   3.747745329267164*^9}, 3.7477453672986717`*^9, 3.747753516552657*^9, {
+   3.747753629634914*^9, 3.747753632432585*^9}, 
+   3.747753701891678*^9},ExpressionUUID->"38cf3870-348e-4208-ad9c-\
+bb7ef0622d33"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The area of a regular n-gon can be computer as the area of the above \
+triangle times 2n. \[Theta] is 2\[Pi] divided by the number of sides and \
+divided by 2, so \[Pi]/n. It\[CloseCurlyQuote]s a right triangle, with \
+hypotenuse r, the radius, height h, and side length, b, is half of the side \
+length of the polygon. Cos\[Theta] = h/r \[Rule] h = rCos\[Theta], and \
+similarly b = rSin\[Theta]. So, then, the area of this triangle is ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", "2"], TraditionalForm]],ExpressionUUID->
+  "ac5d6c83-1a80-40c7-9ab1-dc86c643e7a3"],
+ "rSin\[Theta] rCos\[Theta], and the area of the inscribed regular n-gon is \
+2n times that, so n ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["r", "2"], TraditionalForm]],ExpressionUUID->
+  "2040da09-b323-4dfb-bebe-da46dccbfe0c"],
+ " Sin\[Theta] Cos\[Theta]. We\[CloseCurlyQuote]ll use this later, now we do \
+the circumscribed regular n-gon:"
+}], "Text",
+ CellChangeTimes->{{3.747742958902216*^9, 3.747743058412166*^9}, {
+  3.747743122159547*^9, 3.747743221517981*^9}, {3.747743961748685*^9, 
+  3.7477439729943857`*^9}, {3.747744374790353*^9, 
+  3.747744390062037*^9}},ExpressionUUID->"769db1a2-e3f4-4e31-b526-\
+37c37d5be8f6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "n", ",", "\[Theta]", ",", "r", ",", "h", ",", "shif", ",", "\[Phi]"}], 
+    "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"n", "=", "4"}], ";", 
+    RowBox[{"\[Theta]", "=", 
+     FractionBox[
+      RowBox[{"\[Pi]", 
+       RowBox[{"(", 
+        RowBox[{"n", "-", "2"}], ")"}]}], "n"]}], ";", 
+    RowBox[{"r", "=", "1"}], ";", 
+    RowBox[{"h", "=", 
+     RowBox[{"r", " ", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"\[Theta]", "/", "2"}], "]"}]}]}], ";", 
+    RowBox[{"shif", "=", "0"}], ";", 
+    RowBox[{"\[Phi]", "=", 
+     RowBox[{
+      RowBox[{"\[Pi]", "/", "2"}], "-", "\[Theta]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Graphics", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"LightGray", ",", 
+        RowBox[{"Polygon", "[", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Cos", "[", "\[Theta]", "]"}], ",", 
+             RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\[Theta]", ",", "0", ",", 
+             RowBox[{"2", "\[Pi]"}], ",", 
+             RowBox[{"2", 
+              RowBox[{"\[Pi]", "/", "n"}]}]}], "}"}]}], "]"}], "]"}], ",", 
+        "Red", ",", 
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<h\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".39", ",", 
+              RowBox[{"-", ".07"}]}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Red", ",", 
+            RowBox[{"FontSize", "\[Rule]", "45"}]}], "}"}]}], "]"}], ",", 
+        "Blue", ",", 
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", 
+           RowBox[{"h", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Cos", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}], ",", 
+              RowBox[{"Sin", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}]}], "}"}]}]}], "}"}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<r\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".2", ",", ".3"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"FontSize", "\[Rule]", "45"}], "}"}]}], "]"}], ",", 
+        "Black", ",", 
+        RowBox[{"Line", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0"}], "}"}], ",", 
+           RowBox[{"h", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Cos", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}], ",", 
+              RowBox[{"Sin", "[", 
+               FractionBox[
+                RowBox[{"2", "\[Pi]"}], 
+                RowBox[{"2", "n"}]], "]"}]}], "}"}]}]}], "}"}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<\[Theta]\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".2", ",", ".06"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", 
+            RowBox[{"FontSize", "\[Rule]", "30"}]}], "}"}]}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Text", "[", 
+           RowBox[{"\"\<b\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{".75", ",", ".24"}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", 
+            RowBox[{"FontSize", "\[Rule]", "45"}]}], "}"}]}], "]"}], ",", 
+        "Black", ",", 
+        RowBox[{"Circle", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], ",", "h"}], "]"}]}], "}"}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.747743213225605*^9, 3.747743213413747*^9}, {
+  3.747743244348604*^9, 3.747743303889822*^9}, {3.747743353268878*^9, 
+  3.747743383852376*^9}, {3.7477452227369623`*^9, 3.747745242933085*^9}, {
+  3.747745289403509*^9, 3.747745311385947*^9}, {3.747753714547556*^9, 
+  3.747753753670383*^9}},ExpressionUUID->"b39b9ff7-08ae-4049-a3aa-\
+d684a5b40565"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[0.85], 
+    PolygonBox[{{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 0}}]}, 
+   {RGBColor[1, 0, 0], LineBox[{{0, 0}, {1, 0}}], 
+    {RGBColor[1, 0, 0], 
+     StyleBox[InsetBox["\<\"h\"\>", {0.39, -0.07}],
+      StripOnInput->False,
+      FontSize->45]}}, 
+   {RGBColor[0, 0, 1], 
+    LineBox[NCache[{{0, 0}, {Rational[1, 2], Rational[1, 2]}}, {{0, 0}, {0.5, 
+       0.5}}]], 
+    StyleBox[InsetBox["\<\"r\"\>", {0.2, 0.3}],
+     StripOnInput->False,
+     FontSize->45]}, 
+   {GrayLevel[0], 
+    LineBox[NCache[{{1, 0}, {Rational[1, 2], Rational[1, 2]}}, {{1, 0}, {0.5, 
+       0.5}}]], 
+    {GrayLevel[0], 
+     StyleBox[InsetBox["\<\"\[Theta]\"\>", {0.2, 0.06}],
+      StripOnInput->False,
+      FontSize->30]}, 
+    {GrayLevel[0], 
+     StyleBox[InsetBox["\<\"b\"\>", {0.75, 0.24}],
+      StripOnInput->False,
+      FontSize->45]}}, 
+   {GrayLevel[0], 
+    CircleBox[{0, 0}, NCache[2^Rational[-1, 2], 0.7071067811865475]]}},
+  ImageSize->Large]], "Output",
+ CellChangeTimes->{{3.747743251190119*^9, 3.7477432691547613`*^9}, {
+   3.747743353691341*^9, 3.747743390148509*^9}, 3.7477451283526697`*^9, {
+   3.747745243338562*^9, 3.747745261600278*^9}, {3.747745311894575*^9, 
+   3.747745331483111*^9}, 3.747745370215789*^9, 3.747753623390332*^9, {
+   3.747753709362603*^9, 
+   3.747753753900716*^9}},ExpressionUUID->"ba1a66f4-70be-4c31-b920-\
+cf980601c763"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Here our triangle that we will use looks quite similar, except this time \
+the hypotenuse is our h side, and the radius of the circle is one of the \
+legs. The length of the radius leg, is, of course, r, and the length of the \
+other leg, b, is r Tan\[Theta]. We note that h = r/Cos\[Theta], that is, for \
+below when we need to draw the regular n-gon circumscribed around the circle \
+with radius r, we can instead think of it as the regular n-gon inscribed in \
+the circle of radius h = r/Cos\[Theta]. So, the area of the triangle is ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", "2"], TraditionalForm]],ExpressionUUID->
+  "d20f8ed1-1015-4e59-99a4-3bcc81582d5a"],
+ "b r = ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", "2"], TraditionalForm]],ExpressionUUID->
+  "ebc78e50-0714-4172-91fa-b032dde5afdc"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["r", "2"], TraditionalForm]],ExpressionUUID->
+  "1c3bced3-5081-42bf-aaff-f7de18b642db"],
+ " Tan\[Theta] = ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     SuperscriptBox["r", "2"], "Tan\[Theta]"}], "2"], TraditionalForm]],
+  ExpressionUUID->"8c00dbc5-9210-4302-aee9-c8e1ee8d808c"],
+ ", and the area of the circumscribed regular n-gon is 2n times that, n ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["r", "2"], TraditionalForm]],ExpressionUUID->
+  "37882894-4647-4253-92ec-31608192dc06"],
+ " Tan\[Theta]."
+}], "Text",
+ CellChangeTimes->{{3.747743401013056*^9, 3.747743511083116*^9}, {
+   3.7477438550783653`*^9, 3.747743943413375*^9}, {3.7477440483856688`*^9, 
+   3.7477441214008427`*^9}, {3.747744546168041*^9, 3.747744620094037*^9}, 
+   3.7477538636107264`*^9},ExpressionUUID->"6f5399b7-129e-418e-a65a-\
+e5f1e7060d03"],
+
+Cell["\<\
+Now, let\[CloseCurlyQuote]s put this together - following is a model where \
+you can specify the number of sides of the polygon, and printed will be the \
+area of the inscribed polygon and that of the circumscribed polygon.\
+\>", "Text",
+ CellChangeTimes->{{3.747743512509553*^9, 
+  3.747743564970327*^9}},ExpressionUUID->"e696b83b-027c-4f73-875f-\
+67001e00fe42"],
+
+Cell[BoxData[
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"max", ",", "r"}], "}"}], ",", 
+   RowBox[{
+    RowBox[{"max", "=", "5000"}], ";", 
+    RowBox[{"r", "=", "1"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Manipulate", "[", 
+     RowBox[{
+      RowBox[{"Graphics", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"White", ",", 
+          RowBox[{"EdgeForm", "[", 
+           RowBox[{"Directive", "[", 
+            RowBox[{"{", 
+             RowBox[{"Thick", ",", "Red"}], "}"}], "]"}], "]"}], ",", 
+          RowBox[{"Polygon", "[", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{
+              FractionBox["r", 
+               RowBox[{"Cos", "[", 
+                RowBox[{"\[Pi]", "/", "n"}], "]"}]], 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Cos", "[", "\[Theta]", "]"}], ",", 
+                RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "}"}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"\[Theta]", ",", "0", ",", 
+               RowBox[{"2", "\[Pi]"}], ",", 
+               RowBox[{"2", 
+                RowBox[{"\[Pi]", "/", "n"}]}]}], "}"}]}], "]"}], "]"}], ",", 
+          RowBox[{"EdgeForm", "[", 
+           RowBox[{"Directive", "[", 
+            RowBox[{"{", 
+             RowBox[{"Thick", ",", "Blue"}], "}"}], "]"}], "]"}], ",", 
+          RowBox[{"Polygon", "[", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"r", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Cos", "[", "\[Theta]", "]"}], ",", 
+                RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "}"}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"\[Theta]", ",", "0", ",", 
+               RowBox[{"2", "\[Pi]"}], ",", 
+               RowBox[{"2", 
+                RowBox[{"\[Pi]", "/", "n"}]}]}], "}"}]}], "]"}], "]"}], ",", 
+          "Blue", ",", 
+          RowBox[{"Style", "[", 
+           RowBox[{
+            RowBox[{"Text", "[", 
+             RowBox[{
+              RowBox[{"\"\<Inscribed n-gon Area = \>\"", "<>", 
+               RowBox[{"ToString", "[", 
+                RowBox[{
+                 RowBox[{"n", " ", 
+                  SuperscriptBox["r", "2"], 
+                  RowBox[{"Sin", "[", 
+                   FractionBox["\[Pi]", "n"], "]"}], 
+                  RowBox[{"Cos", "[", 
+                   FractionBox["\[Pi]", "n"], "]"}]}], "//", 
+                 RowBox[{
+                  RowBox[{"N", "[", 
+                   RowBox[{"#", ",", "10"}], "]"}], "&"}]}], "]"}]}], ",", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1.4"}], "}"}]}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"FontSize", "\[Rule]", "20"}], "}"}]}], "]"}], ",", 
+          "Red", ",", 
+          RowBox[{"Style", "[", 
+           RowBox[{
+            RowBox[{"Text", "[", 
+             RowBox[{
+              RowBox[{"\"\<Circumscribed n-gon Area = \>\"", "<>", 
+               RowBox[{"ToString", "[", 
+                RowBox[{
+                 RowBox[{"n", " ", 
+                  SuperscriptBox["r", "2"], " ", 
+                  RowBox[{"Tan", "[", 
+                   FractionBox["\[Pi]", "n"], "]"}]}], "//", 
+                 RowBox[{
+                  RowBox[{"N", "[", 
+                   RowBox[{"#", ",", "10"}], "]"}], "&"}]}], "]"}]}], ",", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1.25"}], "}"}]}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"FontSize", "\[Rule]", "20"}], "}"}]}], "]"}], ",", 
+          "Black", ",", "Thick", ",", 
+          RowBox[{"Circle", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", "1"}], "]"}]}], "}"}], ",", 
+        
+        RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "1.5"}], ",", "1.5"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"-", "1.5"}], ",", "1.5"}], "}"}]}], "}"}]}]}], "]"}], 
+      ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"n", ",", "4"}], "}"}], ",", "3", ",", "max", ",", "1"}], 
+       "}"}]}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.747706883695724*^9, 3.747707291913643*^9}, {
+  3.747707331934342*^9, 3.747707340497651*^9}, {3.747743577677498*^9, 
+  3.747743578900144*^9}, {3.747743611060911*^9, 3.747743833610564*^9}, {
+  3.7477439771008253`*^9, 3.7477440056735973`*^9}, {3.747744157679274*^9, 
+  3.747744158126902*^9}, {3.747744260452936*^9, 3.747744272915408*^9}, {
+  3.7477443974181747`*^9, 3.747744431156788*^9}, {3.7477445182144527`*^9, 
+  3.7477445184850616`*^9}, {3.747744629177505*^9, 3.747744991629333*^9}, {
+  3.747745183660748*^9, 3.747745202407372*^9}, {3.7477453481462812`*^9, 
+  3.747745353816327*^9}, {3.747753909252989*^9, 
+  3.747753926955003*^9}},ExpressionUUID->"11b17c75-24ec-4da5-ae55-\
+cdb6fca1908a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`n$$ = 50000, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`n$$], 4}, 3, 5000, 1}}, Typeset`size$$ = {
+    576., {286., 290.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`n$3345$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`n$$ = 4}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$3345$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Graphics[{White, 
+         EdgeForm[
+          Directive[{Thick, Red}]], 
+         Polygon[
+          Table[($CellContext`r$3344/Cos[Pi/$CellContext`n$$]) {
+             Cos[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Theta]]}, {$CellContext`\[Theta], 0, 2 Pi, 
+            2 (Pi/$CellContext`n$$)}]], 
+         EdgeForm[
+          Directive[{Thick, Blue}]], 
+         Polygon[
+          Table[$CellContext`r$3344 {
+             Cos[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Theta]]}, {$CellContext`\[Theta], 0, 2 Pi, 
+            2 (Pi/$CellContext`n$$)}]], Blue, 
+         Style[
+          Text[
+           StringJoin["Inscribed n-gon Area = ", 
+            ToString[
+             (
+             N[#, 10]& )[$CellContext`n$$ $CellContext`r$3344^2 
+              Sin[Pi/$CellContext`n$$] Cos[Pi/$CellContext`n$$]]]], {
+           0, 1.4}], {FontSize -> 20}], Red, 
+         Style[
+          Text[
+           StringJoin["Circumscribed n-gon Area = ", 
+            ToString[
+             (
+             N[#, 10]& )[$CellContext`n$$ $CellContext`r$3344^2 
+              Tan[Pi/$CellContext`n$$]]]], {0, 1.25}], {FontSize -> 20}], 
+         Black, Thick, 
+         Circle[{0, 0}, 1]}, ImageSize -> Large, 
+        PlotRange -> {{-1.5, 1.5}, {-1.5, 1.5}}], 
+      "Specifications" :> {{{$CellContext`n$$, 4}, 3, 5000, 1}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{621., {344., 350.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Input",
+ CellChangeTimes->{
+  3.747754089420932*^9},ExpressionUUID->"aa96cacd-9ff0-447d-b2ec-\
+4a2fb354a908"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`n$$ = 50000, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`n$$], 50000}, 3, 5000, 1}}, Typeset`size$$ = {
+    576., {286., 290.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`n$3438$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`n$$ = 50000}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$3438$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Graphics[{White, 
+         EdgeForm[
+          Directive[{Thick, Red}]], 
+         Polygon[
+          Table[($CellContext`r$3344/Cos[Pi/$CellContext`n$$]) {
+             Cos[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Theta]]}, {$CellContext`\[Theta], 0, 2 Pi, 
+            2 (Pi/$CellContext`n$$)}]], 
+         EdgeForm[
+          Directive[{Thick, Blue}]], 
+         Polygon[
+          Table[$CellContext`r$3344 {
+             Cos[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Theta]]}, {$CellContext`\[Theta], 0, 2 Pi, 
+            2 (Pi/$CellContext`n$$)}]], Blue, 
+         Style[
+          Text[
+           StringJoin["Inscribed n-gon Area = ", 
+            ToString[
+             (
+             N[#, 10]& )[$CellContext`n$$ $CellContext`r$3344^2 
+              Sin[Pi/$CellContext`n$$] Cos[Pi/$CellContext`n$$]]]], {
+           0, 1.4}], {FontSize -> 20}], Red, 
+         Style[
+          Text[
+           StringJoin["Circumscribed n-gon Area = ", 
+            ToString[
+             (
+             N[#, 10]& )[$CellContext`n$$ $CellContext`r$3344^2 
+              Tan[Pi/$CellContext`n$$]]]], {0, 1.25}], {FontSize -> 20}], 
+         Black, Thick, 
+         Circle[{0, 0}, 1]}, ImageSize -> Large, 
+        PlotRange -> {{-1.5, 1.5}, {-1.5, 1.5}}], 
+      "Specifications" :> {{{$CellContext`n$$, 50000}, 3, 5000, 1}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{621., {331., 337.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.747754114646545*^9},ExpressionUUID->"9b40b28e-e13d-4afe-86f6-\
+d5ab056b3eca"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Visually, everything is going how we wanted. We are convinced that the \
+Squeeze Theorem is appropriate, as the area of the circumscribed polygon is \
+certainly strictly greater than that of the circle, and the area of inscribed \
+polygon is strictly less than that of the circle. As our final step, we take \
+the limits of these areas as n goes to infinity to show they meet up in the \
+middle at \[Pi] ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["r", "2"], TraditionalForm]],ExpressionUUID->
+  "fa79d014-7d0a-4792-9bca-510bd0ab4869"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.747744998130259*^9, 
+  3.747745070465178*^9}},ExpressionUUID->"8a7e06ec-f37a-494f-b719-\
+1e942a5517cd"],
+
+Cell["Area of the inscribed regular n-gon:", "Text",
+ CellChangeTimes->{{3.74774541958215*^9, 
+  3.747745433355068*^9}},ExpressionUUID->"72e54016-8542-420a-966c-\
+24335cd0f893"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"r", ",", "n"}], "}"}], ",", 
+   RowBox[{"Limit", "[", 
+    RowBox[{
+     RowBox[{"n", " ", 
+      SuperscriptBox["r", "2"], 
+      RowBox[{"Sin", "[", 
+       FractionBox["\[Pi]", "n"], "]"}], 
+      RowBox[{"Cos", "[", 
+       FractionBox["\[Pi]", "n"], "]"}]}], ",", 
+     RowBox[{"n", "\[Rule]", "\[Infinity]"}]}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.747745085226934*^9, 3.747745176143881*^9}, {
+   3.747745435818478*^9, 3.747745437058249*^9}, 
+   3.747745471677874*^9},ExpressionUUID->"4b4453ac-d650-44c7-b98c-\
+2c9f2f9ad9ee"],
+
+Cell[BoxData[
+ RowBox[{"\[Pi]", " ", 
+  SuperscriptBox["r", "2"]}]], "Output",
+ CellChangeTimes->{{3.747745095370056*^9, 3.74774517651546*^9}, {
+  3.747745414843586*^9, 
+  3.747745437458352*^9}},ExpressionUUID->"9d83c1de-9098-47e3-a9f3-\
+e203251d8cca"]
+}, Open  ]],
+
+Cell["Area of the circumscribed regular n-gon:", "Text",
+ CellChangeTimes->{{3.747745441753022*^9, 
+  3.747745452521215*^9}},ExpressionUUID->"6708553f-f8a2-49c7-94d1-\
+0b4d04278235"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"r", ",", "n"}], "}"}], ",", 
+   RowBox[{"Limit", "[", 
+    RowBox[{
+     RowBox[{"n", " ", 
+      SuperscriptBox["r", "2"], " ", 
+      RowBox[{"Tan", "[", 
+       FractionBox["\[Pi]", "n"], "]"}]}], ",", 
+     RowBox[{"n", "\[Rule]", "\[Infinity]"}]}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.747745453313682*^9, 
+  3.7477454826593018`*^9}},ExpressionUUID->"b0e9ed1c-0783-4098-91a8-\
+d7f02a06a19b"],
+
+Cell[BoxData[
+ RowBox[{"\[Pi]", " ", 
+  SuperscriptBox["r", "2"]}]], "Output",
+ CellChangeTimes->{
+  3.747745483593663*^9},ExpressionUUID->"37e511e6-b19a-452b-b91f-\
+e4edb581ed42"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Graphics", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Text", "[", 
+      RowBox[{
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<QED\>\"", ",", 
+         RowBox[{"Hue", "[", 
+          RowBox[{"RandomReal", "[", "]"}], "]"}], ",", "Italic", ",", "Bold",
+          ",", 
+         RowBox[{"RandomInteger", "[", "80", "]"}]}], "]"}], ",", 
+       RowBox[{"RandomReal", "[", 
+        RowBox[{".3", ",", 
+         RowBox[{"{", "2", "}"}]}], "]"}], ",", "Automatic", ",", 
+       RowBox[{"RandomReal", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+         RowBox[{"{", "2", "}"}]}], "]"}]}], "]"}], ",", 
+     RowBox[{"{", "40", "}"}]}], "]"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", 
+    RowBox[{"1", "/", "GoldenRatio"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "600"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.74774552327879*^9, 3.747745602836154*^9}, {
+  3.747745673491551*^9, 
+  3.7477457961095953`*^9}},ExpressionUUID->"16be04fb-43a5-4595-99c3-\
+7f1c9863a5b5"],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9046683372445403],
+     FrontFaceColor->Hue[0.9046683372445403],
+     BackFaceColor->Hue[0.9046683372445403],
+     GraphicsColor->Hue[0.9046683372445403],
+     FontSize->22,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9046683372445403]], {0.0034257687875742793, 0.29264656534279804},
+     Automatic, Automatic, {0.07045925827993083, 0.7640102319143773}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9420107542296248],
+     FrontFaceColor->Hue[0.9420107542296248],
+     BackFaceColor->Hue[0.9420107542296248],
+     GraphicsColor->Hue[0.9420107542296248],
+     FontSize->2,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9420107542296248]], {0.24056275790465437, 0.06266479434678651},
+     Automatic, Automatic, {-0.06453235786571421, -0.5804594243210346}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5540897930505269],
+     FrontFaceColor->Hue[0.5540897930505269],
+     BackFaceColor->Hue[0.5540897930505269],
+     GraphicsColor->Hue[0.5540897930505269],
+     FontSize->71,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5540897930505269]], {0.24680905422046034, 0.06057813400318557},
+     Automatic, Automatic, {0.4581987465006834, -0.11662391786811366`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.8581551102078198],
+     FrontFaceColor->Hue[0.8581551102078198],
+     BackFaceColor->Hue[0.8581551102078198],
+     GraphicsColor->Hue[0.8581551102078198],
+     FontSize->66,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.8581551102078198]], {0.24121315831573403, 0.022212615051483864},
+     Automatic, Automatic, {-0.7746870002000144, -0.987387569636919}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5119131140704551],
+     FrontFaceColor->Hue[0.5119131140704551],
+     BackFaceColor->Hue[0.5119131140704551],
+     GraphicsColor->Hue[0.5119131140704551],
+     FontSize->79,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5119131140704551]], {0.15709137739039003, 0.21686028361826787},
+     Automatic, Automatic, {-0.0655240890397999, -0.2448333366875901}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.30000889535845054`],
+     FrontFaceColor->Hue[0.30000889535845054`],
+     BackFaceColor->Hue[0.30000889535845054`],
+     GraphicsColor->Hue[0.30000889535845054`],
+     FontSize->68,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.30000889535845054`]], {0.17472793734036596, 0.28542221026812825},
+     Automatic, Automatic, {0.49681996284929264`, 0.11983844261830434`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.47636822233933707`],
+     FrontFaceColor->Hue[0.47636822233933707`],
+     BackFaceColor->Hue[0.47636822233933707`],
+     GraphicsColor->Hue[0.47636822233933707`],
+     FontSize->13,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.47636822233933707`]], {0.24136062924398732, 0.20502925973764813},
+     Automatic, Automatic, {0.3942575475297607, -0.2012180079319874}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.40051924269892214`],
+     FrontFaceColor->Hue[0.40051924269892214`],
+     BackFaceColor->Hue[0.40051924269892214`],
+     GraphicsColor->Hue[0.40051924269892214`],
+     FontSize->74,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.40051924269892214`]], {0.2668847467883582, 0.08367604328432521},
+     Automatic, Automatic, {-0.18199427399530732`, 0.8100925215544619}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.827151497576774],
+     FrontFaceColor->Hue[0.827151497576774],
+     BackFaceColor->Hue[0.827151497576774],
+     GraphicsColor->Hue[0.827151497576774],
+     FontSize->43,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.827151497576774]], {0.2803258443459837, 0.07920277516630636},
+     Automatic, Automatic, {-0.02201054919369172, 0.9959079351862541}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.027475875107464853`],
+     FrontFaceColor->Hue[0.027475875107464853`],
+     BackFaceColor->Hue[0.027475875107464853`],
+     GraphicsColor->Hue[0.027475875107464853`],
+     FontSize->12,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.027475875107464853`]], {0.15742393389170894, 0.0660691748133801},
+     Automatic, Automatic, {-0.7918589433619321, 0.31247600122153285`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5851420090205102],
+     FrontFaceColor->Hue[0.5851420090205102],
+     BackFaceColor->Hue[0.5851420090205102],
+     GraphicsColor->Hue[0.5851420090205102],
+     FontSize->73,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5851420090205102]], {0.21189089998533234, 0.02584369465711539},
+     Automatic, Automatic, {-0.9733558237117661, -0.9986024658830917}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9105457958963601],
+     FrontFaceColor->Hue[0.9105457958963601],
+     BackFaceColor->Hue[0.9105457958963601],
+     GraphicsColor->Hue[0.9105457958963601],
+     FontSize->73,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9105457958963601]], {0.1892486111823029, 0.10341158851949184},
+     Automatic, Automatic, {-0.9539657693341947, 0.4164813435795982}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.8545057873566979],
+     FrontFaceColor->Hue[0.8545057873566979],
+     BackFaceColor->Hue[0.8545057873566979],
+     GraphicsColor->Hue[0.8545057873566979],
+     FontSize->20,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.8545057873566979]], {0.020559342402792835, 0.14505188355850374},
+     Automatic, Automatic, {-0.34584525572274316`, 0.7114381932614497}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.12411981428061503`],
+     FrontFaceColor->Hue[0.12411981428061503`],
+     BackFaceColor->Hue[0.12411981428061503`],
+     GraphicsColor->Hue[0.12411981428061503`],
+     FontSize->38,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.12411981428061503`]], {0.297372198948248, 0.06091265312928951},
+     Automatic, Automatic, {-0.011858709171473691`, 0.4883667055319796}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.8166659857557128],
+     FrontFaceColor->Hue[0.8166659857557128],
+     BackFaceColor->Hue[0.8166659857557128],
+     GraphicsColor->Hue[0.8166659857557128],
+     FontSize->27,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.8166659857557128]], {0.1080541133824976, 0.02972621388263652},
+     Automatic, Automatic, {-0.5410986735662169, 0.3570295225670699}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5002456923186702],
+     FrontFaceColor->Hue[0.5002456923186702],
+     BackFaceColor->Hue[0.5002456923186702],
+     GraphicsColor->Hue[0.5002456923186702],
+     FontSize->44,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5002456923186702]], {0.040578889166567045, 0.29620271514274116},
+     Automatic, Automatic, {0.10589595740367885`, 0.015922989533472265`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.07976595793320085],
+     FrontFaceColor->Hue[0.07976595793320085],
+     BackFaceColor->Hue[0.07976595793320085],
+     GraphicsColor->Hue[0.07976595793320085],
+     FontSize->55,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.07976595793320085]], {0.25359546280664896, 0.28265927291009846},
+     Automatic, Automatic, {-0.7955205658327711, -0.7615515513853266}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5962905932130655],
+     FrontFaceColor->Hue[0.5962905932130655],
+     BackFaceColor->Hue[0.5962905932130655],
+     GraphicsColor->Hue[0.5962905932130655],
+     FontSize->2,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5962905932130655]], {0.05075564808308197, 0.005628312283356585},
+     Automatic, Automatic, {0.7535531589829425, 0.774399897648594}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5775104934319295],
+     FrontFaceColor->Hue[0.5775104934319295],
+     BackFaceColor->Hue[0.5775104934319295],
+     GraphicsColor->Hue[0.5775104934319295],
+     FontSize->73,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5775104934319295]], {0.0804120481838057, 0.19767892271636184},
+     Automatic, Automatic, {-0.1451950291434665, 0.26376414977569995`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.7006223235527789],
+     FrontFaceColor->Hue[0.7006223235527789],
+     BackFaceColor->Hue[0.7006223235527789],
+     GraphicsColor->Hue[0.7006223235527789],
+     FontSize->52,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.7006223235527789]], {0.2752991440024794, 0.2794289196013339},
+     Automatic, Automatic, {-0.0720390702568432, 0.24620259932068667`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.5814704618830693],
+     FrontFaceColor->Hue[0.5814704618830693],
+     BackFaceColor->Hue[0.5814704618830693],
+     GraphicsColor->Hue[0.5814704618830693],
+     FontSize->4,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.5814704618830693]], {0.19302563069669487, 0.2913595812962034},
+     Automatic, Automatic, {-0.7770515649953516, -0.005645044946548161}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.2682425227538554],
+     FrontFaceColor->Hue[0.2682425227538554],
+     BackFaceColor->Hue[0.2682425227538554],
+     GraphicsColor->Hue[0.2682425227538554],
+     FontSize->51,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.2682425227538554]], {0.08957686507548374, 0.23463350047593606},
+     Automatic, Automatic, {-0.5151621643414597, -0.5067689078793167}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.65416380163331],
+     FrontFaceColor->Hue[0.65416380163331],
+     BackFaceColor->Hue[0.65416380163331],
+     GraphicsColor->Hue[0.65416380163331],
+     FontSize->59,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.65416380163331]], {0.20677107857622562, 0.17239133598900597},
+     Automatic, Automatic, {-0.18795383938590016`, -0.41070557262418506`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9544851448301908],
+     FrontFaceColor->Hue[0.9544851448301908],
+     BackFaceColor->Hue[0.9544851448301908],
+     GraphicsColor->Hue[0.9544851448301908],
+     FontSize->11,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9544851448301908]], {0.2862399944920098, 0.153834499754403},
+     Automatic, Automatic, {0.24829837239286778`, 0.3810998661714371}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.08740228648602377],
+     FrontFaceColor->Hue[0.08740228648602377],
+     BackFaceColor->Hue[0.08740228648602377],
+     GraphicsColor->Hue[0.08740228648602377],
+     FontSize->34,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.08740228648602377]], {0.2284628328359381, 0.04462397909243848},
+     Automatic, Automatic, {-0.7353528610781859, -0.6466502066795425}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.7761266773695414],
+     FrontFaceColor->Hue[0.7761266773695414],
+     BackFaceColor->Hue[0.7761266773695414],
+     GraphicsColor->Hue[0.7761266773695414],
+     FontSize->61,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.7761266773695414]], {0.1590694510738932, 0.004827447605832702},
+     Automatic, Automatic, {0.6429595001227892, -0.43942161272788116`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.43896063976346533`],
+     FrontFaceColor->Hue[0.43896063976346533`],
+     BackFaceColor->Hue[0.43896063976346533`],
+     GraphicsColor->Hue[0.43896063976346533`],
+     FontSize->19,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.43896063976346533`]], {0.17673130423750016, 0.11109627890573776},
+     Automatic, Automatic, {0.5708521655198737, 0.5692892171366535}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9230316713251203],
+     FrontFaceColor->Hue[0.9230316713251203],
+     BackFaceColor->Hue[0.9230316713251203],
+     GraphicsColor->Hue[0.9230316713251203],
+     FontSize->72,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9230316713251203]], {0.24830005571008112, 0.18603058300133885},
+     Automatic, Automatic, {0.7853488355140663, 0.9197225913867313}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9281532449461165],
+     FrontFaceColor->Hue[0.9281532449461165],
+     BackFaceColor->Hue[0.9281532449461165],
+     GraphicsColor->Hue[0.9281532449461165],
+     FontSize->19,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9281532449461165]], {0.18741875000141528, 0.28313039439054016},
+     Automatic, Automatic, {0.4514513157553197, -0.20939933140107536`}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9469195265678807],
+     FrontFaceColor->Hue[0.9469195265678807],
+     BackFaceColor->Hue[0.9469195265678807],
+     GraphicsColor->Hue[0.9469195265678807],
+     FontSize->67,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9469195265678807]], {0.1878132550581062, 0.28157397266814527},
+     Automatic, Automatic, {0.8634544665676129, -0.1436543080611523}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.22658578002261698`],
+     FrontFaceColor->Hue[0.22658578002261698`],
+     BackFaceColor->Hue[0.22658578002261698`],
+     GraphicsColor->Hue[0.22658578002261698`],
+     FontSize->49,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.22658578002261698`]], {0.013925125283123119, 0.07336021088359013},
+     Automatic, Automatic, {0.34251294922543973`, 0.64211881426123}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.6535846925724202],
+     FrontFaceColor->Hue[0.6535846925724202],
+     BackFaceColor->Hue[0.6535846925724202],
+     GraphicsColor->Hue[0.6535846925724202],
+     FontSize->50,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.6535846925724202]], {0.2817986919353815, 0.0011994995367646255},
+     Automatic, Automatic, {0.02192977041030808, -0.3481449183188987}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.08003399356933882],
+     FrontFaceColor->Hue[0.08003399356933882],
+     BackFaceColor->Hue[0.08003399356933882],
+     GraphicsColor->Hue[0.08003399356933882],
+     FontSize->30,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.08003399356933882]], {0.1923997354505796, 0.17409598626554762},
+     Automatic, Automatic, {0.5724330150106005, 0.7422536687319274}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.25449930506360996`],
+     FrontFaceColor->Hue[0.25449930506360996`],
+     BackFaceColor->Hue[0.25449930506360996`],
+     GraphicsColor->Hue[0.25449930506360996`],
+     FontSize->39,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.25449930506360996`]], {0.15018357233128277, 0.049878427604019726},
+     Automatic, Automatic, {-0.30860974422746557`, 0.5330209250794171}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.6327193389038976],
+     FrontFaceColor->Hue[0.6327193389038976],
+     BackFaceColor->Hue[0.6327193389038976],
+     GraphicsColor->Hue[0.6327193389038976],
+     FontSize->71,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.6327193389038976]], {0.018696687209183382, 0.16336207094281868},
+     Automatic, Automatic, {-0.551487245801332, 0.6290966339948922}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.2898667250870859],
+     FrontFaceColor->Hue[0.2898667250870859],
+     BackFaceColor->Hue[0.2898667250870859],
+     GraphicsColor->Hue[0.2898667250870859],
+     FontSize->32,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.2898667250870859]], {0.027342372583411323, 0.004244565923336108},
+     Automatic, Automatic, {0.3399522799859924, 0.7201131672348899}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.3521149003648383],
+     FrontFaceColor->Hue[0.3521149003648383],
+     BackFaceColor->Hue[0.3521149003648383],
+     GraphicsColor->Hue[0.3521149003648383],
+     FontSize->4,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.3521149003648383]], {0.22137227016339828, 0.08134991773614497},
+     Automatic, Automatic, {0.8286423886352665, 0.5213119468587184}], InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.9104388359719624],
+     FrontFaceColor->Hue[0.9104388359719624],
+     BackFaceColor->Hue[0.9104388359719624],
+     GraphicsColor->Hue[0.9104388359719624],
+     FontSize->50,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.9104388359719624]], {0.29998002622710235, 0.2668594093453201},
+     Automatic, Automatic, {0.5208989563669757, 0.703841783300867}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.09429732539027813],
+     FrontFaceColor->Hue[0.09429732539027813],
+     BackFaceColor->Hue[0.09429732539027813],
+     GraphicsColor->Hue[0.09429732539027813],
+     FontSize->75,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.09429732539027813]], {0.16446441699745512, 0.060348443247459804},
+     Automatic, Automatic, {-0.2652647395057066, 0.5352696835639961}], 
+   InsetBox[
+    StyleBox["\<\"QED\"\>",
+     StripOnInput->False,
+     LineColor->Hue[0.13300675966272668`],
+     FrontFaceColor->Hue[0.13300675966272668`],
+     BackFaceColor->Hue[0.13300675966272668`],
+     GraphicsColor->Hue[0.13300675966272668`],
+     FontSize->70,
+     FontWeight->Bold,
+     FontSlant->Italic,
+     FontColor->Hue[0.13300675966272668`]], {0.045198155250689154, 0.10682954036751591},
+     Automatic, Automatic, {0.06404897838656076, 0.7893835579900039}]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  ImageSize->600]], "Output",
+ CellChangeTimes->{
+  3.747754180466131*^9},ExpressionUUID->"26274d53-8c62-47c6-9873-\
+2aee74f182b9"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1440, 808},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+SpellingDictionaries->{"CorrectWords"->{
+ "Ajeet", "Burelle", "S\[CloseCurlyQuote]", "det", "sesquilinear", "wrt", 
+  "determinates", "Corry", "subchapter", "ify", "imo", "glitchy", "gcd", 
+  "deisred", "Cycloids", "ing", "Contrapositive", "Qed", "Projectivized", 
+  "Finitize", "Projectivize", "Klepsch", "Mifpo", "Mifpos", "Aougab", 
+  "Floyde", "Veech", "Jonghyun", "Hausdorffication", "Hom", "Fricke", 
+  "Rustad", "mem", "Cmnd", "ified", "Ew", "Heliocentricity", 
+  "\[CapitalDelta]v", "\[CapitalDelta]x", "x\[CloseCurlyQuote]s", "Mergee", 
+  "muteable", "lst", "incrementor", "Cos\[Theta]", "Sin\[Theta]"}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 468, 7, 98, "Title",ExpressionUUID->"e1e0f35a-ef8d-4fa5-b091-fb8a849582a4"],
+Cell[1051, 31, 895, 19, 58, "Text",ExpressionUUID->"0e178632-7b28-46db-8fa4-185bb00b25db"],
+Cell[1949, 52, 190, 3, 35, "Text",ExpressionUUID->"088d27e6-4120-444e-8c31-4f8b258eb0c9"],
+Cell[CellGroupData[{
+Cell[2164, 59, 4882, 136, 180, "Input",ExpressionUUID->"592c8067-c6c1-44b9-ab81-6ed07051417b"],
+Cell[7049, 197, 3559, 69, 592, "Output",ExpressionUUID->"38cf3870-348e-4208-ad9c-bb7ef0622d33"]
+}, Open  ]],
+Cell[10623, 269, 1218, 24, 85, "Text",ExpressionUUID->"769db1a2-e3f4-4e31-b526-37c37d5be8f6"],
+Cell[CellGroupData[{
+Cell[11866, 297, 4698, 130, 170, "Input",ExpressionUUID->"b39b9ff7-08ae-4049-a3aa-d684a5b40565"],
+Cell[16567, 429, 1391, 35, 592, "Output",ExpressionUUID->"ba1a66f4-70be-4c31-b920-cf980601c763"]
+}, Open  ]],
+Cell[17973, 467, 1713, 40, 93, "Text",ExpressionUUID->"6f5399b7-129e-418e-a65a-e5f1e7060d03"],
+Cell[19689, 509, 373, 7, 35, "Text",ExpressionUUID->"e696b83b-027c-4f73-875f-67001e00fe42"],
+Cell[20065, 518, 5026, 123, 174, "Input",ExpressionUUID->"11b17c75-24ec-4da5-ae55-cdb6fca1908a"],
+Cell[CellGroupData[{
+Cell[25116, 645, 2890, 66, 709, InheritFromParent,ExpressionUUID->"aa96cacd-9ff0-447d-b2ec-4a2fb354a908"],
+Cell[28009, 713, 2903, 66, 687, "Output",ExpressionUUID->"9b40b28e-e13d-4afe-86f6-d5ab056b3eca"]
+}, Open  ]],
+Cell[30927, 782, 700, 15, 58, "Text",ExpressionUUID->"8a7e06ec-f37a-494f-b719-1e942a5517cd"],
+Cell[31630, 799, 177, 3, 35, "Text",ExpressionUUID->"72e54016-8542-420a-966c-24335cd0f893"],
+Cell[CellGroupData[{
+Cell[31832, 806, 621, 17, 44, "Input",ExpressionUUID->"4b4453ac-d650-44c7-b98c-2c9f2f9ad9ee"],
+Cell[32456, 825, 252, 6, 34, "Output",ExpressionUUID->"9d83c1de-9098-47e3-a9f3-e203251d8cca"]
+}, Open  ]],
+Cell[32723, 834, 182, 3, 35, "Text",ExpressionUUID->"6708553f-f8a2-49c7-94d1-0b4d04278235"],
+Cell[CellGroupData[{
+Cell[32930, 841, 486, 14, 44, "Input",ExpressionUUID->"b0e9ed1c-0783-4098-91a8-d7f02a06a19b"],
+Cell[33419, 857, 180, 5, 34, "Output",ExpressionUUID->"37e511e6-b19a-452b-b91f-e4edb581ed42"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33636, 867, 1099, 29, 52, "Input",ExpressionUUID->"16be04fb-43a5-4595-99c3-7f1c9863a5b5"],
+Cell[34738, 898, 19036, 478, 425, "Output",ExpressionUUID->"26274d53-8c62-47c6-9873-2aee74f182b9"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

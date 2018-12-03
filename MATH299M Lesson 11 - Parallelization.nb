@@ -1,0 +1,1709 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     67424,       1701]
+NotebookOptionsPosition[     53330,       1470]
+NotebookOutlinePosition[     54549,       1500]
+CellTagsIndexPosition[     54451,       1495]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "MATH299M/CMSC389W - Visualization through Mathematica\n",
+ StyleBox["Week 11: Parallelization",
+  FontColor->RGBColor[1, 0, 1]]
+}], "Title",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQAWIQvZFTTj7y2WvHnANCKiD6zLUV2VVAeoqTbB6IZko6
+G/3k+WvHskefYkD0io9ySSC6h6UqBURnGThWg+gF0f41IPrQjS7FoFevHTu7
+t4PpeWenqoPob6I62iC6RIWhvgZIr2w3B9MS3m4mwa9fOwb9uWgKoh9k7HMP
+B9JC8izeILqyrCY2AkjvyxCKA9FBfIHnQfSZ/Atg2mtxtFYkkH667Zw2iD5d
+Ms8WRK+yXgSmLb6aZda9ee1oLtWQBaKN1l7JbADSFh0e2SB68Z6C65OANF8D
+2w0Q/cb+/Zvad68d91h6vAfRVl/P3uj58NpR7kneHRA9OfnVU5ZPrx3XLjF7
+DqIBnFezng==
+  "],ExpressionUUID->"d26841b0-e717-4945-9a94-8587f9763a5e"],
+
+Cell["\<\
+Parallelization, as I\[CloseCurlyQuote]m sure (at least the CS people) know, \
+is when you split a task across multiple threads (which can each be sent to a \
+different core) to speed of computation. Your computer likely has multiple \
+cores, meaning that it has multiple little computation factories that run \
+independently of each other. If you\[CloseCurlyQuote]re doing a very serial \
+task, something where each computation relies on the one before it, you\
+\[CloseCurlyQuote]re really only using one of the (say) four cores of your \
+machine, the others are just sitting around because intervening in the task \
+wouldn\[CloseCurlyQuote]t help. However, for tasks that are parallelizable, \
+meaning that they have parts that can be computed that don\[CloseCurlyQuote]t \
+depend on all of the parts already computed, you can delegate the tasks to \
+the other cores! For a so-called \[OpenCurlyDoubleQuote]embarrassingly \
+parallel\[CloseCurlyDoubleQuote] task like making a multiplication table, \
+where of course no cell\[CloseCurlyQuote]s computation depends at all on any \
+other cell\[CloseCurlyQuote]s computation, you can, in principle, speed up \
+your computation by a factor of the number of cores you have! So on your \
+device that likely means you can double or quadruple your computation speed \
+for certain calculations. This comes with a cost which is overhead - it takes \
+the machine a bit of time to set up the coordination of the cores and launch \
+the separate kernels, so for small computations it\[CloseCurlyQuote]s not \
+actually helpful to parallelize.\
+\>", "Text",
+ CellChangeTimes->{{3.7479114259624367`*^9, 3.7479114717076406`*^9}, {
+  3.748917143025715*^9, 3.7489171631673326`*^9}, {3.749996262257413*^9, 
+  3.749996274389633*^9}, {3.75006923419267*^9, 3.750069395250791*^9}, {
+  3.750766424460146*^9, 
+  3.750766693727241*^9}},ExpressionUUID->"61bb1ddd-15c7-402f-a79b-\
+0fc8adef58c6"],
+
+Cell[CellGroupData[{
+
+Cell["Kernels", "Subchapter",
+ CellChangeTimes->{{3.710586333527986*^9, 3.710586345614382*^9}, {
+  3.7105863771282797`*^9, 3.710586381094235*^9}, {3.747265845834054*^9, 
+  3.747265846521276*^9}, {3.747869527082896*^9, 3.747869528314931*^9}, {
+  3.747873649290883*^9, 3.747873652649542*^9}, {3.748918247653325*^9, 
+  3.748918248058316*^9}, {3.7489207691183558`*^9, 3.748920769604321*^9}, {
+  3.750063878158677*^9, 3.750063879411422*^9}, {3.7507667021529427`*^9, 
+  3.750766702896915*^9}},
+ CellTags->
+  "Graphics and Graphics3D \
+subchapter",ExpressionUUID->"72039119-d8c5-4ee9-8e4d-d54e97c1961e"],
+
+Cell["\<\
+We\[CloseCurlyQuote]ve discussed the Kernel in class - it\[CloseCurlyQuote]s \
+the area where all of variables you are using at the moment are stored. It\
+\[CloseCurlyQuote]s shared across cells (helpful feature) and, annoyingly, \
+across Notebooks, if you happen to have multiple open at the same time. Also, \
+as we know, \[OpenCurlyDoubleQuote]Quit Kernel\[CloseCurlyDoubleQuote] is our \
+go-to when things aren\[CloseCurlyQuote]t working for weird reasons or we \
+accidentally give Mathematica a calculation that\[CloseCurlyQuote]s too big. \
+With multiple cores, you can run a separate Kernel on each one, so that their \
+variable don\[CloseCurlyQuote]t collide. This is how parallelization is done! \
+Let\[CloseCurlyQuote]s see how many Kernels your device has. If you call \
+Kernels[] it will call all Kernels available for parallel computing (one for \
+each core of your device); if you haven\[CloseCurlyQuote]t done any parallel \
+business in this session yet though it will list the empty set. To launch the \
+kernels, use LaunchKernels[] - when you use a parallel command though if the \
+Kernels aren\[CloseCurlyQuote]t launched Mathematica will do it \
+automatically, but that\[CloseCurlyQuote]ll take a second, so you could do it \
+at the beginning of your notebook instead if you wanted.\
+\>", "Text",
+ CellChangeTimes->{{3.748920771719408*^9, 3.748920829154661*^9}, {
+  3.748920896593748*^9, 3.748921001090057*^9}, {3.7489214636472387`*^9, 
+  3.748921576699477*^9}, {3.750069403299588*^9, 3.75006951562654*^9}, {
+  3.75007264665753*^9, 3.750072655975494*^9}, {3.750072706965774*^9, 
+  3.7500727947713947`*^9}, {3.7500796370112*^9, 3.750079730797385*^9}, {
+  3.7507667671818237`*^9, 3.750766826090583*^9}, {3.750766934653152*^9, 
+  3.750767084735929*^9}},ExpressionUUID->"a2d3e9dc-670f-41a6-98d6-\
+9f9cf413beea"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Kernels", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750766931012433*^9, 
+  3.7507669319325027`*^9}},ExpressionUUID->"08cc6871-2930-4d32-ac1f-\
+8ea762e2cd35"],
+
+Cell[BoxData[
+ RowBox[{"{", "}"}]], "Output",
+ CellChangeTimes->{3.750766932334255*^9, 
+  3.750767088653352*^9},ExpressionUUID->"f5f00cb8-9118-450d-8311-\
+0fc132df9912"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LaunchKernels", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750766911306155*^9, 
+  3.750766917948057*^9}},ExpressionUUID->"fec9730c-05b9-4640-bc84-\
+1ebc3fee485a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"1", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"2", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"3", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"4", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.7507669262969427`*^9, 
+  3.7507670955689993`*^9},ExpressionUUID->"ccbce570-0c94-4fd2-a01a-\
+50115a94d5d1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Kernels", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750766927541025*^9, 
+  3.75076692907695*^9}},ExpressionUUID->"a1fb890f-04ae-4b76-8bd5-\
+52cc4efbeaf4"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"1", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"2", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"3", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"4", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.750766929417576*^9, 
+  3.750767097776184*^9},ExpressionUUID->"c1e1ee25-26e0-4aad-8ddd-\
+1d08eac7e030"]
+}, Open  ]],
+
+Cell["\<\
+You can quit the Kernel with a command, which we\[CloseCurlyQuote]re about \
+see is very helpful. Below I show how quitting the Kernel erases stored \
+values (this include function definitions).\
+\>", "Text",
+ CellChangeTimes->{{3.7507683564493647`*^9, 3.750768373591331*^9}, {
+  3.750768430244718*^9, 
+  3.75076844857228*^9}},ExpressionUUID->"a6abea56-af98-4867-a682-\
+f274789b8724"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"x", "=", "5"}], ";"}]], "Input",
+ CellChangeTimes->{{3.750768415469338*^9, 
+  3.750768416925242*^9}},ExpressionUUID->"6c66c5bb-1b78-4b51-aa87-\
+ef6292aeed2b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["x"], "Input",
+ CellChangeTimes->{
+  3.750768418868143*^9},ExpressionUUID->"284b6915-4fec-4136-98b3-\
+8c01976ef63d"],
+
+Cell[BoxData["5"], "Output",
+ CellChangeTimes->{
+  3.750768419528517*^9},ExpressionUUID->"1a09165d-9fd2-4c00-97f2-\
+4c742d87ff66"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750768420371788*^9, 
+  3.7507684209985523`*^9}},ExpressionUUID->"e3cefcf8-0623-48d0-8fe0-\
+0dc22b0c7ed9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["x"], "Input",
+ CellChangeTimes->{
+  3.750768422949926*^9},ExpressionUUID->"fe738791-4237-462e-ad0e-\
+15a137a21d4d"],
+
+Cell[BoxData["x"], "Output",
+ CellChangeTimes->{
+  3.750768425196178*^9},ExpressionUUID->"1177307a-5e2d-4124-9a0a-\
+338000eaf920"]
+}, Open  ]],
+
+Cell["\<\
+Note : Put the Quit[] in a different cell than the rest of your computation, \
+otherwise you could get strange results.\
+\>", "Text",
+ CellChangeTimes->{{3.750768494018035*^9, 
+  3.750768520450481*^9}},ExpressionUUID->"8f08ed05-dc09-4ecf-bd90-\
+540b91302a5b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Timing", "Subchapter",
+ CellChangeTimes->{{3.710586333527986*^9, 3.710586345614382*^9}, {
+  3.7105863771282797`*^9, 3.710586381094235*^9}, {3.747265845834054*^9, 
+  3.747265846521276*^9}, {3.747869527082896*^9, 3.747869528314931*^9}, {
+  3.747873649290883*^9, 3.747873652649542*^9}, {3.748918247653325*^9, 
+  3.748918248058316*^9}, {3.7489207691183558`*^9, 3.748920769604321*^9}, {
+  3.750063878158677*^9, 3.750063879411422*^9}, {3.7507667021529427`*^9, 
+  3.750766702896915*^9}, {3.7507671297904253`*^9, 3.7507671310446367`*^9}},
+ CellTags->
+  "Graphics and Graphics3D \
+subchapter",ExpressionUUID->"4364c9b3-9ddd-474c-9031-07044b9bf416"],
+
+Cell[TextData[{
+ "Before we jump into how to parallelize computations, we want to be able to \
+measure if it\[CloseCurlyQuote]s actually helping! So here we introduce the \
+Timing[] function; encapsulate any function in the Timing function and the \
+result will be a 2-tuple where the first element is how many seconds the \
+computation took and the second element is the output of the inner function, \
+so the computation goes normally except we also have returned to us how long \
+it took. Note that this time does ",
+ StyleBox["not",
+  FontSlant->"Italic"],
+ " count how long it takes to render to the screen, so if the time seems less \
+than it felt like for your answer to show up that\[CloseCurlyQuote]s a \
+function of it taking a second to display all of your results. This makes \
+sense, as what we really care about is how fast math things get done behind \
+the scenes. Let\[CloseCurlyQuote]s start with some small calculations to show \
+you how stupidly fast your device is:"
+}], "Text",
+ CellChangeTimes->{{3.750767131948296*^9, 
+  3.7507672763689947`*^9}},ExpressionUUID->"12c52a2a-3066-44f5-a907-\
+48375e968753"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{"2", "+", "2"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750767277704335*^9, 3.75076727787147*^9}, {
+  3.750767377789624*^9, 
+  3.7507673812122717`*^9}},ExpressionUUID->"e392024f-2fa5-44e0-9c21-\
+b0d4ff4712ca"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"6.`*^-6", ",", "4"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.75076738219311*^9, {3.750768325973844*^9, 
+   3.750768329376153*^9}},ExpressionUUID->"e72c9919-bdea-45d5-84ad-\
+a633409e2612"]
+}, Open  ]],
+
+Cell["\<\
+Note: if you try re-running these blocks of code (the ones below), the time \
+will decrease; we expected this to be non-deterministic, but why does it \
+decrease so drastically? It\[CloseCurlyQuote]s because Mathematica is storing \
+the results in Kernel, so we should quit the Kernel between tests so we get \
+accurate data.
+Apparently one addition takes 6 milliseconds.\
+\>", "Text",
+ CellChangeTimes->{{3.750767399294821*^9, 3.750767408883173*^9}, {
+  3.750768320464711*^9, 
+  3.750768335856554*^9}},ExpressionUUID->"406c3085-a245-4635-ab27-\
+c4a00c2b7304"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",ExpressionUUID->"0cb62f28-0668-4b7b-b516-d7e52c895804"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "1000"}], "}"}]}], "]"}], ";"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.750767385746994*^9, 3.750767418315631*^9}, {
+  3.7507683394882708`*^9, 3.7507683410084677`*^9}, {3.750768525508128*^9, 
+  3.750768526497314*^9}},ExpressionUUID->"6e4cd873-e4a4-4040-9b43-\
+3de7d8f484b6"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000129`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.750767415021393*^9, 
+  3.750767418831314*^9}},ExpressionUUID->"031a96c5-92cf-419e-8327-\
+b956d911c727"]
+}, Open  ]],
+
+Cell["\<\
+Interesting! That didn\[CloseCurlyQuote]t take 1000 times as long! If it took \
+1000 times as long to do the same computation 1000 times it should have taken \
+.006 seconds; it took (on my device) less than 1/30th of that. Apparently \
+there\[CloseCurlyQuote]s some overhead we\[CloseCurlyQuote]re dealing with \
+here - we\[CloseCurlyQuote]re going to have to go big to see really how long \
+one addition takes, so that that overhead gets drowned out (averaged over a \
+lot of computations).
+Note I suppressed the output there b/c I don\[CloseCurlyQuote]t need a list \
+of 1000 4s, I just wanted to see how long it took.\
+\>", "Text",
+ CellChangeTimes->{{3.750767431017276*^9, 
+  3.750767550550516*^9}},ExpressionUUID->"e54009c2-1ec5-4ccf-89e5-\
+9ee53f53b2f3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",ExpressionUUID->"e63a0593-2cc8-4a24-92a6-6471dfe3643e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "6"]}], "}"}]}], "]"}], ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750767552438476*^9, 3.750767564461791*^9}, {
+  3.7507683432163267`*^9, 3.7507683450963163`*^9}, {3.750768530757914*^9, 
+  3.750768531737097*^9}},ExpressionUUID->"0163e9f2-a0d6-477a-9716-\
+21a92087b0e8"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.020959`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750767564780117*^9},ExpressionUUID->"12a94a12-b4b8-42a7-9407-\
+64724e48aebf"]
+}, Open  ]],
+
+Cell["\<\
+On my machine that took two one hundredths of a second for a million \
+computations, meaning that it takes at most two one-hundred millionths of a \
+second for an addition, let\[CloseCurlyQuote]s keep going:\
+\>", "Text",
+ CellChangeTimes->{{3.750767573156683*^9, 
+  3.750767619427897*^9}},ExpressionUUID->"6a251dd9-409e-4a7a-a548-\
+2ba2b14bdc6f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",ExpressionUUID->"e5f0e8c6-0c0f-40d3-a40a-d2128c885b85"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "9"]}], "}"}]}], "]"}], ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750767620116211*^9, 3.750767629467374*^9}, {
+  3.750768347376273*^9, 3.7507683485680733`*^9}, {3.75076853433311*^9, 
+  3.750768535545031*^9}},ExpressionUUID->"df416988-e762-49c3-b47e-\
+df750901c345"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"27.842221`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750767658788371*^9},ExpressionUUID->"94ca9d5d-a3a8-453c-9346-\
+fa9999fdb009"]
+}, Open  ]],
+
+Cell[TextData[{
+ "On my machine it took 27.8422 seconds for one billion additions, which \
+means in one second it can do over 35 million additions!! Wow. Perhaps this \
+number goes down though if I\[CloseCurlyQuote]m doing less trivial \
+calculations. A ",
+ StyleBox["floating-point computation (FLOP)",
+  FontSlant->"Italic"],
+ " is one that goes out to a certain number of digits, with the decimal place \
+being allowed to \[OpenCurlyDoubleQuote]float\[CloseCurlyDoubleQuote] around \
+the number, so the number 2.345 ad 234.5 are the same precision of floating \
+point number, so essentially ",
+ StyleBox["significant figures",
+  FontSlant->"Italic"],
+ " from your chemistry days. Supercomputers talk in TFLOPS which is \
+terra-FLOPs-per-second, meaning trillions of floating point calculations per \
+second! Some even reach PFLOPS, peta-flops, so ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", "12"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "438229f1-8163-46fe-a4a7-0bfb69e0d18e"],
+ " FLOPs-per-second (FLOPS). ",
+ StyleBox["Single precision",
+  FontSlant->"Italic"],
+ " means using 32 bits (4 bytes), so in binary you can encode numbers up to \
+",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", "32"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "c3b10a13-242e-453e-909c-6ec4c989100f"],
+ " = 4,294,967,296; let\[CloseCurlyQuote]s do this same experiment with \
+numbers on this scale:"
+}], "Text",
+ CellChangeTimes->{{3.750767664809249*^9, 3.750767737062057*^9}, {
+  3.7507679029619293`*^9, 3.750768098114373*^9}, {3.7507682297564173`*^9, 
+  3.750768313602027*^9}},ExpressionUUID->"0177d84e-4741-4b2a-bf89-\
+e7855a3541d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.750768091379171*^9, 3.750768115513925*^9}, {
+  3.750768224276424*^9, 3.750768228125695*^9}, {3.7507684793432093`*^9, 
+  3.750768479668449*^9}},ExpressionUUID->"76287ca5-93aa-4ed4-b277-\
+9de28d986a1e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{"2000000000", "+", "2000000000"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750768480445839*^9, 
+  3.750768481075768*^9}},ExpressionUUID->"17ec2fce-0ec0-400f-ac9a-\
+a42f4076b313"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"4.`*^-6", ",", "4000000000"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7507684827302237`*^9, 3.7507684890805473`*^9}, 
+   3.750768555510962*^9},ExpressionUUID->"6325ffe7-54fe-4775-abaa-\
+fe12deff7158"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",ExpressionUUID->"31af0c10-2305-424d-85ff-9c8086d86d32"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2000000000", "+", "2000000000"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "1000"}], "}"}]}], "]"}], ";"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.750768120425658*^9, 3.750768133055768*^9}, {
+  3.750768181495928*^9, 3.75076821297266*^9}, {3.750768540138494*^9, 
+  3.750768540776696*^9}},ExpressionUUID->"840130db-e42d-4e87-b7e1-\
+cc4fbf5a0beb"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000203`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7507681334049597`*^9, 3.750768184058551*^9}, 
+   3.750768561423087*^9},ExpressionUUID->"8cb32e19-a15a-4a67-9f13-\
+a5b1dc1ad130"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",ExpressionUUID->"ec6e4cc3-04e0-4aee-9689-0855e518aed9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2000000000", "+", "2000000000"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "6"]}], "}"}]}], "]"}], ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750768139057104*^9, 3.7507681492549562`*^9}, {
+  3.750768214709181*^9, 3.750768219212672*^9}, {3.750768543258889*^9, 
+  3.750768543720069*^9}},ExpressionUUID->"d367924c-4967-49a2-ae82-\
+ff44b7d79331"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.019721`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.750768139904464*^9, 3.7507681564888697`*^9}, 
+   3.750768567988957*^9},ExpressionUUID->"44bac7fa-bb28-43a4-9262-\
+1f74e31fce40"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",ExpressionUUID->"b39ddd73-012b-47c5-bb44-4abcd85fbcd0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2000000000", "+", "2000000000"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "9"]}], "}"}]}], "]"}], ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750768143888864*^9, 3.7507681451032352`*^9}, {
+  3.750768220452271*^9, 3.750768222796503*^9}, {3.750768547922521*^9, 
+  3.750768548392556*^9}},ExpressionUUID->"dcc0adc7-38ed-4980-97ed-\
+a9976d074761"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"20.618903`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750768597158293*^9},ExpressionUUID->"bd170f05-cf64-4f27-b216-\
+3d5ecdd57b44"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Wow, very interesting! It looks like that didn\[CloseCurlyQuote]t slow us \
+down at all. Perhaps Mathematica uses 4 bytes even if we\[CloseCurlyQuote]re \
+just using the number 2? Let\[CloseCurlyQuote]s try doing this for an 8-byte \
+computation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SuperscriptBox["2", "64"], "=", "18446744073709551616"}]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "28c88fa6-f304-4d8a-b75e-8302520c394e"],
+ "):"
+}], "Text",
+ CellChangeTimes->{{3.75076861825749*^9, 
+  3.75076869398178*^9}},ExpressionUUID->"29966768-acb0-4ac8-bc53-\
+0f7c85aee063"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.750768749804256*^9, 
+  3.7507687505722113`*^9}},ExpressionUUID->"1d224e3b-de46-4718-8283-\
+a97134bb772e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"9000000000000000000", "+", "9000000000000000000"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "6"]}], "}"}]}], "]"}], ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750768719173546*^9, 3.75076874695498*^9}, {
+  3.750768828514653*^9, 
+  3.750768828815176*^9}},ExpressionUUID->"658b13fb-769c-495e-b2f9-\
+8c680625f1e1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.238113`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750768831098609*^9},ExpressionUUID->"14eeb465-98a9-4b7a-8161-\
+e3255d8efc16"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Mystery solved! There\[CloseCurlyQuote]s our observational difference. That \
+took ten times as long as the 4-byte case. I tried with ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["10", "9"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "02d22edc-0eea-4858-99ac-3234d1bcb283"],
+ " but it took more than a minute so I gave up."
+}], "Text",
+ CellChangeTimes->{{3.750768834253356*^9, 
+  3.750768880206018*^9}},ExpressionUUID->"6f291729-6743-4a12-bb98-\
+bd6220ff4b89"],
+
+Cell["I wonder how long it takes to quit the Kernel:", "Text",
+ CellChangeTimes->{{3.7507690833509073`*^9, 
+  3.750769093894286*^9}},ExpressionUUID->"66331c15-b1c5-4135-82da-\
+4a5e2efd1e0c"],
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Quit", "[", "]"}], ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.7507690945268908`*^9, 
+  3.750769097711877*^9}},ExpressionUUID->"0f072f4b-b7f3-41bd-bb95-\
+35a4803a47f8"],
+
+Cell["\<\
+Ah see this is what I mean about mixing Quit[] with other stuff, it can be \
+weird.\
+\>", "Text",
+ CellChangeTimes->{{3.7507691070223503`*^9, 
+  3.750769134771366*^9}},ExpressionUUID->"73e76b67-12bf-48f2-ba1f-\
+846fe54f1e55"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Absolute Timing", "Subchapter",
+ CellChangeTimes->{{3.710586333527986*^9, 3.710586345614382*^9}, {
+  3.7105863771282797`*^9, 3.710586381094235*^9}, {3.747265845834054*^9, 
+  3.747265846521276*^9}, {3.747869527082896*^9, 3.747869528314931*^9}, {
+  3.747873649290883*^9, 3.747873652649542*^9}, {3.748918247653325*^9, 
+  3.748918248058316*^9}, {3.7489207691183558`*^9, 3.748920769604321*^9}, {
+  3.750063878158677*^9, 3.750063879411422*^9}, {3.7507667021529427`*^9, 
+  3.750766702896915*^9}, {3.7507671297904253`*^9, 3.7507671310446367`*^9}, {
+  3.7507688967988157`*^9, 3.750768916076631*^9}},
+ CellTags->
+  "Graphics and Graphics3D \
+subchapter",ExpressionUUID->"352595e7-d0ae-4bbf-829a-1354efb2c59e"],
+
+Cell["\<\
+Mathematica also allows you to measure time a different way, by writing down \
+the literal time of day down to the nanosecond, doing your computation, then \
+seeing what time it is now and taking the difference. If your code is too \
+complicated to use Timing, you can use AbsoluteTiming instead.\
+\>", "Text",
+ CellChangeTimes->{{3.7507689168136587`*^9, 3.750768968331058*^9}, {
+  3.750769007818754*^9, 
+  3.750769011809215*^9}},ExpressionUUID->"a08637a1-7909-4c8d-bf69-\
+7974370d78bb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7507690580250072`*^9, 
+  3.750769059681157*^9}},ExpressionUUID->"247b3b4b-cf5f-404a-82e0-\
+6e72ca8e55cc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Timing", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"x", "*", "y"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "1", ",", "100"}], "}"}]}], "]"}], ";"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7507690125940847`*^9, 
+  3.7507690398410873`*^9}},ExpressionUUID->"b915061a-208e-4e24-8f8e-\
+4f9400fd36b9"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000695`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.750769019184643*^9, 
+  3.750769065873657*^9}},ExpressionUUID->"ca755bd9-93ca-4f65-9c29-\
+c9f9767650f7"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Quit", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7507690615371943`*^9, 
+  3.7507690624794827`*^9}},ExpressionUUID->"076fb91d-1ff4-4ed2-842c-\
+d0aef4a94ea9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AbsoluteTiming", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"x", "*", "y"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "1", ",", "100"}], "}"}]}], "]"}], ";"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.750769045577353*^9, 
+  3.750769050289332*^9}},ExpressionUUID->"4177583e-55bb-4e43-9f87-\
+3b6081754102"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000414`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.750769050775275*^9, 
+  3.750769071944457*^9}},ExpressionUUID->"27b6026e-aa30-4410-9a4e-\
+9caadd6b88cc"]
+}, Open  ]],
+
+Cell["\<\
+When exactly do we want to use AbsoluteTiming over Timing though? If we want \
+to measure the time complexity of an algorithm, Timing is the way to go \
+because it deals with computation time in the CPU. However, AbsoluteTiming \
+just cares about how long everything took, so it depends on our environment \
+(what else is going on in your program). This is of critical importance for \
+parallelization, because, as we' ll see , if you parallelize a command that' \
+s being hit with Timing, you' ll get how long each computation took in each \
+Kernel, but we want to get the total time when comparing parallelized \
+algorithms to non - parallelized ones.\
+\>", "Text",
+ CellChangeTimes->{{3.750769212073679*^9, 3.750769262232409*^9}, {
+  3.7507692931610107`*^9, 
+  3.750769406225322*^9}},ExpressionUUID->"ae37a4cb-52f8-4b2e-9e06-\
+26666db3e96b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Memory", "Subchapter",
+ CellChangeTimes->{{3.710586333527986*^9, 3.710586345614382*^9}, {
+  3.7105863771282797`*^9, 3.710586381094235*^9}, {3.747265845834054*^9, 
+  3.747265846521276*^9}, {3.747869527082896*^9, 3.747869528314931*^9}, {
+  3.747873649290883*^9, 3.747873652649542*^9}, {3.748918247653325*^9, 
+  3.748918248058316*^9}, {3.7489207691183558`*^9, 3.748920769604321*^9}, {
+  3.750063878158677*^9, 3.750063879411422*^9}, {3.7507667021529427`*^9, 
+  3.750766702896915*^9}, {3.7507671297904253`*^9, 3.7507671310446367`*^9}, {
+  3.7507688967988157`*^9, 3.7507688973253403`*^9}},
+ CellTags->
+  "Graphics and Graphics3D \
+subchapter",ExpressionUUID->"52527a2b-7319-4530-84a3-f23f9c9a5a4d"],
+
+Cell[TextData[{
+ "One more measurement tool we want is Memory, how much of your machine\
+\[CloseCurlyQuote]s RAM you\[CloseCurlyQuote]re using up. There are two \
+commands for us here, one is MemoryInUse[] which tells you how much memory \
+Mathematica is using ",
+ StyleBox["right now",
+  FontSlant->"Italic"],
+ ". The second is MaxMemoryUsed[], which tells you the peak of memory \
+consumption by your program this session. Let\[CloseCurlyQuote]s start with \
+the latter:"
+}], "Text",
+ CellChangeTimes->{{3.750768898134325*^9, 3.750768903820722*^9}, {
+  3.7507694089163713`*^9, 
+  3.750769494896513*^9}},ExpressionUUID->"b02bc036-7509-4741-8c99-\
+37c850584636"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MaxMemoryUsed", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750769495720639*^9, 
+  3.7507695357125597`*^9}},ExpressionUUID->"14c04aa6-bf87-4f94-a04a-\
+47738c534046"],
+
+Cell[BoxData["112947584"], "Output",
+ CellChangeTimes->{
+  3.7507695361319942`*^9},ExpressionUUID->"cfc0d820-b0ba-4c16-a893-\
+4f19058d2faa"]
+}, Open  ]],
+
+Cell["\<\
+Okay now let\[CloseCurlyQuote]s see MemoryInUse[], it should be very small \
+right now:\
+\>", "Text",
+ CellChangeTimes->{{3.750769541605497*^9, 
+  3.750769561141239*^9}},ExpressionUUID->"5202237e-6266-48f8-9d62-\
+896ca0be17e7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemoryInUse", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750769562179249*^9, 
+  3.750769565270546*^9}},ExpressionUUID->"f70c1dbc-f655-4fbb-a2d6-\
+5af132ae82f5"],
+
+Cell[BoxData["102058608"], "Output",
+ CellChangeTimes->{
+  3.750769565624387*^9},ExpressionUUID->"3aa3b1a2-00b8-480d-b127-\
+5895ccb54901"]
+}, Open  ]],
+
+Cell["\<\
+On my machine it\[CloseCurlyQuote]s about 100MB of 16GB of RAM, basically \
+just keeping the notebook open. We can see this number increase as we store \
+more data; lets make some variables that take up a lot of space:\
+\>", "Text",
+ CellChangeTimes->{{3.7507695683406773`*^9, 3.750769597451911*^9}, {
+  3.750769675058968*^9, 
+  3.750769701624276*^9}},ExpressionUUID->"7965d812-d58c-4896-bc34-\
+b6776b962c84"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", 
+   RowBox[{"N", "[", 
+    RowBox[{"\[Pi]", ",", 
+     SuperscriptBox["10", "6"]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"a", "[", "i", "]"}], "=", "x"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", "1000000"}], "}"}]}], "]"}], ";"}]}], "Input",\
+
+ CellChangeTimes->{{3.750769619002714*^9, 3.750769665137723*^9}, {
+  3.750769707824951*^9, 
+  3.750769764294359*^9}},ExpressionUUID->"bf35eab0-5c4c-4113-9a7f-\
+9f5a0d581a4a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemoryInUse", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.7507696215133133`*^9, 
+  3.7507696235242987`*^9}},ExpressionUUID->"84193937-82ab-4a63-bdcf-\
+48d071231d27"],
+
+Cell[BoxData["267323816"], "Output",
+ CellChangeTimes->{{3.750769623939205*^9, 3.750769629878724*^9}, 
+   3.750769670394711*^9, {3.750769747140696*^9, 
+   3.750769766524969*^9}},ExpressionUUID->"6e9d9a7f-2ac9-438f-aa02-\
+0a794889b122"]
+}, Open  ]],
+
+Cell["Now let\[CloseCurlyQuote]s see how much dynamic content uses:", "Text",
+ CellChangeTimes->{{3.750769777716508*^9, 
+  3.7507697953087053`*^9}},ExpressionUUID->"f9dffffa-5346-4808-9785-\
+7d9f23bcd0ea"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"a", " ", 
+      SuperscriptBox["x", "2"]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "5"}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", "1"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", 
+     RowBox[{"-", "5"}], ",", "5"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7507697961652308`*^9, 
+  3.750769815678245*^9}},ExpressionUUID->"1827f7da-3abc-4d4a-b0b5-\
+a305811d74af"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = -2.52, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`a$$], -5, 5}}, Typeset`size$$ = {360., {178., 182.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`a$2895$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`a$$ = -5}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$2895$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Plot[$CellContext`a$$ $CellContext`x^2, {$CellContext`x, -5, 5}, 
+        PlotRange -> 5, AspectRatio -> 1], 
+      "Specifications" :> {{$CellContext`a$$, -5, 5}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{405., {223., 229.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.750769817352788*^9},ExpressionUUID->"5ab4a4be-3dac-4773-ade6-\
+38545dd46da5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemoryInUse", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750769821093541*^9, 
+  3.750769823702282*^9}},ExpressionUUID->"024c83b8-9136-4f54-abbe-\
+5bc10a8a1067"],
+
+Cell[BoxData["280680568"], "Output",
+ CellChangeTimes->{
+  3.750769824069333*^9},ExpressionUUID->"0e5c401e-0893-4c41-a85c-\
+5e626f9fade1"]
+}, Open  ]],
+
+Cell["\<\
+Wow! That added way more than the space necessary to store one value a. Just \
+how expensive is fancy stuff?\
+\>", "Text",
+ CellChangeTimes->{{3.750769828739637*^9, 
+  3.750769864010556*^9}},ExpressionUUID->"84f7130f-e335-426e-8015-\
+b523f4575e06"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"ContourPlot3D", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"a", " ", 
+        SuperscriptBox["x", "2"]}], "+", 
+       RowBox[{"b", " ", 
+        SuperscriptBox["y", "2"]}], "+", 
+       RowBox[{"c", " ", 
+        SuperscriptBox["z", "2"]}]}], "\[Equal]", "1"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"z", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "5"}], ",", 
+     RowBox[{"PlotPoints", "\[Rule]", "20"}], ",", 
+     RowBox[{"Mesh", "\[Rule]", "None"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "1"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"b", ",", "1"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"c", ",", "1"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.750769864818914*^9, 
+  3.750769941523142*^9}},ExpressionUUID->"20495603-08c1-4997-ade1-\
+06904b26a1d6"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 
+    0.16000000000000014`, $CellContext`b$$ = 
+    0.16000000000000014`, $CellContext`c$$ = 0.5600000000000005, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 1}, -5, 5}, {{
+       Hold[$CellContext`b$$], 1}, -5, 5}, {{
+       Hold[$CellContext`c$$], 1}, -5, 5}}, Typeset`size$$ = {
+    360., {203., 208.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`a$3778$$ = 
+    0, $CellContext`b$3779$$ = 0, $CellContext`c$3780$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 1, $CellContext`b$$ = 
+        1, $CellContext`c$$ = 1}, "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$3778$$, 0], 
+        Hold[$CellContext`b$$, $CellContext`b$3779$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$3780$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      ContourPlot3D[$CellContext`a$$ $CellContext`x^2 + $CellContext`b$$ \
+$CellContext`y^2 + $CellContext`c$$ $CellContext`z^2 == 
+        1, {$CellContext`x, -5, 5}, {$CellContext`y, -5, 
+         5}, {$CellContext`z, -5, 5}, PlotRange -> 5, PlotPoints -> 20, Mesh -> 
+        None], "Specifications" :> {{{$CellContext`a$$, 1}, -5, 
+         5}, {{$CellContext`b$$, 1}, -5, 5}, {{$CellContext`c$$, 1}, -5, 5}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{405., {276., 282.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.750769928156794*^9, 
+  3.750769941933921*^9}},ExpressionUUID->"a67ac67c-c4d0-4835-96e4-\
+205b0a075278"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemoryInUse", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.7507699599429207`*^9, 
+  3.7507699624724407`*^9}},ExpressionUUID->"f3f54968-56ee-4764-af4b-\
+26e4b479af48"],
+
+Cell[BoxData["282055688"], "Output",
+ CellChangeTimes->{
+  3.750769962831348*^9},ExpressionUUID->"2d9c77a5-8a47-4fd9-b9f8-\
+68bc212a9777"]
+}, Open  ]],
+
+Cell["\<\
+That actually was barely any change... well, clearly, this is a bit \
+mysterious. Play around with it! Apparently I have some playing to do too.\
+\>", "Text",
+ CellChangeTimes->{{3.750769979805806*^9, 
+  3.750770009429264*^9}},ExpressionUUID->"65def62c-e54a-4f4c-8097-\
+fea71c2b7d1e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ParallelTable and ParallelMap", "Subchapter",
+ CellChangeTimes->{{3.710586333527986*^9, 3.710586345614382*^9}, {
+  3.7105863771282797`*^9, 3.710586381094235*^9}, {3.747265845834054*^9, 
+  3.747265846521276*^9}, {3.747869527082896*^9, 3.747869528314931*^9}, {
+  3.747873649290883*^9, 3.747873652649542*^9}, {3.748918247653325*^9, 
+  3.748918248058316*^9}, {3.7489207691183558`*^9, 3.748920769604321*^9}, {
+  3.750063878158677*^9, 3.750063879411422*^9}, {3.7507667021529427`*^9, 
+  3.750766702896915*^9}, {3.7507671297904253`*^9, 3.7507671310446367`*^9}, {
+  3.7507688967988157`*^9, 3.7507688973253403`*^9}, {3.7507700218468246`*^9, 
+  3.7507700265647182`*^9}},
+ CellTags->
+  "Graphics and Graphics3D \
+subchapter",ExpressionUUID->"16bdd1fe-79d0-4b1f-b3be-3777cb7704d5"],
+
+Cell[TextData[{
+ "The time has come!!! The two main parallelization functions you\
+\[CloseCurlyQuote]ll get acquainted with are ParallelTable and ParallelMap, \
+and, as we saw earlier, Table and Map are basically the same thing. \
+ParallelTable and ParallelMap work ",
+ StyleBox["exactly",
+  FontSlant->"Italic"],
+ " like Table and Map, respectively, except they will split the computation \
+over as many cores as you have. Table and Map are obviously parallelizable, \
+as they apply the same thing to a series of things; since those individual \
+computations are independent, delegating the tasks to multiple cores makes \
+sense. Let\[CloseCurlyQuote]s do some speed testing!! I\[CloseCurlyQuote]m \
+going to quit the Kernel and launch the other Kernels ahead of time."
+}], "Text",
+ CellChangeTimes->{{3.7507700272533083`*^9, 
+  3.750770185959655*^9}},ExpressionUUID->"c60a0c84-26af-4969-b4fb-\
+2353e49102dd"],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770187679*^9, 
+  3.7507702079121313`*^9}},ExpressionUUID->"ea97bbe2-a137-4ac0-89b4-\
+98c33ede8987"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LaunchKernels", "[", "]"}], "//", "Timing", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"I", "'"}], "m", " ", "adding", " ", "the", " ", "Timing", " ", 
+    "here", " ", "to", " ", "show", " ", "you", " ", "why", " ", 
+    RowBox[{"I", "'"}], "m", " ", "doing", " ", "this", " ", "ahead", " ", 
+    "of", " ", 
+    RowBox[{"time", "!"}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.75077019350377*^9, 3.750770213374083*^9}, {
+  3.7507704180094137`*^9, 
+  3.750770432230638*^9}},ExpressionUUID->"0834da49-cd9a-4f17-85df-\
+b9d4be3a2457"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"1", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"2", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"3", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"4", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.750770202658312*^9, 
+  3.750770217963127*^9}},ExpressionUUID->"a24d2653-bdd2-4cc6-acec-\
+d975c0531817"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "9"]}], "}"}]}], "]"}], ";"}], "//", 
+  "Timing"}]], "Input",
+ CellChangeTimes->{{3.7507702249897137`*^9, 
+  3.750770249836926*^9}},ExpressionUUID->"a0d3ef89-ecaf-42e5-aee7-\
+c0762f8d8e4c"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"25.533182`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7507702787353*^9},ExpressionUUID->"804913d9-447e-44e2-8930-14425db4624d"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770362497417*^9, 
+  3.750770364154395*^9}},ExpressionUUID->"cf8f807c-c783-4276-ace4-\
+ebe06de60039"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ParallelTable", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", 
+       SuperscriptBox["10", "9"]}], "}"}]}], "]"}], ";"}], "//", 
+  "Timing"}]], "Input",
+ CellChangeTimes->{{3.750770280635735*^9, 
+  3.75077029588496*^9}},ExpressionUUID->"a4da34c4-8406-4b8e-a616-\
+0979ef03fc97"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"19.295442`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7507703174191027`*^9},ExpressionUUID->"e7c7f789-0702-4fb4-a805-\
+0576405f614b"]
+}, Open  ]],
+
+Cell["\<\
+The time was cute down! Not by a factor of 4 though unfortunately, meaning \
+the overhead got in the way. Let\[CloseCurlyQuote]s see an example where the \
+overhead really screws us over:\
+\>", "Text",
+ CellChangeTimes->{{3.750770321857078*^9, 
+  3.75077035528124*^9}},ExpressionUUID->"5e5b6394-7058-41ef-8701-\
+de0f0d72a469"],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.7507703559136877`*^9, 
+  3.750770365866321*^9}},ExpressionUUID->"ba0309a6-d819-4365-a3e2-\
+94e0d168aeb6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "100"}], "}"}]}], "]"}], ";"}], "//", 
+  "Timing"}]], "Input",
+ CellChangeTimes->{{3.750770369368699*^9, 
+  3.750770379960266*^9}},ExpressionUUID->"682feb9e-f1cc-47dc-a2ba-\
+2d31b64e46ae"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000024`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750770380495748*^9},ExpressionUUID->"eb58b386-2361-44ac-94ab-\
+2f9ddb77be7d"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770398689067*^9, 
+  3.750770399876762*^9}},ExpressionUUID->"214c62d3-704f-4a3d-ad05-\
+f271aa31b097"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LaunchKernels", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770401913281*^9, 
+  3.750770435736472*^9}},ExpressionUUID->"9589c851-419d-4911-a02f-\
+ab022c4c6c9b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"1", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"2", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"3", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"4", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.750770411260729*^9, 
+  3.750770446062117*^9}},ExpressionUUID->"a5566805-ff09-4839-81ae-\
+0c5e15d30262"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ParallelTable", "[", 
+    RowBox[{
+     RowBox[{"2", "+", "2"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "100"}], "}"}]}], "]"}], ";"}], "//", 
+  "Timing"}]], "Input",
+ CellChangeTimes->{{3.7507703819844637`*^9, 3.750770393823966*^9}, {
+  3.750770454455892*^9, 
+  3.750770455933545*^9}},ExpressionUUID->"b8ebb5fc-5e4c-4e66-8fd0-\
+163108e2d5bc"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.006407`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750770456215125*^9},ExpressionUUID->"bffe2ba1-fe25-4fbf-bba0-\
+e967cfbcde34"]
+}, Open  ]],
+
+Cell["\<\
+We see here that overhead made it not even worth it to parallelize, \
+parallelization slowed us down.
+Okay, let\[CloseCurlyQuote]s try to find a satisfying example that shows off \
+how awesome parallelization is. What we want is lots of calculations that are \
+fairly big, and of course have nothing to do with each other.\
+\>", "Text",
+ CellChangeTimes->{{3.750770460868737*^9, 
+  3.750770518275395*^9}},ExpressionUUID->"ae56946c-8572-4abe-bde3-\
+0cb533a0d664"],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770520252245*^9, 
+  3.75077052525241*^9}},ExpressionUUID->"f6d49331-6e67-4782-ad87-\
+c078ba11b2d4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Nest", "[", 
+      RowBox[{"Sqrt", ",", "x", ",", "1000"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "1000"}], "}"}]}], "]"}], ";"}], "//", 
+  "Timing"}]], "Input",
+ CellChangeTimes->{{3.750770526579603*^9, 3.750770604906177*^9}, {
+   3.7507706719037857`*^9, 3.750770686976005*^9}, {3.750770736829818*^9, 
+   3.750770806571001*^9}, {3.750770930993013*^9, 3.750770950086475*^9}, {
+   3.750770988230467*^9, 3.750770990564272*^9}, 3.7507712470211267`*^9, {
+   3.750771386031801*^9, 3.7507713862792807`*^9}, {3.7507715712461*^9, 
+   3.750771595239881*^9}, {3.7507780148441877`*^9, 3.750778015290119*^9}, {
+   3.750778057274599*^9, 
+   3.750778073512672*^9}},ExpressionUUID->"a7008ed2-8e27-422c-baab-\
+4d1aa7dcfec6"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"5.868201`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.750770570762639*^9, 3.750770599101241*^9}, {
+   3.750770682742296*^9, 3.750770694884939*^9}, {3.750770738799065*^9, 
+   3.750770744115926*^9}, {3.750770780172348*^9, 3.7507708200234547`*^9}, {
+   3.750770938331778*^9, 3.750770958372147*^9}, 3.7507712601655188`*^9, 
+   3.750771399429475*^9, {3.7507780622036467`*^9, 
+   3.750778088599826*^9}},ExpressionUUID->"c668c2d2-0cea-43eb-9d96-\
+ac61d7c54548"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770827011096*^9, 3.75077082836333*^9}, {
+  3.750770861154148*^9, 
+  3.75077086188031*^9}},ExpressionUUID->"13b59b5d-d949-4ebf-9588-\
+a7895b649cbc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LaunchKernels", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.750770862747591*^9, 
+  3.7507708656406183`*^9}},ExpressionUUID->"47d4b75f-61cc-43aa-abfc-\
+8beb67d8dcc8"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"1", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"2", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"3", ",", "\<\"local\"\>"}], "]"}], ",", 
+   RowBox[{"\<\"KernelObject\"\>", "[", 
+    RowBox[{"4", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750770881610697*^9, 3.7507709692136383`*^9, 3.7507713179570513`*^9, 
+   3.750771488127092*^9, {3.7507781074688683`*^9, 3.750778131530986*^9}, 
+   3.750778180930769*^9},ExpressionUUID->"06c8a2c8-67fa-4c6d-89aa-\
+cd737c3bcb02"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ParallelTable", "[", 
+    RowBox[{
+     RowBox[{"Nest", "[", 
+      RowBox[{"Sqrt", ",", "x", ",", "1000"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "1", ",", "1000"}], "}"}]}], "]"}], ";"}], "//", 
+  "Timing"}]], "Input",
+ CellChangeTimes->{{3.750770832130953*^9, 3.7507708329696913`*^9}, {
+  3.7507709161700153`*^9, 3.750770917494851*^9}, {3.750770967390696*^9, 
+  3.7507709722371283`*^9}, {3.750771288006856*^9, 3.750771288366212*^9}, {
+  3.7507780917375507`*^9, 3.7507781217756844`*^9}, {3.750778168397601*^9, 
+  3.750778170802401*^9}},ExpressionUUID->"d528b459-0aa4-430a-a3e3-\
+762ff99c5c02"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.207188`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.750770924555305*^9, 3.750770980669311*^9, {3.750771301251315*^9, 
+   3.7507713277458363`*^9}, 3.7507714995061607`*^9, {3.750778109630497*^9, 
+   3.750778134527219*^9}, 
+   3.750778184238904*^9},ExpressionUUID->"14301839-7367-4f74-a670-\
+68734979e6ae"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Wow! That improvement is actually far ",
+ StyleBox["better",
+  FontSlant->"Italic"],
+ " than four times as fast! Sometimes this happens for complicates comp sci \
+reasons - separating across multiple cores can free up space and smooth out \
+computations."
+}], "Text",
+ CellChangeTimes->{{3.7507781385706997`*^9, 
+  3.750778226017261*^9}},ExpressionUUID->"9b9eb25a-e145-434a-846d-\
+f5dffd6e7cd5"],
+
+Cell["\<\
+In general, you can surround any Mathematica function with the function \
+Parallelize[] and Mathematica will attempt to make it run in parallel across \
+your cores - this usually doesn\[CloseCurlyQuote]t work though.\
+\>", "Text",
+ CellChangeTimes->{{3.750778229674548*^9, 
+  3.750778269903492*^9}},ExpressionUUID->"c6731ed2-2150-473e-a0f4-\
+e09d9bee0f94"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Parallelize", "[", 
+  RowBox[{
+   RowBox[{"Sqrt", "[", "83274909", "]"}], "//", "N"}], "]"}]], "Input",
+ CellChangeTimes->{{3.750778270808227*^9, 
+  3.7507782934308033`*^9}},ExpressionUUID->"6bbf5982-8417-412a-ba0e-\
+e3f4f857e3b3"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Parallelize","nopar1",
+   "\"\\!\\(\\*RowBox[{\\\"N\\\", \\\"[\\\", SqrtBox[\\\"83274909\\\"], \\\"]\
+\\\"}]\\) cannot be parallelized; proceeding with sequential evaluation.\"",2,
+   4,2,26199557514643425837,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{{3.750778280439788*^9, 
+  3.7507782937768183`*^9}},ExpressionUUID->"91a3fbf3-3f29-4b12-85ca-\
+59ed13ff9255"],
+
+Cell[BoxData["9125.50869814938`"], "Output",
+ CellChangeTimes->{{3.750778280443523*^9, 
+  3.7507782938039637`*^9}},ExpressionUUID->"2c6f03cc-a211-47ac-b54d-\
+4170b67853c2"]
+}, Open  ]],
+
+Cell["In which case it just does it normally.", "Text",
+ CellChangeTimes->{{3.750778283190062*^9, 
+  3.7507782905264893`*^9}},ExpressionUUID->"f3c3a10f-e52f-4966-b161-\
+afc7c918d968"],
+
+Cell[TextData[StyleBox["Ajeet Gary - University of Maryland Experimental \
+Geometry Lab\nMATH299M/CMSC389W Fall 2018\nNovember 9th, 2018",
+ FontFamily->"Calibri",
+ FontSize->14,
+ FontWeight->"Bold",
+ FontColor->RGBColor[0.9688410772869459, 0., 0.04487678339818418]]], "Section",\
+
+ CellChangeTimes->{{3.744720759361576*^9, 3.744720769654295*^9}, {
+  3.744720816813613*^9, 3.7447208223929443`*^9}, {3.744720856164445*^9, 
+  3.744720891474593*^9}, {3.744838141121181*^9, 3.744838147182004*^9}, {
+  3.7455144445849237`*^9, 3.745514445699499*^9}, {3.746816642442107*^9, 
+  3.7468166427118*^9}, {3.747256762707283*^9, 3.747256762817844*^9}, {
+  3.747873470524231*^9, 3.7478734721785803`*^9}, {3.747912623177191*^9, 
+  3.747912623303851*^9}, {3.7489199167215233`*^9, 3.748919923849612*^9}, {
+  3.748923127569975*^9, 3.7489231279509983`*^9}, {3.749996143350943*^9, 
+  3.749996145365301*^9}, {3.7500689222705193`*^9, 3.750068959195855*^9}, {
+  3.75060954645905*^9, 3.750609548091167*^9}, {3.750778357199635*^9, 
+  3.75077835735662*^9}},
+ TextAlignment->Right,ExpressionUUID->"11b1d935-1fe6-4e91-88c5-32b5f71e3856"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1438, 808},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Graphics and Graphics3D subchapter"->{
+  Cell[3169, 69, 596, 10, 65, "Subchapter",ExpressionUUID->"72039119-d8c5-4ee9-8e4d-d54e97c1961e",
+   CellTags->"Graphics and Graphics3D subchapter"],
+  Cell[9244, 232, 645, 10, 65, "Subchapter",ExpressionUUID->"4364c9b3-9ddd-474c-9031-07044b9bf416",
+   CellTags->"Graphics and Graphics3D subchapter"],
+  Cell[23615, 641, 705, 11, 65, "Subchapter",ExpressionUUID->"352595e7-d0ae-4bbf-829a-1354efb2c59e",
+   CellTags->"Graphics and Graphics3D subchapter"],
+  Cell[27490, 748, 698, 11, 65, "Subchapter",ExpressionUUID->"52527a2b-7319-4530-84a3-f23f9c9a5a4d",
+   CellTags->"Graphics and Graphics3D subchapter"],
+  Cell[38956, 1065, 774, 12, 65, "Subchapter",ExpressionUUID->"16bdd1fe-79d0-4b1f-b3be-3777cb7704d5",
+   CellTags->"Graphics and Graphics3D subchapter"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Graphics and Graphics3D subchapter", 53664, 1481}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 635, 13, 160, "Title",ExpressionUUID->"d26841b0-e717-4945-9a94-8587f9763a5e"],
+Cell[1218, 37, 1926, 28, 173, "Text",ExpressionUUID->"61bb1ddd-15c7-402f-a79b-0fc8adef58c6"],
+Cell[CellGroupData[{
+Cell[3169, 69, 596, 10, 65, "Subchapter",ExpressionUUID->"72039119-d8c5-4ee9-8e4d-d54e97c1961e",
+ CellTags->"Graphics and Graphics3D subchapter"],
+Cell[3768, 81, 1836, 26, 127, "Text",ExpressionUUID->"a2d3e9dc-670f-41a6-98d6-9f9cf413beea"],
+Cell[CellGroupData[{
+Cell[5629, 111, 183, 4, 30, "Input",ExpressionUUID->"08cc6871-2930-4d32-ac1f-8ea762e2cd35"],
+Cell[5815, 117, 169, 4, 34, "Output",ExpressionUUID->"f5f00cb8-9118-450d-8311-0fc132df9912"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6021, 126, 187, 4, 30, "Input",ExpressionUUID->"fec9730c-05b9-4640-bc84-1ebc3fee485a"],
+Cell[6211, 132, 561, 13, 34, "Output",ExpressionUUID->"ccbce570-0c94-4fd2-a01a-50115a94d5d1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6809, 150, 180, 4, 30, "Input",ExpressionUUID->"a1fb890f-04ae-4b76-8bd5-52cc4efbeaf4"],
+Cell[6992, 156, 557, 13, 34, "Output",ExpressionUUID->"c1e1ee25-26e0-4aad-8ddd-1d08eac7e030"]
+}, Open  ]],
+Cell[7564, 172, 394, 8, 35, "Text",ExpressionUUID->"a6abea56-af98-4867-a682-f274789b8724"],
+Cell[7961, 182, 193, 5, 30, "Input",ExpressionUUID->"6c66c5bb-1b78-4b51-aa87-ef6292aeed2b"],
+Cell[CellGroupData[{
+Cell[8179, 191, 129, 3, 30, "Input",ExpressionUUID->"284b6915-4fec-4136-98b3-8c01976ef63d"],
+Cell[8311, 196, 130, 3, 34, "Output",ExpressionUUID->"1a09165d-9fd2-4c00-97f2-4c742d87ff66"]
+}, Open  ]],
+Cell[8456, 202, 180, 4, 30, "Input",ExpressionUUID->"e3cefcf8-0623-48d0-8fe0-0dc22b0c7ed9"],
+Cell[CellGroupData[{
+Cell[8661, 210, 129, 3, 30, "Input",ExpressionUUID->"fe738791-4237-462e-ad0e-15a137a21d4d"],
+Cell[8793, 215, 130, 3, 34, "Output",ExpressionUUID->"1177307a-5e2d-4124-9a0a-338000eaf920"]
+}, Open  ]],
+Cell[8938, 221, 269, 6, 35, "Text",ExpressionUUID->"8f08ed05-dc09-4ecf-bd90-540b91302a5b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9244, 232, 645, 10, 65, "Subchapter",ExpressionUUID->"4364c9b3-9ddd-474c-9031-07044b9bf416",
+ CellTags->"Graphics and Graphics3D subchapter"],
+Cell[9892, 244, 1126, 19, 127, "Text",ExpressionUUID->"12c52a2a-3066-44f5-a907-48375e968753"],
+Cell[CellGroupData[{
+Cell[11043, 267, 258, 6, 30, "Input",ExpressionUUID->"e392024f-2fa5-44e0-9c21-b0d4ff4712ca"],
+Cell[11304, 275, 230, 6, 37, "Output",ExpressionUUID->"e72c9919-bdea-45d5-84ad-a633409e2612"]
+}, Open  ]],
+Cell[11549, 284, 570, 11, 81, "Text",ExpressionUUID->"406c3085-a245-4635-ab27-c4a00c2b7304"],
+Cell[12122, 297, 125, 2, 30, "Input",ExpressionUUID->"0cb62f28-0668-4b7b-b516-d7e52c895804"],
+Cell[CellGroupData[{
+Cell[12272, 303, 455, 12, 30, "Input",ExpressionUUID->"6e4cd873-e4a4-4040-9b43-3de7d8f484b6"],
+Cell[12730, 317, 210, 5, 34, "Output",ExpressionUUID->"031a96c5-92cf-419e-8327-b956d911c727"]
+}, Open  ]],
+Cell[12955, 325, 770, 13, 81, "Text",ExpressionUUID->"e54009c2-1ec5-4ccf-89e5-9ee53f53b2f3"],
+Cell[13728, 340, 125, 2, 30, "Input",ExpressionUUID->"e63a0593-2cc8-4a24-92a6-6471dfe3643e"],
+Cell[CellGroupData[{
+Cell[13878, 346, 479, 12, 33, "Input",ExpressionUUID->"0163e9f2-a0d6-477a-9716-21a92087b0e8"],
+Cell[14360, 360, 186, 5, 34, "Output",ExpressionUUID->"12a94a12-b4b8-42a7-9407-64724e48aebf"]
+}, Open  ]],
+Cell[14561, 368, 357, 7, 35, "Text",ExpressionUUID->"6a251dd9-409e-4a7a-a548-2ba2b14bdc6f"],
+Cell[14921, 377, 125, 2, 30, "Input",ExpressionUUID->"e5f0e8c6-0c0f-40d3-a40a-d2128c885b85"],
+Cell[CellGroupData[{
+Cell[15071, 383, 476, 12, 33, "Input",ExpressionUUID->"df416988-e762-49c3-b47e-df750901c345"],
+Cell[15550, 397, 187, 5, 34, "Output",ExpressionUUID->"94ca9d5d-a3a8-453c-9346-fa9999fdb009"]
+}, Open  ]],
+Cell[15752, 405, 1689, 37, 127, "Text",ExpressionUUID->"0177d84e-4741-4b2a-bf89-e7855a3541d7"],
+Cell[17444, 444, 293, 6, 30, "Input",ExpressionUUID->"76287ca5-93aa-4ed4-b277-9de28d986a1e"],
+Cell[CellGroupData[{
+Cell[17762, 454, 226, 5, 30, "Input",ExpressionUUID->"17ec2fce-0ec0-400f-ac9a-a42f4076b313"],
+Cell[17991, 461, 241, 5, 37, "Output",ExpressionUUID->"6325ffe7-54fe-4775-abaa-fe12deff7158"]
+}, Open  ]],
+Cell[18247, 469, 125, 2, 30, "Input",ExpressionUUID->"31af0c10-2305-424d-85ff-9c8086d86d32"],
+Cell[CellGroupData[{
+Cell[18397, 475, 468, 12, 30, "Input",ExpressionUUID->"840130db-e42d-4e87-b7e1-cc4fbf5a0beb"],
+Cell[18868, 489, 235, 5, 34, "Output",ExpressionUUID->"8cb32e19-a15a-4a67-9f13-a5b1dc1ad130"]
+}, Open  ]],
+Cell[19118, 497, 125, 2, 30, "Input",ExpressionUUID->"ec6e4cc3-04e0-4aee-9689-0855e518aed9"],
+Cell[CellGroupData[{
+Cell[19268, 503, 495, 12, 33, "Input",ExpressionUUID->"d367924c-4967-49a2-ae82-ff44b7d79331"],
+Cell[19766, 517, 235, 5, 34, "Output",ExpressionUUID->"44bac7fa-bb28-43a4-9262-1f74e31fce40"]
+}, Open  ]],
+Cell[20016, 525, 125, 2, 30, "Input",ExpressionUUID->"b39ddd73-012b-47c5-bb44-4abcd85fbcd0"],
+Cell[CellGroupData[{
+Cell[20166, 531, 495, 12, 33, "Input",ExpressionUUID->"dcc0adc7-38ed-4980-97ed-a9976d074761"],
+Cell[20664, 545, 187, 5, 34, "Output",ExpressionUUID->"bd170f05-cf64-4f27-b216-3d5ecdd57b44"]
+}, Open  ]],
+Cell[20866, 553, 644, 17, 60, "Text",ExpressionUUID->"29966768-acb0-4ac8-bc53-0f7c85aee063"],
+Cell[21513, 572, 198, 5, 30, "Input",ExpressionUUID->"1d224e3b-de46-4718-8283-a97134bb772e"],
+Cell[CellGroupData[{
+Cell[21736, 581, 464, 12, 33, "Input",ExpressionUUID->"658b13fb-769c-495e-b2f9-8c680625f1e1"],
+Cell[22203, 595, 186, 5, 34, "Output",ExpressionUUID->"14eeb465-98a9-4b7a-8161-e3255d8efc16"]
+}, Open  ]],
+Cell[22404, 603, 508, 12, 35, "Text",ExpressionUUID->"6f291729-6743-4a12-bb98-bd6220ff4b89"],
+Cell[22915, 617, 190, 3, 35, "Text",ExpressionUUID->"66331c15-b1c5-4135-82da-4a5e2efd1e0c"],
+Cell[23108, 622, 232, 6, 30, "Input",ExpressionUUID->"0f072f4b-b7f3-41bd-bb95-35a4803a47f8"],
+Cell[23343, 630, 235, 6, 35, "Text",ExpressionUUID->"73e76b67-12bf-48f2-ba1f-846fe54f1e55"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23615, 641, 705, 11, 65, "Subchapter",ExpressionUUID->"352595e7-d0ae-4bbf-829a-1354efb2c59e",
+ CellTags->"Graphics and Graphics3D subchapter"],
+Cell[24323, 654, 497, 9, 58, "Text",ExpressionUUID->"a08637a1-7909-4c8d-bf69-7974370d78bb"],
+Cell[24823, 665, 198, 5, 30, "Input",ExpressionUUID->"247b3b4b-cf5f-404a-82e0-6e72ca8e55cc"],
+Cell[CellGroupData[{
+Cell[25046, 674, 434, 13, 30, "Input",ExpressionUUID->"b915061a-208e-4e24-8f8e-4f9400fd36b9"],
+Cell[25483, 689, 210, 5, 34, "Output",ExpressionUUID->"ca755bd9-93ca-4f65-9c29-c9f9767650f7"]
+}, Open  ]],
+Cell[25708, 697, 200, 5, 30, "Input",ExpressionUUID->"076fb91d-1ff4-4ed2-842c-d0aef4a94ea9"],
+Cell[CellGroupData[{
+Cell[25933, 706, 438, 13, 30, "Input",ExpressionUUID->"4177583e-55bb-4e43-9f87-3b6081754102"],
+Cell[26374, 721, 210, 5, 34, "Output",ExpressionUUID->"27b6026e-aa30-4410-9a4e-9caadd6b88cc"]
+}, Open  ]],
+Cell[26599, 729, 854, 14, 104, "Text",ExpressionUUID->"ae37a4cb-52f8-4b2e-9e06-26666db3e96b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27490, 748, 698, 11, 65, "Subchapter",ExpressionUUID->"52527a2b-7319-4530-84a3-f23f9c9a5a4d",
+ CellTags->"Graphics and Graphics3D subchapter"],
+Cell[28191, 761, 662, 14, 58, "Text",ExpressionUUID->"b02bc036-7509-4741-8c99-37c850584636"],
+Cell[CellGroupData[{
+Cell[28878, 779, 189, 4, 30, "Input",ExpressionUUID->"14c04aa6-bf87-4f94-a04a-47738c534046"],
+Cell[29070, 785, 140, 3, 34, "Output",ExpressionUUID->"cfc0d820-b0ba-4c16-a893-4f19058d2faa"]
+}, Open  ]],
+Cell[29225, 791, 237, 6, 35, "Text",ExpressionUUID->"5202237e-6266-48f8-9d62-896ca0be17e7"],
+Cell[CellGroupData[{
+Cell[29487, 801, 185, 4, 30, "Input",ExpressionUUID->"f70c1dbc-f655-4fbb-a2d6-5af132ae82f5"],
+Cell[29675, 807, 138, 3, 34, "Output",ExpressionUUID->"3aa3b1a2-00b8-480d-b127-5895ccb54901"]
+}, Open  ]],
+Cell[29828, 813, 419, 8, 35, "Text",ExpressionUUID->"7965d812-d58c-4896-bc34-b6776b962c84"],
+Cell[30250, 823, 556, 17, 54, "Input",ExpressionUUID->"bf35eab0-5c4c-4113-9a7f-9f5a0d581a4a"],
+Cell[CellGroupData[{
+Cell[30831, 844, 189, 4, 30, "Input",ExpressionUUID->"84193937-82ab-4a63-bdcf-48d071231d27"],
+Cell[31023, 850, 235, 4, 34, "Output",ExpressionUUID->"6e9d9a7f-2ac9-438f-aa02-0a794889b122"]
+}, Open  ]],
+Cell[31273, 857, 205, 3, 35, "Text",ExpressionUUID->"f9dffffa-5346-4808-9785-7d9f23bcd0ea"],
+Cell[CellGroupData[{
+Cell[31503, 864, 593, 17, 33, "Input",ExpressionUUID->"1827f7da-3abc-4d4a-b0b5-a305811d74af"],
+Cell[32099, 883, 1706, 36, 471, "Output",ExpressionUUID->"5ab4a4be-3dac-4773-ade6-38545dd46da5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33842, 924, 185, 4, 30, "Input",ExpressionUUID->"024c83b8-9136-4f54-abbe-5bc10a8a1067"],
+Cell[34030, 930, 138, 3, 34, "Output",ExpressionUUID->"0e5c401e-0893-4c41-a85c-5e626f9fade1"]
+}, Open  ]],
+Cell[34183, 936, 258, 6, 35, "Text",ExpressionUUID->"84f7130f-e335-426e-8015-b523f4575e06"],
+Cell[CellGroupData[{
+Cell[34466, 946, 1369, 42, 56, "Input",ExpressionUUID->"20495603-08c1-4997-ade1-06904b26a1d6"],
+Cell[35838, 990, 2405, 47, 577, "Output",ExpressionUUID->"a67ac67c-c4d0-4835-96e4-205b0a075278"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38280, 1042, 189, 4, 30, "Input",ExpressionUUID->"f3f54968-56ee-4764-af4b-26e4b479af48"],
+Cell[38472, 1048, 138, 3, 34, "Output",ExpressionUUID->"2d9c77a5-8a47-4fd9-b9f8-68bc212a9777"]
+}, Open  ]],
+Cell[38625, 1054, 294, 6, 35, "Text",ExpressionUUID->"65def62c-e54a-4f4c-8097-fea71c2b7d1e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38956, 1065, 774, 12, 65, "Subchapter",ExpressionUUID->"16bdd1fe-79d0-4b1f-b3be-3777cb7704d5",
+ CellTags->"Graphics and Graphics3D subchapter"],
+Cell[39733, 1079, 910, 16, 104, "Text",ExpressionUUID->"c60a0c84-26af-4969-b4fb-2353e49102dd"],
+Cell[40646, 1097, 177, 4, 30, "Input",ExpressionUUID->"ea97bbe2-a137-4ac0-89b4-98c33ede8987"],
+Cell[CellGroupData[{
+Cell[40848, 1105, 583, 13, 30, "Input",ExpressionUUID->"0834da49-cd9a-4f17-85df-b9d4be3a2457"],
+Cell[41434, 1120, 559, 13, 34, "Output",ExpressionUUID->"a24d2653-bdd2-4cc6-acec-d975c0531817"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42030, 1138, 381, 12, 33, "Input",ExpressionUUID->"a0d3ef89-ecaf-42e5-aee7-c0762f8d8e4c"],
+Cell[42414, 1152, 183, 4, 34, "Output",ExpressionUUID->"804913d9-447e-44e2-8930-14425db4624d"]
+}, Open  ]],
+Cell[42612, 1159, 178, 4, 30, "Input",ExpressionUUID->"cf8f807c-c783-4276-ace4-ebe06de60039"],
+Cell[CellGroupData[{
+Cell[42815, 1167, 386, 12, 33, "Input",ExpressionUUID->"a4da34c4-8406-4b8e-a616-0979ef03fc97"],
+Cell[43204, 1181, 189, 5, 34, "Output",ExpressionUUID->"e7c7f789-0702-4fb4-a805-0576405f614b"]
+}, Open  ]],
+Cell[43408, 1189, 336, 7, 35, "Text",ExpressionUUID->"5e5b6394-7058-41ef-8701-de0f0d72a469"],
+Cell[43747, 1198, 180, 4, 30, "Input",ExpressionUUID->"ba0309a6-d819-4365-a3e2-94e0d168aeb6"],
+Cell[CellGroupData[{
+Cell[43952, 1206, 351, 11, 30, "Input",ExpressionUUID->"682feb9e-f1cc-47dc-a2ba-2d31b64e46ae"],
+Cell[44306, 1219, 186, 5, 34, "Output",ExpressionUUID->"eb58b386-2361-44ac-94ab-2f9ddb77be7d"]
+}, Open  ]],
+Cell[44507, 1227, 178, 4, 30, "Input",ExpressionUUID->"214c62d3-704f-4a3d-ad05-f271aa31b097"],
+Cell[CellGroupData[{
+Cell[44710, 1235, 187, 4, 30, "Input",ExpressionUUID->"9589c851-419d-4911-a02f-ab022c4c6c9b"],
+Cell[44900, 1241, 559, 13, 34, "Output",ExpressionUUID->"a5566805-ff09-4839-81ae-0c5e15d30262"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[45496, 1259, 410, 12, 30, "Input",ExpressionUUID->"b8ebb5fc-5e4c-4e66-8fd0-163108e2d5bc"],
+Cell[45909, 1273, 186, 5, 34, "Output",ExpressionUUID->"bffe2ba1-fe25-4fbf-bba0-e967cfbcde34"]
+}, Open  ]],
+Cell[46110, 1281, 472, 9, 58, "Text",ExpressionUUID->"ae56946c-8572-4abe-bde3-0cb533a0d664"],
+Cell[46585, 1292, 177, 4, 30, "Input",ExpressionUUID->"f6d49331-6e67-4782-ad87-c078ba11b2d4"],
+Cell[CellGroupData[{
+Cell[46787, 1300, 824, 18, 30, "Input",ExpressionUUID->"a7008ed2-8e27-422c-baab-4d1aa7dcfec6"],
+Cell[47614, 1320, 507, 9, 34, "Output",ExpressionUUID->"c668c2d2-0cea-43eb-9d96-ac61d7c54548"]
+}, Open  ]],
+Cell[48136, 1332, 225, 5, 30, "Input",ExpressionUUID->"13b59b5d-d949-4ebf-9588-a7895b649cbc"],
+Cell[CellGroupData[{
+Cell[48386, 1341, 189, 4, 30, "Input",ExpressionUUID->"47d4b75f-61cc-43aa-abfc-8beb67d8dcc8"],
+Cell[48578, 1347, 683, 15, 34, "Output",ExpressionUUID->"06c8a2c8-67fa-4c6d-89aa-cd737c3bcb02"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49298, 1367, 660, 15, 30, "Input",ExpressionUUID->"d528b459-0aa4-430a-a3e3-762ff99c5c02"],
+Cell[49961, 1384, 360, 8, 34, "Output",ExpressionUUID->"14301839-7367-4f74-a670-68734979e6ae"]
+}, Open  ]],
+Cell[50336, 1395, 413, 10, 35, "Text",ExpressionUUID->"9b9eb25a-e145-434a-846d-f5dffd6e7cd5"],
+Cell[50752, 1407, 366, 7, 35, "Text",ExpressionUUID->"c6731ed2-2150-473e-a0f4-e09d9bee0f94"],
+Cell[CellGroupData[{
+Cell[51143, 1418, 255, 6, 30, "Input",ExpressionUUID->"6bbf5982-8417-412a-ba0e-e3f4f857e3b3"],
+Cell[51401, 1426, 419, 9, 33, "Message",ExpressionUUID->"91a3fbf3-3f29-4b12-85ca-59ed13ff9255"],
+Cell[51823, 1437, 172, 3, 34, "Output",ExpressionUUID->"2c6f03cc-a211-47ac-b54d-4170b67853c2"]
+}, Open  ]],
+Cell[52010, 1443, 183, 3, 35, "Text",ExpressionUUID->"f3c3a10f-e52f-4966-b161-afc7c918d968"],
+Cell[52196, 1448, 1106, 18, 89, "Section",ExpressionUUID->"11b1d935-1fe6-4e91-88c5-32b5f71e3856"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

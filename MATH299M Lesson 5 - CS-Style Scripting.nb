@@ -1,0 +1,898 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     34507,        890]
+NotebookOptionsPosition[     27378,        766]
+NotebookOutlinePosition[     27736,        782]
+CellTagsIndexPosition[     27693,        779]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "MATH299M/CMSC389W - Visualization through Mathematica\n",
+ StyleBox["Week 5: CS-Style Scripting: Conditionals, Loops, Block, Module",
+  FontColor->RGBColor[1, 0, 1]]
+}], "Title",
+ CellChangeTimes->{{3.744647416938683*^9, 3.744647456585989*^9}, {
+  3.7447156132762203`*^9, 3.744715632914377*^9}, {3.745456862418214*^9, 
+  3.745456871590144*^9}, {3.745456912966999*^9, 3.745456931813055*^9}, {
+  3.74545711403716*^9, 3.7454571224799347`*^9}, {3.7467302523389597`*^9, 
+  3.746730253735783*^9}, {3.7467303006813498`*^9, 3.746730329377681*^9}, {
+  3.74681701600445*^9, 3.74681701773531*^9}, {3.7472567381966667`*^9, 
+  3.747256750562051*^9}},ExpressionUUID->"d9f4ea97-b311-4f2d-b296-\
+866051d8c269"],
+
+Cell["\<\
+While Mathematica usually looks very functional, you can also code in a \
+Java/C style. Mathematica has all of the standard functions that you learn \
+when learning a new language, that is, conditionals and loops. We\
+\[CloseCurlyQuote]ll run through what these basic functions look like in \
+Mathematica, as well as some tools, Block and Module, for handling variable \
+scoping.\
+\>", "Text",
+ CellChangeTimes->{{3.747257691916131*^9, 
+  3.747257771078704*^9}},ExpressionUUID->"4bfdd3dc-9562-4eeb-9b38-\
+5e8bb2033bb6"],
+
+Cell[CellGroupData[{
+
+Cell["If", "Subchapter",
+ CellChangeTimes->{{3.746808840437894*^9, 3.746808850382905*^9}, {
+  3.7468089940584717`*^9, 3.746808994721573*^9}, {3.746816261344449*^9, 
+  3.746816262006813*^9}, {3.747257682348031*^9, 
+  3.747257682449286*^9}},ExpressionUUID->"55efdbd9-4a94-498a-b765-\
+67bd36a617ab"],
+
+Cell["\<\
+If takes two or three arguments: the first is an expression that evaluates to \
+a Boolean, the second is the output if the first argument is True, and the \
+optional third argument is the output if the first argument is False. If the \
+first argument is False and the third argument is omitted, the If function \
+returns Null.\
+\>", "Text",
+ CellChangeTimes->{{3.746816262746882*^9, 3.746816262910912*^9}, {
+  3.7468163854359703`*^9, 3.746816457368045*^9}, {3.746816531383847*^9, 
+  3.746816534546052*^9}, {3.747257773976679*^9, 
+  3.747257872897213*^9}},ExpressionUUID->"4289f362-5ec4-4389-abe4-\
+ee58796990e6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"2", "+", "2"}], "\[Equal]", "4"}], ",", 
+   "\"\<All is well with the world\>\"", ",", "\"\<Pigs fly\>\""}], "]"}]], \
+"Input",
+ CellChangeTimes->{{3.747257948598132*^9, 
+  3.747257959818631*^9}},ExpressionUUID->"bb005417-503a-4a37-ade3-\
+5850f513919d"],
+
+Cell[BoxData["\<\"All is well with the world\"\>"], "Output",
+ CellChangeTimes->{
+  3.747257960325914*^9},ExpressionUUID->"5951e454-1336-45ae-a9d8-\
+df266c5bb0a9"]
+}, Open  ]],
+
+Cell["\<\
+Notice that when a function evaluates to Null, it by default does not produce \
+any output. If we forcibly grab the value by Print-ing it though, we can see \
+it is Null.\
+\>", "Text",
+ CellChangeTimes->{{3.747257997872963*^9, 
+  3.747258036477166*^9}},ExpressionUUID->"4d87e495-a951-408c-9250-\
+789bccd7b628"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{"PrimeQ", "[", "4", "]"}], ",", "4"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"PrimeQ", "[", "4", "]"}], ",", "4"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.747257960913471*^9, 
+  3.747257995789915*^9}},ExpressionUUID->"a08e33e6-1f03-43d3-addb-\
+b6df8c3fb7e5"],
+
+Cell[BoxData["Null"], "Print",
+ CellChangeTimes->{{3.747257987549078*^9, 
+  3.747257996245988*^9}},ExpressionUUID->"86e22543-466e-4005-bb53-\
+2525c4fdfcc9"]
+}, Open  ]],
+
+Cell["\<\
+We execute multiple commands inside one of these If arguments by delimiting \
+with semicolons, just line in our normal coding. Just like in Java, C, etc., \
+inside the body of the conditional is a mini-verse of the usual environment.\
+\>", "Text",
+ CellChangeTimes->{{3.7472580382146997`*^9, 3.747258093793647*^9}, 
+   3.7472581400635643`*^9},ExpressionUUID->"fa4fb4b6-61db-42b3-b253-\
+ee3ab7896e52"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"y", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{"True", ",", 
+   RowBox[{
+    RowBox[{"x", "=", "3"}], ";", 
+    RowBox[{"y", "=", "4"}], ";"}], ",", 
+   RowBox[{"Print", "[", "\"\<How did we get here?\>\"", "]"}]}], 
+  "]"}], "\[IndentingNewLine]", "x", "\[IndentingNewLine]", "y"}], "Input",
+ CellChangeTimes->{{3.747258095506489*^9, 
+  3.7472581265048637`*^9}},ExpressionUUID->"4108d1b5-6ed5-44a8-aeaf-\
+06207dce1739"],
+
+Cell[BoxData["3"], "Output",
+ CellChangeTimes->{
+  3.747258126750308*^9},ExpressionUUID->"65869b4b-8b13-445a-8549-\
+fd0b66032c8f"],
+
+Cell[BoxData["4"], "Output",
+ CellChangeTimes->{
+  3.747258126754319*^9},ExpressionUUID->"7b22c2c7-b231-4e23-9012-\
+827a47729ce4"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Which", "Subchapter",
+ CellChangeTimes->{{3.746808840437894*^9, 3.746808850382905*^9}, {
+  3.7468089940584717`*^9, 3.746808994721573*^9}, {3.746816261344449*^9, 
+  3.746816262006813*^9}, {3.747257682348031*^9, 3.747257682449286*^9}, {
+  3.7472602297047977`*^9, 
+  3.747260230503961*^9}},ExpressionUUID->"06a94e1a-09f3-455b-9926-\
+a83673488e6a"],
+
+Cell["\<\
+Which is our if-else; it takes an even number of arguments, alternating \
+between a Boolean condition and a body for what to do in that case, it\
+\[CloseCurlyQuote]ll just into the first body for which the corresponding \
+condition is true.\
+\>", "Text",
+ CellChangeTimes->{{3.747260231928461*^9, 
+  3.747260284429488*^9}},ExpressionUUID->"c788db41-33b8-49c3-9692-\
+f907e47b51f9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "6"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Which", "[", 
+  RowBox[{
+   RowBox[{"PrimeQ", "[", "x", "]"}], ",", "\"\<Your number is Prime\>\"", 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"x", "<", "0"}], ",", "\"\<Your number is negative\>\"", ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"EvenQ", "[", "x", "]"}], ",", "\"\<Your number is even\>\"", ",", 
+   "\[IndentingNewLine]", "True", ",", 
+   "\"\<This condition is always true ofc, but if a previous condition was \
+true, we'll never get here\>\"", ",", "\[IndentingNewLine]", "False", ",", 
+   "\"\<Just to show the last condition need not be true - we can get through \
+w/o any of this stuff working\>\""}], "\[IndentingNewLine]", "]"}]}], "Input",\
+
+ CellChangeTimes->{{3.7472602853339577`*^9, 3.747260382546652*^9}, {
+  3.747260567123107*^9, 
+  3.747260570266344*^9}},ExpressionUUID->"cca4a9da-9671-4e90-a5ea-\
+8811dc7b86d0"],
+
+Cell[BoxData["\<\"Your number is even\"\>"], "Output",
+ CellChangeTimes->{3.74726038547865*^9, 3.747260450555312*^9, 
+  3.747260570700139*^9},ExpressionUUID->"2c67d141-5903-4c3b-9e8c-\
+698ca504cf52"]
+}, Open  ]],
+
+Cell["\<\
+Just like If w/o a third argument, if we don\[CloseCurlyQuote]t get a \
+condition satisfied, Which returns Null. You can tell it returns Null b/c no \
+output is generated despite not using a semicolon:\
+\>", "Text",
+ CellChangeTimes->{{3.747260575585517*^9, 
+  3.747260643007113*^9}},ExpressionUUID->"962eb6b7-9c74-4aff-82cd-\
+3623a9130d74"],
+
+Cell[BoxData[
+ RowBox[{"Which", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"2", "+", "2"}], "\[Equal]", "5"}], ",", "\"\<Oh no\>\"", ",", 
+   RowBox[{"0", ">", "1"}], ",", "\"\<That would be bad\>\"", ",", 
+   RowBox[{"5", ">", "\[Infinity]"}], ",", "\"\<Black hole appears\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.747260643680912*^9, 
+  3.7472606737911863`*^9}},ExpressionUUID->"bc104e8f-fa43-45c5-a7f9-\
+dd3eb124e44a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Switch", "Subchapter",
+ CellChangeTimes->{{3.746808840437894*^9, 3.746808850382905*^9}, {
+  3.7468089940584717`*^9, 3.746808994721573*^9}, {3.746816261344449*^9, 
+  3.746816262006813*^9}, {3.747257682348031*^9, 3.747257682449286*^9}, {
+  3.7472602297047977`*^9, 3.747260230503961*^9}, {3.747262458494507*^9, 
+  3.747262459845351*^9}},ExpressionUUID->"d00b1d46-e20b-4506-a1e8-\
+c964b71d5271"],
+
+Cell["\<\
+Switch takes 2n+1 arguments, the first is a variable, and the rest our \
+alternating between a case for what that value equals and the what the body \
+is in that case. As usual, returns Null if no condition is met.\
+\>", "Text",
+ CellChangeTimes->{{3.747262460895213*^9, 3.74726250522749*^9}, {
+  3.747262634291233*^9, 
+  3.747262647330454*^9}},ExpressionUUID->"7caa541f-573d-413b-9ca2-\
+ed200e91512c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Switch", "[", 
+  RowBox[{
+   RowBox[{"Mod", "[", 
+    RowBox[{
+     SuperscriptBox["127", "92108"], ",", "5"}], "]"}], ",", "0", ",", 
+   "\"\<Wow, it's divisible by 5\>\"", ",", "1", ",", "\"\<So close\>\"", ",",
+    "2", ",", "\"\<Uninteresting\>\"", ",", "3", ",", 
+   "\"\<Three leftover\>\"", ",", "4", ",", "\"\<Eyy pretty close\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.747262501909594*^9, 
+  3.7472626101446877`*^9}},ExpressionUUID->"03c12fd8-5c3d-4cc6-9161-\
+8447dd7ca546"],
+
+Cell[BoxData["\<\"So close\"\>"], "Output",
+ CellChangeTimes->{3.747262560888692*^9, 
+  3.747262610605311*^9},ExpressionUUID->"5e1781da-6d9c-4273-9006-\
+f273903d592c"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["For", "Subchapter",
+ CellChangeTimes->{{3.746808840437894*^9, 3.746808850382905*^9}, {
+  3.7468089940584717`*^9, 3.746808994721573*^9}, {3.746816261344449*^9, 
+  3.746816262006813*^9}, {3.747257682348031*^9, 3.747257682449286*^9}, {
+  3.7472602297047977`*^9, 3.747260230503961*^9}, {3.747262458494507*^9, 
+  3.747262459845351*^9}, {3.747262665554512*^9, 
+  3.74726267099485*^9}},ExpressionUUID->"9f3c6080-0883-4d41-86d2-\
+dd8562ded4b9"],
+
+Cell["\<\
+There\[CloseCurlyQuote]s nothing tricky with the For function, it looks just \
+like Java - first argument is a variable set to an initial value, second \
+argument is a bound on that variable as a condition to continue looping, \
+third argument is an incrementor for that variable, and the fourth argument \
+is the body of the loop. What is different than Java is that our For is a \
+function and returns Null, as all functions that don\[CloseCurlyQuote]t \
+typically return things do in Mathematica.\
+\>", "Text",
+ CellChangeTimes->{{3.747262671763418*^9, 3.747262790089617*^9}, {
+  3.747262986502589*^9, 
+  3.747263021913275*^9}},ExpressionUUID->"009e3e52-aa3c-471e-a2ee-\
+9ff33d24c61d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "\[LessEqual]", "5"}], ",", 
+   RowBox[{"i", "++"}], ",", 
+   RowBox[{
+    RowBox[{"j", "=", 
+     SuperscriptBox["i", "2"]}], ";", 
+    RowBox[{"Print", "[", "j", "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.747262791396014*^9, 
+  3.747262820375824*^9}},ExpressionUUID->"c45a1b89-c48f-4709-bfc2-\
+8d0d3ac0796b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["1"], "Print",
+ CellChangeTimes->{{3.747262817856793*^9, 
+  3.747262820668037*^9}},ExpressionUUID->"efeb63c2-6422-4913-babf-\
+66884510ec69"],
+
+Cell[BoxData["4"], "Print",
+ CellChangeTimes->{{3.747262817856793*^9, 
+  3.747262820676442*^9}},ExpressionUUID->"18401ec7-f5a5-4224-a07b-\
+f42d09572613"],
+
+Cell[BoxData["9"], "Print",
+ CellChangeTimes->{{3.747262817856793*^9, 
+  3.747262820686264*^9}},ExpressionUUID->"b03f1160-8ecb-49d0-bb58-\
+aacb1e221245"],
+
+Cell[BoxData["16"], "Print",
+ CellChangeTimes->{{3.747262817856793*^9, 
+  3.747262820689783*^9}},ExpressionUUID->"efcbe258-034e-4d6c-8c83-\
+38b662548164"],
+
+Cell[BoxData["25"], "Print",
+ CellChangeTimes->{{3.747262817856793*^9, 
+  3.74726282069359*^9}},ExpressionUUID->"e3063950-b6c2-4829-8b71-\
+66bdd7f61b53"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+Something to watch our for is not suppressing the For loop, that is, not \
+putting a semicolon after it. It may seem like it doesn\[CloseCurlyQuote]t \
+need one since usually it\[CloseCurlyQuote]s not producing an output, but is \
+indeed creating an output, it just doesn\[CloseCurlyQuote]t print it if it\
+\[CloseCurlyQuote]s Null. Here\[CloseCurlyQuote]s an example of this causing \
+a weird bug:\
+\>", "Text",
+ CellChangeTimes->{{3.747262827196066*^9, 
+  3.747262886171721*^9}},ExpressionUUID->"7b70592b-9c41-4973-84ff-\
+884ab2a8cc5e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{"x", ">", "0"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"i", "=", "1"}], ",", 
+      RowBox[{"i", "\[LessEqual]", "2"}], ",", 
+      RowBox[{"i", "++"}], ",", 
+      RowBox[{"x", "=", 
+       RowBox[{
+        SuperscriptBox["x", 
+         RowBox[{"Sqrt", "[", "x", "]"}]], "//", "N"}]}]}], "]"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", 
+      SuperscriptBox["x", "2"], ",", 
+      SuperscriptBox["x", "3"]}], "}"}]}]}], "\[IndentingNewLine]", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.747262887229705*^9, 3.747262950862569*^9}, {
+  3.7472630277072287`*^9, 
+  3.747263106046726*^9}},ExpressionUUID->"4609d0ac-3ff2-4a57-9200-\
+c28b8ee08377"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"137.99887932320183`", " ", "Null"}], ",", 
+   RowBox[{"19043.690694459623`", " ", "Null"}], ",", 
+   RowBox[{"2.6280079740131153`*^6", " ", "Null"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.747263038927744*^9, 3.7472630598849077`*^9}, {
+  3.747263093324109*^9, 
+  3.747263106508259*^9}},ExpressionUUID->"81f5c6d1-7dc7-4f22-8dc2-\
+f0571c6a8071"]
+}, Open  ]],
+
+Cell["\<\
+What\[CloseCurlyQuote]s with all the Nulls? It may seem like we were done \
+with the For loop, but if you look closely you\[CloseCurlyQuote]ll see that \
+the new line was read as a space, and thus means multiplication; what really \
+happened was the For loop was run and then multiplied to the list we were \
+returning, so our list of numbers was multiplied by Null, which was \
+distributed to each term.\
+\>", "Text",
+ CellChangeTimes->{{3.7472631097004433`*^9, 
+  3.747263176229752*^9}},ExpressionUUID->"4aed5867-3ce7-4825-841c-\
+7c74cb1a8155"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.747263179110564*^9, 
+  3.7472631799467783`*^9}},ExpressionUUID->"f0eaf6d1-d3a9-4c36-8994-\
+8f85bbd829d5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["While", "Subchapter",
+ CellChangeTimes->{{3.746808840437894*^9, 3.746808850382905*^9}, {
+  3.7468089940584717`*^9, 3.746808994721573*^9}, {3.746816261344449*^9, 
+  3.746816262006813*^9}, {3.747257682348031*^9, 3.747257682449286*^9}, {
+  3.7472602297047977`*^9, 3.747260230503961*^9}, {3.747262458494507*^9, 
+  3.747262459845351*^9}, {3.747262665554512*^9, 3.74726267099485*^9}, {
+  3.747263185516144*^9, 
+  3.747263187243202*^9}},ExpressionUUID->"6babc57b-069c-4cd7-88eb-\
+2cda02d46e35"],
+
+Cell[TextData[{
+ "While takes in two arguments, the first is an expression that evaluates to \
+a Boolean, which tells it to keep going or not, and the second argument is \
+the body of the loop. While has the same behaviour of returning Null. \
+Important note: If the condition in the first argument becomes False during a \
+loop, While does ",
+ StyleBox["not",
+  FontSlant->"Italic"],
+ " hop out of the loop, it finishes it through."
+}], "Text",
+ CellChangeTimes->{{3.747263188421328*^9, 
+  3.747263271600741*^9}},ExpressionUUID->"9171c010-142c-4792-959a-\
+57ed74671829"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "60000000000000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"n", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"While", "[", 
+  RowBox[{
+   RowBox[{"x", ">=", "2"}], ",", 
+   RowBox[{
+    RowBox[{"x", "=", 
+     RowBox[{"Sqrt", "[", "x", "]"}]}], ";", 
+    RowBox[{"n", "++"}], ";"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"x", "//", "N"}], "\[IndentingNewLine]", "n"}], "Input",
+ CellChangeTimes->{{3.747263272634767*^9, 
+  3.7472633936612473`*^9}},ExpressionUUID->"d3843d59-1234-44e8-be25-\
+235ad643e3f5"],
+
+Cell[BoxData["1.6416614999642705`"], "Output",
+ CellChangeTimes->{{3.7472633652906933`*^9, 
+  3.7472633950631847`*^9}},ExpressionUUID->"5974dfdc-56a3-4a6e-86ac-\
+ba42478d275d"],
+
+Cell[BoxData["6"], "Output",
+ CellChangeTimes->{{3.7472633652906933`*^9, 
+  3.747263395071433*^9}},ExpressionUUID->"57f9a75e-27dd-415f-b71f-\
+73856c1890f0"]
+}, Open  ]],
+
+Cell["\<\
+Wow, apparently 60 trillion only needs to have its square root taken 6 times \
+to be less than 2.\
+\>", "Text",
+ CellChangeTimes->{{3.747263399923389*^9, 
+  3.7472634313797913`*^9}},ExpressionUUID->"51bf3925-7469-48dc-988b-\
+a843bf3409e9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Block and Module", "Subchapter",
+ CellChangeTimes->{{3.746808840437894*^9, 3.746808850382905*^9}, {
+  3.7468089940584717`*^9, 3.746808994721573*^9}, {3.746816261344449*^9, 
+  3.746816262006813*^9}, {3.747257682348031*^9, 3.747257682449286*^9}, {
+  3.7472602297047977`*^9, 3.747260230503961*^9}, {3.747262458494507*^9, 
+  3.747262459845351*^9}, {3.747262665554512*^9, 3.74726267099485*^9}, {
+  3.747263185516144*^9, 3.747263187243202*^9}, {3.747263456172822*^9, 
+  3.747263461099977*^9}},ExpressionUUID->"61893a2e-14d1-4c99-87a8-\
+c1547ec5563c"],
+
+Cell["\<\
+In Mathematica all variables typed in a cell by themselves are global, \
+obnoxiously global, in fact they span notebooks if you happen to have \
+multiple open on your computer at the same time. The iterator variable inside \
+a For or While loop is local to that loop, but that\[CloseCurlyQuote]s about \
+it as far as local variables you\[CloseCurlyQuote]ve seen so far. For any \
+given cell if you want to have an isolated set of variables, either because \
+you don\[CloseCurlyQuote]t want to use the variables from elsewhere in the \
+notebook and/or because you don\[CloseCurlyQuote]t want this cell to \
+interfere elsewhere, you can write the whole code inside of the Module \
+function. Module takes two arguments, the first is a list of variables that \
+will be local variables for the body, which is the second argument. Here\
+\[CloseCurlyQuote]s an example:\
+\>", "Text",
+ CellChangeTimes->{{3.747263462077551*^9, 
+  3.747263656624484*^9}},ExpressionUUID->"0b010d5f-736b-4663-bf07-\
+ceb14e2e9fc3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", "x", "}"}], ",", 
+   RowBox[{"x", "=", "7"}]}], "]"}], "\[IndentingNewLine]", "x"}], "Input",
+ CellChangeTimes->{{3.747263657256713*^9, 
+  3.74726367990275*^9}},ExpressionUUID->"79cba9d0-3d7b-4f40-9403-\
+d98589947912"],
+
+Cell[BoxData["7"], "Output",
+ CellChangeTimes->{{3.747263672068316*^9, 
+  3.7472636803811274`*^9}},ExpressionUUID->"5cf139b3-1638-40f3-b479-\
+5b2c216d0cc3"],
+
+Cell[BoxData["5"], "Output",
+ CellChangeTimes->{{3.747263672068316*^9, 
+  3.7472636803885193`*^9}},ExpressionUUID->"ad45505f-3d93-48c2-9169-\
+c7e87b3baa71"]
+}, Open  ]],
+
+Cell["\<\
+As we can see, the x variable from outside of the Module was untouched. You \
+can also use the list in the first argument to set initial values for your \
+local variables:\
+\>", "Text",
+ CellChangeTimes->{{3.747263684477038*^9, 3.747263696861732*^9}, {
+  3.7472640595330067`*^9, 3.747264143140407*^9}, {3.747264822869907*^9, 
+  3.74726486196519*^9}},ExpressionUUID->"e76dbd34-efcf-4044-96ae-\
+38b2552fbc08"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"x", "=", "7"}], "}"}], ",", 
+   SuperscriptBox["x", "2"]}], "]"}], "\[IndentingNewLine]", "x"}], "Input",
+ CellChangeTimes->{{3.747264862903767*^9, 
+  3.747264890645154*^9}},ExpressionUUID->"878d68ab-999a-49dc-bcf8-\
+6d4043ac15ba"],
+
+Cell[BoxData["49"], "Output",
+ CellChangeTimes->{{3.7472648713930073`*^9, 
+  3.747264891007257*^9}},ExpressionUUID->"ab368b33-3e28-436d-bb87-\
+ac9578f8ac71"],
+
+Cell[BoxData["5"], "Output",
+ CellChangeTimes->{{3.7472648713930073`*^9, 
+  3.747264891020846*^9}},ExpressionUUID->"70eef8fa-bbf6-40df-96ea-\
+101049d5434a"]
+}, Open  ]],
+
+Cell["\<\
+To understand the difference between Block and Module, we need to introduce a \
+capability of Mathematica that we haven' t really used yet.You can describe \
+variables in terms of other variables, even if they' re not defined yet; this \
+reminds me of pointers in C :\
+\>", "Text",
+ CellChangeTimes->{{3.7472648503838577`*^9, 
+  3.7472648557750807`*^9}},ExpressionUUID->"31df4357-39c4-43ac-82ee-\
+7f235ebdbf81"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"x", ",", "y", ",", "z"}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "I", " ", "have", " ", "to", " ", "wipe", " ", "the", " ", "values", " ", 
+     "from", " ", "these", " ", "for", " ", "my", " ", "example", " ", "to", 
+     " ", "work"}], ",", " ", 
+    RowBox[{"really", " ", "just", " ", "from", " ", "x"}], ",", " ", 
+    RowBox[{"but", " ", "this", " ", 
+     RowBox[{"doesn", "'"}], "t", " ", "hurt"}]}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"y", "=", 
+   SuperscriptBox["x", "2"]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"z", "=", 
+   SuperscriptBox["y", "3"]}], ";"}], "\[IndentingNewLine]", "z"}], "Input",
+ CellChangeTimes->{{3.7472641441331472`*^9, 
+  3.7472642107142773`*^9}},ExpressionUUID->"043a67e5-46d5-47eb-8a24-\
+cd976724fe2a"],
+
+Cell[BoxData[
+ SuperscriptBox["x", "6"]], "Output",
+ CellChangeTimes->{{3.747264154744678*^9, 3.7472641827736197`*^9}, 
+   3.747264214060231*^9},ExpressionUUID->"efb60df8-e631-4fe8-a2e5-\
+2fe249e938f6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"x", "=", "3"}], ";"}], "\[IndentingNewLine]", "z"}], "Input",
+ CellChangeTimes->{{3.747264177873887*^9, 3.7472641804822693`*^9}, 
+   3.747264220241763*^9},ExpressionUUID->"ad10fdcc-76a7-4d9a-a582-\
+038fb61c197c"],
+
+Cell[BoxData["729"], "Output",
+ CellChangeTimes->{{3.747264180934703*^9, 3.747264185165245*^9}, {
+  3.7472642176365623`*^9, 
+  3.747264220602447*^9}},ExpressionUUID->"52c6bbf2-f33a-4d2d-ba59-\
+09ac5679afc2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"a", ",", "F", ",", "m", ",", "m1", ",", "m2", ",", "R"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"a", "=", 
+   RowBox[{"F", "/", "m"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"F", "=", 
+   RowBox[{"G", " ", "m1", " ", 
+    RowBox[{"m2", "/", 
+     SuperscriptBox["R", "2"]}]}]}], 
+  ";"}], "\[IndentingNewLine]", "a"}], "Input",
+ CellChangeTimes->{{3.747264233682404*^9, 3.7472643379266567`*^9}, {
+  3.747264426671554*^9, 
+  3.74726454236241*^9}},ExpressionUUID->"ae249d66-7261-4be0-b8be-\
+7020f5568361"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"G", " ", "m1", " ", "m2"}], 
+  RowBox[{"m", " ", 
+   SuperscriptBox["R", "2"]}]]], "Output",
+ CellChangeTimes->{{3.74726430260144*^9, 3.747264338979686*^9}, {
+  3.747264481921027*^9, 
+  3.747264542712607*^9}},ExpressionUUID->"b3e7941f-41ca-4c58-a83b-\
+f6c251cdca66"]
+}, Open  ]],
+
+Cell["\<\
+Module uses lexical scoping, meaning that it only uses local values for \
+symbols that explicitly occur in the body. Block however stores the values \
+that you deem local, and then temporarily re-sets them as what you say, \
+meaning any variables implicitly defined as your local variables are \
+temporarily changed as well, what is called dynamic scoping. Let\
+\[CloseCurlyQuote]s see an example:\
+\>", "Text",
+ CellChangeTimes->{{3.74726457941676*^9, 
+  3.747264706324329*^9}},ExpressionUUID->"a56c3010-5f5f-4f50-ab6b-\
+36c2c182a41a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"x", ",", "y"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"y", "=", 
+   SuperscriptBox["x", "2"]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", "=", "3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Here", ",", " ", 
+    RowBox[{
+    "the", " ", "x", " ", "that", " ", "y", " ", "is", " ", "defined", " ", 
+     "in", " ", "terms", " ", "of", " ", "is", " ", "untouched"}]}], " ", 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.747264703315091*^9, 3.747264742137289*^9}, {
+  3.74726480632862*^9, 3.747264806959203*^9}, {3.747264900595397*^9, 
+  3.747264924941227*^9}},ExpressionUUID->"6676993c-3661-4809-9c13-\
+43dfaeb6254f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3", ",", 
+   SuperscriptBox["x", "2"]}], "}"}]], "Output",
+ CellChangeTimes->{3.747264743457981*^9, 
+  3.747264907885336*^9},ExpressionUUID->"d1e7b821-c587-45fc-b98d-\
+e7c8a65425b0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", "=", "3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Here", ",", " ", 
+    RowBox[{"the", " ", "real", " ", "x"}], ",", " ", 
+    RowBox[{
+    "the", " ", "one", " ", "y", " ", "is", " ", "defined", " ", "in", " ", 
+     "terms", " ", "of"}], ",", " ", 
+    RowBox[{"is", " ", "actually", " ", "changed"}]}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"x", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "And", " ", "then", " ", "goes", " ", "back", " ", "to", " ", "its", " ", 
+     "old", " ", "value"}], " ", "-", " ", 
+    RowBox[{
+    "in", " ", "this", " ", "case", " ", "that", " ", "means", " ", "going", 
+     " ", "back", " ", "to", " ", "not", " ", "being", " ", "defined", " ", 
+     "yet"}]}], " ", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.7472649270823727`*^9, 
+  3.7472649913630877`*^9}},ExpressionUUID->"bcb70483-7377-4343-ac79-\
+675bd915596c"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3", ",", "9"}], "}"}]], "Output",
+ CellChangeTimes->{3.7472649547753553`*^9, 
+  3.7472649916483603`*^9},ExpressionUUID->"07ab3b3c-97f0-4fc1-b3d2-\
+45876e1f8cd5"],
+
+Cell[BoxData["x"], "Output",
+ CellChangeTimes->{3.7472649547753553`*^9, 
+  3.7472649916558933`*^9},ExpressionUUID->"6522cbd2-e689-4474-a280-\
+669d14dc3ab7"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Ajeet Gary - University of Maryland Experimental \
+Geometry Lab\nMATH299M/CMSC389W Fall 2018\nSeptember 29th, 2018",
+ FontFamily->"Calibri",
+ FontSize->14,
+ FontWeight->"Bold",
+ FontColor->RGBColor[0.9688410772869459, 0., 0.04487678339818418]]], "Section",\
+
+ CellChangeTimes->{{3.744720759361576*^9, 3.744720769654295*^9}, {
+  3.744720816813613*^9, 3.7447208223929443`*^9}, {3.744720856164445*^9, 
+  3.744720891474593*^9}, {3.744838141121181*^9, 3.744838147182004*^9}, {
+  3.7455144445849237`*^9, 3.745514445699499*^9}, {3.746816642442107*^9, 
+  3.7468166427118*^9}, {3.747256762707283*^9, 3.747256762817844*^9}},
+ TextAlignment->Right,ExpressionUUID->"e7c377c9-6cec-4d4d-9a13-8eaa02ce5aff"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1438, 810},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 712, 12, 160, "Title",ExpressionUUID->"d9f4ea97-b311-4f2d-b296-866051d8c269"],
+Cell[1295, 36, 529, 10, 58, "Text",ExpressionUUID->"4bfdd3dc-9562-4eeb-9b38-5e8bb2033bb6"],
+Cell[CellGroupData[{
+Cell[1849, 50, 296, 5, 65, "Subchapter",ExpressionUUID->"55efdbd9-4a94-498a-b765-67bd36a617ab"],
+Cell[2148, 57, 622, 11, 58, "Text",ExpressionUUID->"4289f362-5ec4-4389-abe4-ee58796990e6"],
+Cell[CellGroupData[{
+Cell[2795, 72, 324, 9, 30, InheritFromParent,ExpressionUUID->"bb005417-503a-4a37-ade3-5850f513919d"],
+Cell[3122, 83, 163, 3, 34, "Output",ExpressionUUID->"5951e454-1336-45ae-a9d8-df266c5bb0a9"]
+}, Open  ]],
+Cell[3300, 89, 320, 7, 35, "Text",ExpressionUUID->"4d87e495-a951-408c-9250-789bccd7b628"],
+Cell[CellGroupData[{
+Cell[3645, 100, 390, 11, 52, "Input",ExpressionUUID->"a08e33e6-1f03-43d3-addb-b6df8c3fb7e5"],
+Cell[4038, 113, 156, 3, 24, "Print",ExpressionUUID->"86e22543-466e-4005-bb53-2525c4fdfcc9"]
+}, Open  ]],
+Cell[4209, 119, 410, 7, 58, "Text",ExpressionUUID->"fa4fb4b6-61db-42b3-b253-ee3ab7896e52"],
+Cell[CellGroupData[{
+Cell[4644, 130, 555, 14, 115, "Input",ExpressionUUID->"4108d1b5-6ed5-44a8-aeaf-06207dce1739"],
+Cell[5202, 146, 130, 3, 34, "Output",ExpressionUUID->"65869b4b-8b13-445a-8549-fd0b66032c8f"],
+Cell[5335, 151, 130, 3, 34, "Output",ExpressionUUID->"7b22c2c7-b231-4e23-9012-827a47729ce4"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5514, 160, 350, 6, 65, "Subchapter",ExpressionUUID->"06a94e1a-09f3-455b-9926-a83673488e6a"],
+Cell[5867, 168, 390, 8, 35, "Text",ExpressionUUID->"c788db41-33b8-49c3-9692-f907e47b51f9"],
+Cell[CellGroupData[{
+Cell[6282, 180, 936, 19, 157, "Input",ExpressionUUID->"cca4a9da-9671-4e90-a5ea-8811dc7b86d0"],
+Cell[7221, 201, 199, 3, 34, "Output",ExpressionUUID->"2c67d141-5903-4c3b-9e8c-698ca504cf52"]
+}, Open  ]],
+Cell[7435, 207, 351, 7, 35, "Text",ExpressionUUID->"962eb6b7-9c74-4aff-82cd-3623a9130d74"],
+Cell[7789, 216, 427, 10, 30, "Input",ExpressionUUID->"bc104e8f-fa43-45c5-a7f9-dd3eb124e44a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8253, 231, 397, 6, 65, "Subchapter",ExpressionUUID->"d00b1d46-e20b-4506-a1e8-c964b71d5271"],
+Cell[8653, 239, 412, 8, 35, "Text",ExpressionUUID->"7caa541f-573d-413b-9ca2-ed200e91512c"],
+Cell[CellGroupData[{
+Cell[9090, 251, 514, 12, 33, "Input",ExpressionUUID->"03c12fd8-5c3d-4cc6-9161-8447dd7ca546"],
+Cell[9607, 265, 167, 3, 34, "Output",ExpressionUUID->"5e1781da-6d9c-4273-9006-f273903d592c"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9823, 274, 442, 7, 65, "Subchapter",ExpressionUUID->"9f3c6080-0883-4d41-86d2-dd8562ded4b9"],
+Cell[10268, 283, 698, 12, 81, "Text",ExpressionUUID->"009e3e52-aa3c-471e-a2ee-9ff33d24c61d"],
+Cell[CellGroupData[{
+Cell[10991, 299, 414, 12, 33, "Input",ExpressionUUID->"c45a1b89-c48f-4709-bfc2-8d0d3ac0796b"],
+Cell[CellGroupData[{
+Cell[11430, 315, 153, 3, 24, "Print",ExpressionUUID->"efeb63c2-6422-4913-babf-66884510ec69"],
+Cell[11586, 320, 153, 3, 24, "Print",ExpressionUUID->"18401ec7-f5a5-4224-a07b-f42d09572613"],
+Cell[11742, 325, 153, 3, 24, "Print",ExpressionUUID->"b03f1160-8ecb-49d0-bb58-aacb1e221245"],
+Cell[11898, 330, 154, 3, 24, "Print",ExpressionUUID->"efcbe258-034e-4d6c-8c83-38b662548164"],
+Cell[12055, 335, 153, 3, 24, "Print",ExpressionUUID->"e3063950-b6c2-4829-8b71-66bdd7f61b53"]
+}, Open  ]]
+}, Open  ]],
+Cell[12235, 342, 548, 10, 58, "Text",ExpressionUUID->"7b70592b-9c41-4973-84ff-884ab2a8cc5e"],
+Cell[CellGroupData[{
+Cell[12808, 356, 852, 25, 123, "Input",ExpressionUUID->"4609d0ac-3ff2-4a57-9200-c28b8ee08377"],
+Cell[13663, 383, 398, 9, 37, "Output",ExpressionUUID->"81f5c6d1-7dc7-4f22-8dc2-f0571c6a8071"]
+}, Open  ]],
+Cell[14076, 395, 556, 10, 58, "Text",ExpressionUUID->"4aed5867-3ce7-4825-841c-7c74cb1a8155"],
+Cell[14635, 407, 154, 3, 30, "Input",ExpressionUUID->"f0eaf6d1-d3a9-4c36-8994-8f85bbd829d5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14826, 415, 493, 8, 65, "Subchapter",ExpressionUUID->"6babc57b-069c-4cd7-88eb-2cda02d46e35"],
+Cell[15322, 425, 571, 12, 58, "Text",ExpressionUUID->"9171c010-142c-4792-959a-57ed74671829"],
+Cell[CellGroupData[{
+Cell[15918, 441, 573, 15, 115, "Input",ExpressionUUID->"d3843d59-1234-44e8-be25-235ad643e3f5"],
+Cell[16494, 458, 176, 3, 34, "Output",ExpressionUUID->"5974dfdc-56a3-4a6e-86ac-ba42478d275d"],
+Cell[16673, 463, 156, 3, 34, "Output",ExpressionUUID->"57f9a75e-27dd-415f-b71f-73856c1890f0"]
+}, Open  ]],
+Cell[16844, 469, 249, 6, 35, "Text",ExpressionUUID->"51bf3925-7469-48dc-988b-a843bf3409e9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17130, 480, 550, 8, 65, "Subchapter",ExpressionUUID->"61893a2e-14d1-4c99-87a8-c1547ec5563c"],
+Cell[17683, 490, 1012, 16, 104, "Text",ExpressionUUID->"0b010d5f-736b-4663-bf07-ceb14e2e9fc3"],
+Cell[CellGroupData[{
+Cell[18720, 510, 353, 9, 73, "Input",ExpressionUUID->"79cba9d0-3d7b-4f40-9403-d98589947912"],
+Cell[19076, 521, 156, 3, 34, "Output",ExpressionUUID->"5cf139b3-1638-40f3-b479-5b2c216d0cc3"],
+Cell[19235, 526, 156, 3, 34, "Output",ExpressionUUID->"ad45505f-3d93-48c2-9169-c7e87b3baa71"]
+}, Open  ]],
+Cell[19406, 532, 417, 8, 35, "Text",ExpressionUUID->"e76dbd34-efcf-4044-96ae-38b2552fbc08"],
+Cell[CellGroupData[{
+Cell[19848, 544, 380, 10, 75, "Input",ExpressionUUID->"878d68ab-999a-49dc-bcf8-6d4043ac15ba"],
+Cell[20231, 556, 157, 3, 34, "Output",ExpressionUUID->"ab368b33-3e28-436d-bb87-ac9578f8ac71"],
+Cell[20391, 561, 156, 3, 34, "Output",ExpressionUUID->"70eef8fa-bbf6-40df-96ea-101049d5434a"]
+}, Open  ]],
+Cell[20562, 567, 421, 8, 58, "Text",ExpressionUUID->"31df4357-39c4-43ac-82ee-7f235ebdbf81"],
+Cell[CellGroupData[{
+Cell[21008, 579, 869, 22, 94, "Input",ExpressionUUID->"043a67e5-46d5-47eb-8a24-cd976724fe2a"],
+Cell[21880, 603, 202, 4, 34, "Output",ExpressionUUID->"efb60df8-e631-4fe8-a2e5-2fe249e938f6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22119, 612, 248, 5, 52, "Input",ExpressionUUID->"ad10fdcc-76a7-4d9a-a582-038fb61c197c"],
+Cell[22370, 619, 207, 4, 34, "Output",ExpressionUUID->"52c6bbf2-f33a-4d2d-ba59-09ac5679afc2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22614, 628, 583, 16, 95, "Input",ExpressionUUID->"ae249d66-7261-4be0-b8be-7020f5568361"],
+Cell[23200, 646, 305, 8, 51, "Output",ExpressionUUID->"b3e7941f-41ca-4c58-a83b-f6c251cdca66"]
+}, Open  ]],
+Cell[23520, 657, 546, 10, 58, "Text",ExpressionUUID->"a56c3010-5f5f-4f50-ab6b-36c2c182a41a"],
+Cell[CellGroupData[{
+Cell[24091, 671, 848, 23, 73, "Input",ExpressionUUID->"6676993c-3661-4809-9c13-43dfaeb6254f"],
+Cell[24942, 696, 222, 6, 37, "Output",ExpressionUUID->"d1e7b821-c587-45fc-b98d-e7c8a65425b0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25201, 707, 1055, 28, 52, "Input",ExpressionUUID->"bcb70483-7377-4343-ac79-675bd915596c"],
+Cell[26259, 737, 201, 5, 34, "Output",ExpressionUUID->"07ab3b3c-97f0-4fc1-b3d2-45876e1f8cd5"],
+Cell[26463, 744, 156, 3, 34, "Output",ExpressionUUID->"6522cbd2-e689-4474-a280-669d14dc3ab7"]
+}, Open  ]],
+Cell[26634, 750, 716, 12, 89, "Section",ExpressionUUID->"e7c377c9-6cec-4d4d-9a13-8eaa02ce5aff"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
