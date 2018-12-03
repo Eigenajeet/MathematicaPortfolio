@@ -1,0 +1,1966 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     78507,       1958]
+NotebookOptionsPosition[     77552,       1919]
+NotebookOutlinePosition[     77911,       1935]
+CellTagsIndexPosition[     77868,       1932]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Single Loop on the Unit Square (Tiling Super-Imposed) and Torus\
+\>", "Title",
+ CellChangeTimes->{{3.737847492818819*^9, 3.737847528458355*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Graphics", "[", 
+           RowBox[{
+            RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot", "[", 
+           RowBox[{
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"t", "*", "q"}], "+", "c", "+", "hor"}], ",", 
+                   RowBox[{
+                    RowBox[{"p", "*", "t"}], "+", "b", "+", "ver"}]}], "}"}], 
+                 ",", 
+                 RowBox[{"{", 
+                  RowBox[{"hor", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"ver", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}]}], "]"}], 
+               ",", "1"}], "]"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", 
+              RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", "Black"}]}], "]"}]}], "]"}], ",", 
+        
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{"p", "*", "t"}], "+", 
+                   RowBox[{"b", "*", "2", "*", "\[Pi]"}]}], "]"}]}], ")"}], 
+               "*", 
+               RowBox[{"Cos", "[", 
+                RowBox[{
+                 RowBox[{"q", "*", "t"}], "+", 
+                 RowBox[{"c", "*", "2", "*", "\[Pi]"}]}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{"p", "*", "t"}], "+", 
+                   RowBox[{"b", "*", "2", "*", "\[Pi]"}]}], "]"}]}], ")"}], 
+               "*", 
+               RowBox[{"Sin", "[", 
+                RowBox[{
+                 RowBox[{"q", "*", "t"}], "+", 
+                 RowBox[{"c", "*", "2", "*", "\[Pi]"}]}], "]"}]}], ",", 
+              RowBox[{"Sin", "[", 
+               RowBox[{
+                RowBox[{"p", "*", "t"}], "+", 
+                RowBox[{"b", "*", "2", "*", "\[Pi]"}]}], "]"}]}], "}"}], ",", 
+            
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", 
+              RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"Thickness", "[", ".01", "]"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{"Sin", "[", "\[Phi]", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Theta]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Phi]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"Mesh", "\[Rule]", "None"}], ",", 
+            RowBox[{"PlotPoints", "\[Rule]", "25"}]}], "]"}]}], "]"}]}], 
+       "}"}], "}"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "1000"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"p", ",", "1"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"q", ",", "1"}], "}"}], ",", "0", ",", "5", ",", "1"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"b", ",", "0", ",", "\"\<y-shift\>\""}], "}"}], ",", "0", ",", 
+     "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"c", ",", "0", ",", "\"\<x-shift\>\""}], "}"}], ",", "0", ",", 
+     "1"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.737847492818819*^9, 3.737847505091916*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`b$$ = 0, $CellContext`c$$ = 
+    0, $CellContext`p$$ = 4, $CellContext`q$$ = 3, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`p$$], 1}, -5, 5, 1}, {{
+       Hold[$CellContext`q$$], 1}, 0, 5, 1}, {{
+       Hold[$CellContext`b$$], 0, "y-shift"}, 0, 1}, {{
+       Hold[$CellContext`c$$], 0, "x-shift"}, 0, 1}}, Typeset`size$$ = {
+    1000., {259., 263.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`p$43869$$ = 
+    0, $CellContext`q$43870$$ = 0, $CellContext`b$43871$$ = 
+    0, $CellContext`c$43872$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`b$$ = 0, $CellContext`c$$ = 
+        0, $CellContext`p$$ = 1, $CellContext`q$$ = 1}, "ControllerVariables" :> {
+        Hold[$CellContext`p$$, $CellContext`p$43869$$, 0], 
+        Hold[$CellContext`q$$, $CellContext`q$43870$$, 0], 
+        Hold[$CellContext`b$$, $CellContext`b$43871$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$43872$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> GraphicsGrid[{{
+          Show[
+           Graphics[AspectRatio -> 1, PlotRange -> {{0, 1}, {0, 1}}], 
+           ParametricPlot[
+            Evaluate[
+             Flatten[
+              
+              Table[{$CellContext`t $CellContext`q$$ + $CellContext`c$$ + \
+$CellContext`hor, $CellContext`p$$ $CellContext`t + $CellContext`b$$ + \
+$CellContext`ver}, {$CellContext`hor, -5, 5, 1}, {$CellContext`ver, -5, 5, 
+                1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> Black]], 
+          Show[
+           
+           ParametricPlot3D[{(2 + 
+              Cos[$CellContext`p$$ $CellContext`t + $CellContext`b$$ 2 Pi]) 
+             Cos[$CellContext`q$$ $CellContext`t + $CellContext`c$$ 2 Pi], (2 + 
+              Cos[$CellContext`p$$ $CellContext`t + $CellContext`b$$ 2 Pi]) 
+             Sin[$CellContext`q$$ $CellContext`t + $CellContext`c$$ 2 Pi], 
+             
+             Sin[$CellContext`p$$ $CellContext`t + $CellContext`b$$ 2 
+               Pi]}, {$CellContext`t, 0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> 
+            Thickness[0.01]], 
+           
+           ParametricPlot3D[{(2 + Cos[$CellContext`\[Phi]]) 
+             Cos[$CellContext`\[Theta]], (2 + Cos[$CellContext`\[Phi]]) 
+             Sin[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Phi]]}, {$CellContext`\[Theta], 0, 2 
+             Pi}, {$CellContext`\[Phi], 0, 2 Pi}, Mesh -> None, PlotPoints -> 
+            25]]}}, ImageSize -> 1000], 
+      "Specifications" :> {{{$CellContext`p$$, 1}, -5, 5, 
+         1}, {{$CellContext`q$$, 1}, 0, 5, 
+         1}, {{$CellContext`b$$, 0, "y-shift"}, 0, 
+         1}, {{$CellContext`c$$, 0, "x-shift"}, 0, 1}}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1293., {288., 294.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.7378474985448236`*^9, 3.7378998429459248`*^9, 
+  3.738603056237739*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Three Loops on the Unit Square (Tiling Super-Imposed) and Torus\
+\>", "Title",
+ CellChangeTimes->{{3.737847419187201*^9, 3.7378474549230423`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Graphics", "[", 
+           RowBox[{
+            RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot", "[", 
+           RowBox[{
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "1"]}], "+", 
+                    SubscriptBox["c", "1"], "+", "hor"}], ",", 
+                   RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "1"], "*", "t"}], "+", 
+                    SubscriptBox["b", "1"], "+", "ver"}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"hor", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"ver", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}]}], "]"}], 
+               ",", "1"}], "]"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", 
+              RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", "Red"}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot", "[", 
+           RowBox[{
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "2"]}], "+", 
+                    SubscriptBox["c", "2"], "+", "hor"}], ",", 
+                   RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "2"], "*", "t"}], "+", 
+                    SubscriptBox["b", "2"], "+", "ver"}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"hor", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"ver", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}]}], "]"}], 
+               ",", "1"}], "]"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", 
+              RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", "Blue"}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot", "[", 
+           RowBox[{
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "3"]}], "+", 
+                    SubscriptBox["c", "3"], "+", "hor"}], ",", 
+                   RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "3"], "*", "t"}], "+", 
+                    SubscriptBox["b", "3"], "+", "ver"}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"hor", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"ver", ",", 
+                   RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}]}], "]"}], 
+               ",", "1"}], "]"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", 
+              RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", "Green"}]}], "]"}]}], "]"}], ",", 
+        
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{
+                    SubscriptBox["p", "1"], "*", "t"}], "+", 
+                   RowBox[{
+                    SubscriptBox["b", "1"], "*", "2", "*", "\[Pi]"}]}], 
+                  "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["q", "1"], "*", "t"}], "+", 
+                 RowBox[{
+                  SubscriptBox["c", "1"], "*", "2", "*", "\[Pi]"}]}], "]"}]}],
+               ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{
+                    SubscriptBox["p", "1"], "*", "t"}], "+", 
+                   RowBox[{
+                    SubscriptBox["b", "1"], "*", "2", "*", "\[Pi]"}]}], 
+                  "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["q", "1"], "*", "t"}], "+", 
+                 RowBox[{
+                  SubscriptBox["c", "1"], "*", "2", "*", "\[Pi]"}]}], "]"}]}],
+               ",", 
+              RowBox[{"Sin", "[", 
+               RowBox[{
+                RowBox[{
+                 SubscriptBox["p", "1"], "*", "t"}], "+", 
+                RowBox[{
+                 SubscriptBox["b", "1"], "*", "2", "*", "\[Pi]"}]}], "]"}]}], 
+             "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", 
+              RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Thickness", "[", ".01", "]"}], ",", "Red"}], 
+              "}"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{
+                    SubscriptBox["p", "2"], "*", "t"}], "+", 
+                   RowBox[{
+                    SubscriptBox["b", "2"], "*", "2", "*", "\[Pi]"}]}], 
+                  "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["q", "2"], "*", "t"}], "+", 
+                 RowBox[{
+                  SubscriptBox["c", "2"], "*", "2", "*", "\[Pi]"}]}], "]"}]}],
+               ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{
+                    SubscriptBox["p", "2"], "*", "t"}], "+", 
+                   RowBox[{
+                    SubscriptBox["b", "2"], "*", "2", "*", "\[Pi]"}]}], 
+                  "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["q", "2"], "*", "t"}], "+", 
+                 RowBox[{
+                  SubscriptBox["c", "2"], "*", "2", "*", "\[Pi]"}]}], "]"}]}],
+               ",", 
+              RowBox[{"Sin", "[", 
+               RowBox[{
+                RowBox[{
+                 SubscriptBox["p", "2"], "*", "t"}], "+", 
+                RowBox[{
+                 SubscriptBox["b", "2"], "*", "2", "*", "\[Pi]"}]}], "]"}]}], 
+             "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", 
+              RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Thickness", "[", ".01", "]"}], ",", "Blue"}], 
+              "}"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{
+                    SubscriptBox["p", "3"], "*", "t"}], "+", 
+                   RowBox[{
+                    SubscriptBox["b", "3"], "*", "2", "*", "\[Pi]"}]}], 
+                  "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["q", "3"], "*", "t"}], "+", 
+                 RowBox[{
+                  SubscriptBox["c", "3"], "*", "2", "*", "\[Pi]"}]}], "]"}]}],
+               ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", 
+                  RowBox[{
+                   RowBox[{
+                    SubscriptBox["p", "3"], "*", "t"}], "+", 
+                   RowBox[{
+                    SubscriptBox["b", "3"], "*", "2", "*", "\[Pi]"}]}], 
+                  "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["q", "3"], "*", "t"}], "+", 
+                 RowBox[{
+                  SubscriptBox["c", "3"], "*", "2", "*", "\[Pi]"}]}], "]"}]}],
+               ",", 
+              RowBox[{"Sin", "[", 
+               RowBox[{
+                RowBox[{
+                 SubscriptBox["p", "3"], "*", "t"}], "+", 
+                RowBox[{
+                 SubscriptBox["b", "3"], "*", "2", "*", "\[Pi]"}]}], "]"}]}], 
+             "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", 
+              RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Thickness", "[", ".01", "]"}], ",", "Green"}], 
+              "}"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{"Sin", "[", "\[Phi]", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Theta]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Phi]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"Mesh", "\[Rule]", "None"}], ",", 
+            RowBox[{"PlotPoints", "\[Rule]", "25"}]}], "]"}]}], "]"}]}], 
+       "}"}], "}"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "1000"}]}], "]"}], ",", 
+   RowBox[{"Style", "[", 
+    RowBox[{"\"\<Red\>\"", ",", "Red", ",", "Bold"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["p", "1"], ",", "1"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["q", "1"], ",", "0"}], "}"}], ",", "0", ",", "5", ",", 
+     "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["b", "1"], ",", "0", ",", "\"\<y-shift\>\""}], "}"}], ",",
+      "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["c", "1"], ",", "0", ",", "\"\<x-shift\>\""}], "}"}], ",",
+      "0", ",", "1"}], "}"}], ",", "Delimiter", ",", 
+   RowBox[{"Style", "[", 
+    RowBox[{"\"\<Blue\>\"", ",", "Blue", ",", "Bold"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["p", "2"], ",", "0"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["q", "2"], ",", "1"}], "}"}], ",", "0", ",", "5", ",", 
+     "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["b", "2"], ",", "0", ",", "\"\<y-shift\>\""}], "}"}], ",",
+      "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["c", "2"], ",", "0", ",", "\"\<x-shift\>\""}], "}"}], ",",
+      "0", ",", "1"}], "}"}], ",", "Delimiter", ",", 
+   RowBox[{"Style", "[", 
+    RowBox[{"\"\<Green\>\"", ",", "Green", ",", "Bold"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["p", "3"], ",", "1"}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "5", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["q", "3"], ",", "1"}], "}"}], ",", "0", ",", "5", ",", 
+     "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["b", "3"], ",", "0", ",", "\"\<y-shift\>\""}], "}"}], ",",
+      "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["c", "3"], ",", "0", ",", "\"\<x-shift\>\""}], "}"}], ",",
+      "0", ",", "1"}], "}"}], ",", "Delimiter", ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.737847419187201*^9, 3.737847424273405*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`$10$$ = 0, $CellContext`$11$$ = 
+    1, $CellContext`$12$$ = 1, $CellContext`$13$$ = 0, $CellContext`$14$$ = 
+    0, $CellContext`$3$$ = 1, $CellContext`$4$$ = 4, $CellContext`$5$$ = 
+    0., $CellContext`$6$$ = 0, $CellContext`$7$$ = 0, $CellContext`$8$$ = 
+    1, $CellContext`$9$$ = 0, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[
+       Style["Red", 
+        RGBColor[1, 0, 0], Bold]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`$3$$], 1, 
+       RawBoxes[
+        SubscriptBox["p", "1"]]}, -5, 5, 1}, {{
+       Hold[$CellContext`$4$$], 0, 
+       RawBoxes[
+        SubscriptBox["q", "1"]]}, 0, 5, 1}, {{
+       Hold[$CellContext`$5$$], 0, "y-shift"}, 0, 1}, {{
+       Hold[$CellContext`$6$$], 0, "x-shift"}, 0, 1}, {
+      Hold[
+       Style["Blue", 
+        RGBColor[0, 0, 1], Bold]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`$7$$], 0, 
+       RawBoxes[
+        SubscriptBox["p", "2"]]}, -5, 5, 1}, {{
+       Hold[$CellContext`$8$$], 1, 
+       RawBoxes[
+        SubscriptBox["q", "2"]]}, 0, 5, 1}, {{
+       Hold[$CellContext`$9$$], 0, "y-shift"}, 0, 1}, {{
+       Hold[$CellContext`$10$$], 0, "x-shift"}, 0, 1}, {
+      Hold[
+       Style["Green", 
+        RGBColor[0, 1, 0], Bold]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`$11$$], 1, 
+       RawBoxes[
+        SubscriptBox["p", "3"]]}, -5, 5, 1}, {{
+       Hold[$CellContext`$12$$], 1, 
+       RawBoxes[
+        SubscriptBox["q", "3"]]}, 0, 5, 1}, {{
+       Hold[$CellContext`$13$$], 0, "y-shift"}, 0, 1}, {{
+       Hold[$CellContext`$14$$], 0, "x-shift"}, 0, 1}}, Typeset`size$$ = {
+    1000., {259., 263.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`$3$302$$ = 
+    0, $CellContext`$4$307$$ = 0, $CellContext`$5$308$$ = 
+    0, $CellContext`$6$309$$ = 0, $CellContext`$7$310$$ = 
+    0, $CellContext`$8$311$$ = 0, $CellContext`$9$312$$ = 
+    0, $CellContext`$10$313$$ = 0, $CellContext`$11$314$$ = 
+    0, $CellContext`$12$315$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`$10$$ = 0, $CellContext`$11$$ = 
+        1, $CellContext`$12$$ = 1, $CellContext`$13$$ = 0, $CellContext`$14$$ = 
+        0, $CellContext`$3$$ = 1, $CellContext`$4$$ = 0, $CellContext`$5$$ = 
+        0, $CellContext`$6$$ = 0, $CellContext`$7$$ = 0, $CellContext`$8$$ = 
+        1, $CellContext`$9$$ = 0}, "ControllerVariables" :> {
+        Hold[$CellContext`$3$$, $CellContext`$3$302$$, 0], 
+        Hold[$CellContext`$4$$, $CellContext`$4$307$$, 0], 
+        Hold[$CellContext`$5$$, $CellContext`$5$308$$, 0], 
+        Hold[$CellContext`$6$$, $CellContext`$6$309$$, 0], 
+        Hold[$CellContext`$7$$, $CellContext`$7$310$$, 0], 
+        Hold[$CellContext`$8$$, $CellContext`$8$311$$, 0], 
+        Hold[$CellContext`$9$$, $CellContext`$9$312$$, 0], 
+        Hold[$CellContext`$10$$, $CellContext`$10$313$$, 0], 
+        Hold[$CellContext`$11$$, $CellContext`$11$314$$, 0], 
+        Hold[$CellContext`$12$$, $CellContext`$12$315$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> GraphicsGrid[{{
+          Show[
+           Graphics[AspectRatio -> 1, PlotRange -> {{0, 1}, {0, 1}}], 
+           ParametricPlot[
+            Evaluate[
+             Flatten[
+              
+              Table[{$CellContext`t $CellContext`$4$$ + $CellContext`$6$$ + \
+$CellContext`hor, $CellContext`$3$$ $CellContext`t + $CellContext`$5$$ + \
+$CellContext`ver}, {$CellContext`hor, -5, 5, 1}, {$CellContext`ver, -5, 5, 
+                1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> Red], 
+           ParametricPlot[
+            Evaluate[
+             Flatten[
+              
+              Table[{$CellContext`t $CellContext`$8$$ + $CellContext`$10$$ + \
+$CellContext`hor, $CellContext`$7$$ $CellContext`t + $CellContext`$9$$ + \
+$CellContext`ver}, {$CellContext`hor, -5, 5, 1}, {$CellContext`ver, -5, 5, 
+                1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> Blue], 
+           ParametricPlot[
+            Evaluate[
+             Flatten[
+              
+              Table[{$CellContext`t $CellContext`$12$$ + $CellContext`$14$$ + \
+$CellContext`hor, $CellContext`$11$$ $CellContext`t + $CellContext`$13$$ + \
+$CellContext`ver}, {$CellContext`hor, -5, 5, 1}, {$CellContext`ver, -5, 5, 
+                1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> Green]], 
+          Show[
+           
+           ParametricPlot3D[{(2 + 
+              Cos[$CellContext`$3$$ $CellContext`t + ($CellContext`$5$$ 2) 
+                 Pi]) Cos[$CellContext`$4$$ $CellContext`t + \
+($CellContext`$6$$ 2) Pi], (2 + 
+              Cos[$CellContext`$3$$ $CellContext`t + ($CellContext`$5$$ 2) 
+                 Pi]) Sin[$CellContext`$4$$ $CellContext`t + \
+($CellContext`$6$$ 2) Pi], 
+             
+             Sin[$CellContext`$3$$ $CellContext`t + ($CellContext`$5$$ 2) 
+               Pi]}, {$CellContext`t, 0, (5 2) Pi}, PlotRange -> 4, PlotStyle -> {
+              Thickness[0.01], Red}], 
+           
+           ParametricPlot3D[{(2 + 
+              Cos[$CellContext`$7$$ $CellContext`t + ($CellContext`$9$$ 2) 
+                 Pi]) Cos[$CellContext`$8$$ $CellContext`t + \
+($CellContext`$10$$ 2) Pi], (2 + 
+              Cos[$CellContext`$7$$ $CellContext`t + ($CellContext`$9$$ 2) 
+                 Pi]) Sin[$CellContext`$8$$ $CellContext`t + \
+($CellContext`$10$$ 2) Pi], 
+             
+             Sin[$CellContext`$7$$ $CellContext`t + ($CellContext`$9$$ 2) 
+               Pi]}, {$CellContext`t, 0, (5 2) Pi}, PlotRange -> 4, PlotStyle -> {
+              Thickness[0.01], Blue}], 
+           
+           ParametricPlot3D[{(2 + 
+              Cos[$CellContext`$11$$ $CellContext`t + ($CellContext`$13$$ 2) 
+                 Pi]) Cos[$CellContext`$12$$ $CellContext`t + \
+($CellContext`$14$$ 2) Pi], (2 + 
+              Cos[$CellContext`$11$$ $CellContext`t + ($CellContext`$13$$ 2) 
+                 Pi]) Sin[$CellContext`$12$$ $CellContext`t + \
+($CellContext`$14$$ 2) Pi], 
+             
+             Sin[$CellContext`$11$$ $CellContext`t + ($CellContext`$13$$ 2) 
+               Pi]}, {$CellContext`t, 0, (5 2) Pi}, PlotRange -> 4, PlotStyle -> {
+              Thickness[0.01], Green}], 
+           
+           ParametricPlot3D[{(2 + Cos[$CellContext`\[Phi]]) 
+             Cos[$CellContext`\[Theta]], (2 + Cos[$CellContext`\[Phi]]) 
+             Sin[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Phi]]}, {$CellContext`\[Theta], 0, 2 
+             Pi}, {$CellContext`\[Phi], 0, 2 Pi}, Mesh -> None, PlotPoints -> 
+            25]]}}, ImageSize -> 1000], "Specifications" :> {
+        Style["Red", 
+         RGBColor[1, 0, 0], Bold], {{$CellContext`$3$$, 1, 
+          RawBoxes[
+           SubscriptBox["p", "1"]]}, -5, 5, 1}, {{$CellContext`$4$$, 0, 
+          RawBoxes[
+           SubscriptBox["q", "1"]]}, 0, 5, 
+         1}, {{$CellContext`$5$$, 0, "y-shift"}, 0, 
+         1}, {{$CellContext`$6$$, 0, "x-shift"}, 0, 1}, Delimiter, 
+        Style["Blue", 
+         RGBColor[0, 0, 1], Bold], {{$CellContext`$7$$, 0, 
+          RawBoxes[
+           SubscriptBox["p", "2"]]}, -5, 5, 1}, {{$CellContext`$8$$, 1, 
+          RawBoxes[
+           SubscriptBox["q", "2"]]}, 0, 5, 
+         1}, {{$CellContext`$9$$, 0, "y-shift"}, 0, 
+         1}, {{$CellContext`$10$$, 0, "x-shift"}, 0, 1}, Delimiter, 
+        Style["Green", 
+         RGBColor[0, 1, 0], Bold], {{$CellContext`$11$$, 1, 
+          RawBoxes[
+           SubscriptBox["p", "3"]]}, -5, 5, 1}, {{$CellContext`$12$$, 1, 
+          RawBoxes[
+           SubscriptBox["q", "3"]]}, 0, 5, 
+         1}, {{$CellContext`$13$$, 0, "y-shift"}, 0, 
+         1}, {{$CellContext`$14$$, 0, "x-shift"}, 0, 1}, Delimiter}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1293., {288., 294.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.737847376450696*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"range", " ", "=", " ", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "1"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "1"], "=", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "2"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "2"], "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"OnTorus", "[", 
+   RowBox[{"p_", ",", "q_", ",", "t_"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "+", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"p", "*", "t"}], "]"}]}], ")"}], "*", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"q", "*", "t"}], "]"}]}], ",", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "+", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"p", "*", "t"}], "]"}]}], ")"}], "*", 
+     RowBox[{"Sin", "[", 
+      RowBox[{"q", "*", "t"}], "]"}]}], ",", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"p", "*", "t"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Graphics", "[", 
+           RowBox[{
+            RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot", "[", 
+           RowBox[{
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"Flatten", "[", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "n"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "n"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"n", ",", "1", ",", "2", ",", "1"}], "}"}]}], 
+                  "]"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"hor", ",", 
+                   RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                 ",", 
+                 RowBox[{"{", 
+                  RowBox[{"ver", ",", 
+                   RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}], 
+                "]"}], ",", "2"}], "]"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", 
+              RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", "Black"}]}], "]"}]}], "]"}], ",", 
+        
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"OnTorus", "[", 
+             RowBox[{"p", ",", "q", ",", "t"}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "0", ",", 
+              RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+            RowBox[{"PlotStyle", "\[Rule]", 
+             RowBox[{"Thickness", "[", ".01", "]"}]}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{"Sin", "[", "\[Phi]", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Theta]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Phi]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"Mesh", "\[Rule]", "None"}], ",", 
+            RowBox[{"PlotPoints", "\[Rule]", "25"}]}], "]"}]}], "]"}]}], 
+       "}"}], "}"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "1000"}]}], "]"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7386035312673273`*^9, 3.738603586072023*^9}, {
+  3.738603623384036*^9, 3.738603726496348*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {}, 
+    Typeset`size$$ = {1000., {259., 263.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> GraphicsGrid[{{
+          Show[
+           Graphics[AspectRatio -> 1, PlotRange -> {{0, 1}, {0, 1}}], 
+           ParametricPlot[
+            Evaluate[
+             Flatten[
+              Table[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, $CellContext`n] + \
+$CellContext`hor, 
+                 Subscript[$CellContext`p, $CellContext`n] $CellContext`t + \
+$CellContext`ver}, {$CellContext`n, 1, 2, 
+                 1}], {$CellContext`hor, -$CellContext`range, \
+$CellContext`range, 
+                1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 2]], {$CellContext`t, -2, 2}, PlotStyle -> Black]], 
+          Show[
+           ParametricPlot3D[
+            $CellContext`OnTorus[$CellContext`p, $CellContext`q, \
+$CellContext`t], {$CellContext`t, 0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> 
+            Thickness[0.01]], 
+           
+           ParametricPlot3D[{(2 + Cos[$CellContext`\[Phi]]) 
+             Cos[$CellContext`\[Theta]], (2 + Cos[$CellContext`\[Phi]]) 
+             Sin[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Phi]]}, {$CellContext`\[Theta], 0, 2 
+             Pi}, {$CellContext`\[Phi], 0, 2 Pi}, Mesh -> None, PlotPoints -> 
+            25]]}}, ImageSize -> 1000], "Specifications" :> {}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1045., {288., 294.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.738603495759757*^9, 3.7386035618394547`*^9, 3.738603596542232*^9, {
+   3.738603654813719*^9, 3.73860365904937*^9}, {3.738603721226469*^9, 
+   3.738603727793128*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"range", " ", "=", " ", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "1"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "1"], "=", "0"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "2"], "=", "0"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "2"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "3"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "3"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "4"], "=", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "4"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "5"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "5"], "=", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "6"], "=", 
+   RowBox[{"-", "1"}]}], ";", 
+  RowBox[{
+   SubscriptBox["q", "6"], "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["color", "1"], "=", "Red"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "2"], "=", "Orange"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "3"], "=", "Yellow"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "4"], "=", "Green"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "5"], "=", "Blue"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "6"], "=", "Purple"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"OnTorus", "[", 
+   RowBox[{"p_", ",", "q_", ",", "t_"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "+", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"p", "*", "t"}], "]"}]}], ")"}], "*", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"q", "*", "t"}], "]"}]}], ",", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "+", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"p", "*", "t"}], "]"}]}], ")"}], "*", 
+     RowBox[{"Sin", "[", 
+      RowBox[{"q", "*", "t"}], "]"}]}], ",", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"p", "*", "t"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Graphics", "[", 
+           RowBox[{
+            RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}], "]"}], ",", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "n"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "n"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "n"]}]}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"n", ",", "1", ",", "6", ",", "1"}], "}"}]}], "]"}]}], 
+         "]"}], ",", 
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "n"], ",", 
+                SubscriptBox["q", "n"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "n"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"n", ",", "1", ",", "6", ",", "1"}], "}"}]}], "]"}], ",", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{"Sin", "[", "\[Phi]", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Theta]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Phi]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"Mesh", "\[Rule]", "None"}], ",", 
+            RowBox[{"PlotPoints", "\[Rule]", "25"}]}], "]"}]}], "]"}]}], 
+       "}"}], "}"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "1000"}]}], "]"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.738603787403048*^9, 3.738604180547751*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {}, 
+    Typeset`size$$ = {1000., {259., 263.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> GraphicsGrid[{{
+          Show[
+           Graphics[AspectRatio -> 1, PlotRange -> {{0, 1}, {0, 1}}], 
+           Table[
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, $CellContext`n] + \
+$CellContext`hor, 
+                 Subscript[$CellContext`p, $CellContext`n] $CellContext`t + \
+$CellContext`ver}, {$CellContext`hor, -$CellContext`range, $CellContext`range,
+                  1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, $CellContext`n]], {$CellContext`n, 
+             1, 6, 1}]], 
+          Show[
+           Table[
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, $CellContext`n], 
+              
+              Subscript[$CellContext`q, $CellContext`n], $CellContext`t], \
+{$CellContext`t, 0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               
+               Subscript[$CellContext`color, $CellContext`n]}], \
+{$CellContext`n, 1, 6, 1}], 
+           
+           ParametricPlot3D[{(2 + Cos[$CellContext`\[Phi]]) 
+             Cos[$CellContext`\[Theta]], (2 + Cos[$CellContext`\[Phi]]) 
+             Sin[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Phi]]}, {$CellContext`\[Theta], 0, 2 
+             Pi}, {$CellContext`\[Phi], 0, 2 Pi}, Mesh -> None, PlotPoints -> 
+            25]]}}, ImageSize -> 1000], "Specifications" :> {}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1045., {288., 294.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.738604205867723*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"range", " ", "=", " ", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "1"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "1"], "=", "0"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "2"], "=", "0"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "2"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "3"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "3"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "4"], "=", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "4"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "5"], "=", "1"}], ";", 
+  RowBox[{
+   SubscriptBox["q", "5"], "=", "2"}], ";", 
+  RowBox[{
+   SubscriptBox["p", "6"], "=", 
+   RowBox[{"-", "1"}]}], ";", 
+  RowBox[{
+   SubscriptBox["q", "6"], "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["color", "1"], "=", "Red"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "2"], "=", "Orange"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "3"], "=", "Yellow"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "4"], "=", "Green"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "5"], "=", "Blue"}], ";", 
+  RowBox[{
+   SubscriptBox["color", "6"], "=", "Purple"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"OnTorus", "[", 
+   RowBox[{"p_", ",", "q_", ",", "t_"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "+", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"p", "*", "t"}], "]"}]}], ")"}], "*", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"q", "*", "t"}], "]"}]}], ",", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "+", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"p", "*", "t"}], "]"}]}], ")"}], "*", 
+     RowBox[{"Sin", "[", 
+      RowBox[{"q", "*", "t"}], "]"}]}], ",", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"p", "*", "t"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"GraphicsGrid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"Graphics", "[", 
+           RowBox[{
+            RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "1"], ",", 
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "1"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "1"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "1"]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "2"], ",", 
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "2"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "2"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "2"]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "3"], ",", 
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "3"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "3"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "3"]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "4"], ",", 
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "4"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "4"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "4"]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "5"], ",", 
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "5"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "5"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "5"]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "6"], ",", 
+            RowBox[{"ParametricPlot", "[", 
+             RowBox[{
+              RowBox[{"Evaluate", "[", 
+               RowBox[{"Flatten", "[", 
+                RowBox[{
+                 RowBox[{"Table", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"t", "*", 
+                    SubscriptBox["q", "6"]}], "+", "hor"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    SubscriptBox["p", "6"], "*", "t"}], "+", "ver"}]}], "}"}],
+                    ",", 
+                   RowBox[{"{", 
+                    RowBox[{"hor", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}], 
+                   ",", 
+                   RowBox[{"{", 
+                    RowBox[{"ver", ",", 
+                    RowBox[{"-", "range"}], ",", "range", ",", "1"}], "}"}]}],
+                   "]"}], ",", "1"}], "]"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", 
+                RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               SubscriptBox["color", "6"]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", 
+        RowBox[{"Show", "[", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "1"], ",", 
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "1"], ",", 
+                SubscriptBox["q", "1"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "1"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "2"], ",", 
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "2"], ",", 
+                SubscriptBox["q", "2"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "2"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "3"], ",", 
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "3"], ",", 
+                SubscriptBox["q", "3"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "3"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "4"], ",", 
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "4"], ",", 
+                SubscriptBox["q", "4"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "4"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "5"], ",", 
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "5"], ",", 
+                SubscriptBox["q", "5"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "5"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            SubscriptBox["On", "6"], ",", 
+            RowBox[{"ParametricPlot3D", "[", 
+             RowBox[{
+              RowBox[{"OnTorus", "[", 
+               RowBox[{
+                SubscriptBox["p", "6"], ",", 
+                SubscriptBox["q", "6"], ",", "t"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"t", ",", "0", ",", 
+                RowBox[{"5", "*", "2", "*", "\[Pi]"}]}], "}"}], ",", 
+              RowBox[{"PlotRange", "\[Rule]", "4"}], ",", 
+              RowBox[{"PlotStyle", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"Thickness", "[", ".01", "]"}], ",", 
+                 SubscriptBox["color", "6"]}], "}"}]}]}], "]"}], ",", 
+            RowBox[{"{", "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"ParametricPlot3D", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", 
+              RowBox[{"Sin", "[", "\[Phi]", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Theta]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Phi]", ",", "0", ",", 
+              RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+            RowBox[{"Mesh", "\[Rule]", "None"}], ",", 
+            RowBox[{"PlotPoints", "\[Rule]", "25"}]}], "]"}]}], "]"}]}], 
+       "}"}], "}"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "1000"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["On", "1"], ",", "True"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["On", "2"], ",", "True"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["On", "3"], ",", "True"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["On", "4"], ",", "True"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["On", "5"], ",", "True"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["On", "6"], ",", "True"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.738604295993093*^9, 3.738604400801881*^9}, {
+  3.738604481368945*^9, 3.738604513496998*^9}, {3.738605009252969*^9, 
+  3.73860523216212*^9}, {3.738605281172001*^9, 3.738605287937888*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`$23$$ = False, $CellContext`$24$$ = 
+    False, $CellContext`$25$$ = False, $CellContext`$26$$ = 
+    False, $CellContext`$27$$ = True, $CellContext`$28$$ = True, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`$23$$], True, 
+       RawBoxes[
+        SubscriptBox["On", "1"]]}, {True, False}}, {{
+       Hold[$CellContext`$24$$], True, 
+       RawBoxes[
+        SubscriptBox["On", "2"]]}, {True, False}}, {{
+       Hold[$CellContext`$25$$], True, 
+       RawBoxes[
+        SubscriptBox["On", "3"]]}, {True, False}}, {{
+       Hold[$CellContext`$26$$], True, 
+       RawBoxes[
+        SubscriptBox["On", "4"]]}, {True, False}}, {{
+       Hold[$CellContext`$27$$], True, 
+       RawBoxes[
+        SubscriptBox["On", "5"]]}, {True, False}}, {{
+       Hold[$CellContext`$28$$], True, 
+       RawBoxes[
+        SubscriptBox["On", "6"]]}, {True, False}}}, Typeset`size$$ = {
+    1000., {259., 263.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`$23$4652$$ = 
+    False, $CellContext`$24$4653$$ = False, $CellContext`$25$4654$$ = 
+    False, $CellContext`$26$4655$$ = False, $CellContext`$27$4656$$ = 
+    False, $CellContext`$28$4657$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`$23$$ = True, $CellContext`$24$$ = 
+        True, $CellContext`$25$$ = True, $CellContext`$26$$ = 
+        True, $CellContext`$27$$ = True, $CellContext`$28$$ = True}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`$23$$, $CellContext`$23$4652$$, False], 
+        Hold[$CellContext`$24$$, $CellContext`$24$4653$$, False], 
+        Hold[$CellContext`$25$$, $CellContext`$25$4654$$, False], 
+        Hold[$CellContext`$26$$, $CellContext`$26$4655$$, False], 
+        Hold[$CellContext`$27$$, $CellContext`$27$4656$$, False], 
+        Hold[$CellContext`$28$$, $CellContext`$28$4657$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> GraphicsGrid[{{
+          Show[
+           Graphics[AspectRatio -> 1, PlotRange -> {{0, 1}, {0, 1}}], 
+           If[$CellContext`$23$$, 
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, 1] + $CellContext`hor, 
+                 Subscript[$CellContext`p, 
+                    1] $CellContext`t + $CellContext`ver}, {$CellContext`hor, \
+-$CellContext`range, $CellContext`range, 
+                 1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, 1]], {}], 
+           If[$CellContext`$24$$, 
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, 2] + $CellContext`hor, 
+                 Subscript[$CellContext`p, 
+                    2] $CellContext`t + $CellContext`ver}, {$CellContext`hor, \
+-$CellContext`range, $CellContext`range, 
+                 1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, 2]], {}], 
+           If[$CellContext`$25$$, 
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, 3] + $CellContext`hor, 
+                 Subscript[$CellContext`p, 
+                    3] $CellContext`t + $CellContext`ver}, {$CellContext`hor, \
+-$CellContext`range, $CellContext`range, 
+                 1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, 3]], {}], 
+           If[$CellContext`$26$$, 
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, 4] + $CellContext`hor, 
+                 Subscript[$CellContext`p, 
+                    4] $CellContext`t + $CellContext`ver}, {$CellContext`hor, \
+-$CellContext`range, $CellContext`range, 
+                 1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, 4]], {}], 
+           If[$CellContext`$27$$, 
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, 5] + $CellContext`hor, 
+                 Subscript[$CellContext`p, 
+                    5] $CellContext`t + $CellContext`ver}, {$CellContext`hor, \
+-$CellContext`range, $CellContext`range, 
+                 1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, 5]], {}], 
+           If[$CellContext`$28$$, 
+            ParametricPlot[
+             Evaluate[
+              Flatten[
+               
+               Table[{$CellContext`t 
+                  Subscript[$CellContext`q, 6] + $CellContext`hor, 
+                 Subscript[$CellContext`p, 
+                    6] $CellContext`t + $CellContext`ver}, {$CellContext`hor, \
+-$CellContext`range, $CellContext`range, 
+                 1}, {$CellContext`ver, -$CellContext`range, \
+$CellContext`range, 1}], 1]], {$CellContext`t, -2, 2}, PlotStyle -> 
+             Subscript[$CellContext`color, 6]], {}]], 
+          Show[
+           If[$CellContext`$23$$, 
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, 1], 
+              Subscript[$CellContext`q, 1], $CellContext`t], {$CellContext`t, 
+              0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               Subscript[$CellContext`color, 1]}], {}], 
+           If[$CellContext`$24$$, 
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, 2], 
+              Subscript[$CellContext`q, 2], $CellContext`t], {$CellContext`t, 
+              0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               Subscript[$CellContext`color, 2]}], {}], 
+           If[$CellContext`$25$$, 
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, 3], 
+              Subscript[$CellContext`q, 3], $CellContext`t], {$CellContext`t, 
+              0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               Subscript[$CellContext`color, 3]}], {}], 
+           If[$CellContext`$26$$, 
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, 4], 
+              Subscript[$CellContext`q, 4], $CellContext`t], {$CellContext`t, 
+              0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               Subscript[$CellContext`color, 4]}], {}], 
+           If[$CellContext`$27$$, 
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, 5], 
+              Subscript[$CellContext`q, 5], $CellContext`t], {$CellContext`t, 
+              0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               Subscript[$CellContext`color, 5]}], {}], 
+           If[$CellContext`$28$$, 
+            ParametricPlot3D[
+             $CellContext`OnTorus[
+              Subscript[$CellContext`p, 6], 
+              Subscript[$CellContext`q, 6], $CellContext`t], {$CellContext`t, 
+              0, 5 2 Pi}, PlotRange -> 4, PlotStyle -> {
+               Thickness[0.01], 
+               Subscript[$CellContext`color, 6]}], {}], 
+           
+           ParametricPlot3D[{(2 + Cos[$CellContext`\[Phi]]) 
+             Cos[$CellContext`\[Theta]], (2 + Cos[$CellContext`\[Phi]]) 
+             Sin[$CellContext`\[Theta]], 
+             Sin[$CellContext`\[Phi]]}, {$CellContext`\[Theta], 0, 2 
+             Pi}, {$CellContext`\[Phi], 0, 2 Pi}, Mesh -> None, PlotPoints -> 
+            25]]}}, ImageSize -> 1000], 
+      "Specifications" :> {{{$CellContext`$23$$, True, 
+          RawBoxes[
+           SubscriptBox["On", "1"]]}, {
+         True, False}}, {{$CellContext`$24$$, True, 
+          RawBoxes[
+           SubscriptBox["On", "2"]]}, {
+         True, False}}, {{$CellContext`$25$$, True, 
+          RawBoxes[
+           SubscriptBox["On", "3"]]}, {
+         True, False}}, {{$CellContext`$26$$, True, 
+          RawBoxes[
+           SubscriptBox["On", "4"]]}, {
+         True, False}}, {{$CellContext`$27$$, True, 
+          RawBoxes[
+           SubscriptBox["On", "5"]]}, {
+         True, False}}, {{$CellContext`$28$$, True, 
+          RawBoxes[
+           SubscriptBox["On", "6"]]}, {True, False}}}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1090., {288., 294.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.73860507973307*^9, 3.738605257158968*^9, 
+  3.7386052896139174`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1398, 767},
+WindowMargins->{{19, Automatic}, {Automatic, 3}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 154, 3, 92, "Title"],
+Cell[CellGroupData[{
+Cell[759, 29, 5136, 133, 180, "Input"],
+Cell[5898, 164, 3784, 74, 599, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9731, 244, 156, 3, 92, "Title"],
+Cell[CellGroupData[{
+Cell[9912, 251, 14196, 373, 348, "Input"],
+Cell[24111, 626, 8698, 179, 599, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32846, 810, 4740, 124, 201, "Input"],
+Cell[37589, 936, 2765, 58, 599, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40391, 999, 5970, 163, 222, "Input"],
+Cell[46364, 1164, 2899, 62, 599, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49300, 1231, 18286, 466, 453, "Input"],
+Cell[67589, 1699, 9935, 216, 599, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

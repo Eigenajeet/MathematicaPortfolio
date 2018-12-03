@@ -1,0 +1,1964 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     81739,       1956]
+NotebookOptionsPosition[     79388,       1903]
+NotebookOutlinePosition[     79746,       1919]
+CellTagsIndexPosition[     79703,       1916]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Taylor Expansion", "Chapter",
+ CellChangeTimes->{{3.70652564040483*^9, 3.706525657517665*^9}, {
+  3.7065258313588*^9, 
+  3.706525832291209*^9}},ExpressionUUID->"1e2ea1b2-fe2d-456e-be02-\
+258650c4c538"],
+
+Cell[TextData[{
+ StyleBox["Taylor Expansion:",
+  FontWeight->"Bold"],
+ " For any analytic function, the Taylor Expansion of the function \
+approximates the function arbitrarily well in a finite number of terms.\n",
+ StyleBox["\t",
+  FontSize->18],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "n"], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"d65e9ed4-750b-46c4-a389-d1e2606e4c7e"],
+ StyleBox["(f(x)) = ",
+  FontSize->18],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["\[Sum]", 
+     RowBox[{" ", 
+      RowBox[{"i", " ", "=", " ", "0"}]}], 
+     RowBox[{" ", "n"}]], 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       RowBox[{
+        FractionBox[
+         SuperscriptBox["d", "n"], 
+         SuperscriptBox["dx", "n"]], 
+        RowBox[{"f", "(", "x", ")"}]}], 
+       SuperscriptBox["|", "a"]}], 
+      RowBox[{"n", "!"}]], 
+     SuperscriptBox["x", "n"]}]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"06c52081-357f-40b2-869e-6e2bea2d43f8"],
+ " = f(a) + ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["f", "'"], TraditionalForm]],ExpressionUUID->
+  "46b58a1c-70f1-44dc-9f9a-018eb5df71e7"],
+ "(a) + ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    FractionBox[
+     RowBox[{
+      RowBox[{"f", "''"}], 
+      RowBox[{"(", "a", ")"}]}], "2"],
+    FontSize->18], TraditionalForm]],ExpressionUUID->
+  "f41c65b9-8026-4fad-82d8-045c71f867fe"],
+ " + ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     RowBox[{"f", "'''"}], 
+     RowBox[{"(", "a", ")"}]}], "6"], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"efb37360-b1b2-46b6-9ab5-b93abf4840be"],
+ " + ...\n",
+ StyleBox["Theorem: ",
+  FontWeight->"Bold"],
+ "If f(x) is analytic and infinitely differentiable at a point a:\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["lim", 
+     RowBox[{"n", " ", "\[Rule]", " ", "\[Infinity]"}]], 
+    RowBox[{
+     SubscriptBox["T", "n"], 
+     StyleBox[
+      RowBox[{"(", 
+       RowBox[{"f", 
+        RowBox[{"(", "x", ")"}]}], ")"}],
+      FontSize->18], 
+     StyleBox[" ",
+      FontSize->18]}]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"ecb0d295-c8f9-4a78-85e3-a872a7e84614"],
+ StyleBox["= f(x).\n",
+  FontSize->18],
+ "The nth term of the Taylor Expansion is the best nth degree polynomial \
+approximation of the function f(x), so for a polynomial function f(x) of \
+degree n, the nth degree Taylor Polynomial will always fit it perfectly, \
+regardless of center."
+}], "Text",
+ CellChangeTimes->{{3.706525668942081*^9, 3.70652569030936*^9}, {
+  3.706525775492464*^9, 3.706525891828027*^9}, {3.706525923929223*^9, 
+  3.706526210967453*^9}, {3.7065262875188723`*^9, 3.7065263311220016`*^9}, {
+  3.706544070134861*^9, 3.706544073690545*^9}, {3.706548500726521*^9, 
+  3.706548503296361*^9}, {3.70660920657205*^9, 3.706609206797998*^9}, {
+  3.706611555721777*^9, 
+  3.7066116317356987`*^9}},ExpressionUUID->"8eda410a-75cd-4b46-827c-\
+2c2186d6b9ac"],
+
+Cell[CellGroupData[{
+
+Cell["Taylor Approximation", "Subchapter",
+ CellChangeTimes->{{3.7065547447750263`*^9, 3.706554772795432*^9}, {
+   3.7065548099922857`*^9, 3.706554810348394*^9}, {3.706555338730391*^9, 
+   3.706555385490911*^9}, {3.706555432691599*^9, 3.7065554356837883`*^9}, {
+   3.706555491098277*^9, 3.706555491273383*^9}, {3.706555706477592*^9, 
+   3.706555707484128*^9}, 3.7065571366786737`*^9, {3.706558073715994*^9, 
+   3.706558099335198*^9}, {3.706575913322089*^9, 3.706575950764357*^9}, {
+   3.706575980773179*^9, 3.706576045265254*^9}, {3.7065760999450502`*^9, 
+   3.7065761105862513`*^9}, {3.70657617449683*^9, 3.7065761755260267`*^9}, {
+   3.706576252013216*^9, 3.706576252330063*^9}, {3.706576286856573*^9, 
+   3.706576321864925*^9}, {3.706576357592441*^9, 3.706576397862095*^9}, {
+   3.706576834425522*^9, 3.70657688178325*^9}, {3.706579265837947*^9, 
+   3.706579314761978*^9}, {3.706579355711038*^9, 3.706579394694104*^9}, {
+   3.706579438213245*^9, 3.706579478270131*^9}, {3.7065796617556067`*^9, 
+   3.706579762440049*^9}, {3.706584070831484*^9, 3.706584105578774*^9}, {
+   3.706584152658537*^9, 3.706584195215839*^9}, {3.7065842642462063`*^9, 
+   3.706584266691802*^9}, {3.706584499632011*^9, 3.706584503445751*^9}, {
+   3.706584774569265*^9, 3.7065848151120453`*^9}, {3.70658485947057*^9, 
+   3.70658490636922*^9}, {3.706584952176182*^9, 3.706585155273768*^9}, {
+   3.706585199900185*^9, 3.706585222540207*^9}, {3.706585309992413*^9, 
+   3.706585335340148*^9}, {3.70658538653468*^9, 3.706585415931638*^9}, {
+   3.706585489546034*^9, 3.7065854950452547`*^9}, {3.706585528763159*^9, 
+   3.706585529194509*^9}, {3.706585640124188*^9, 3.706585793538212*^9}, {
+   3.7065858279481688`*^9, 3.706585828097821*^9}, {3.706585902940734*^9, 
+   3.706585905195076*^9}, {3.706585995882084*^9, 3.706586023403688*^9}, {
+   3.7065860922805433`*^9, 3.70658612130943*^9}, {3.7065862161408243`*^9, 
+   3.706586216554204*^9}, {3.706586309539441*^9, 3.706586311971231*^9}, {
+   3.706586343768302*^9, 3.706586351599131*^9}, {3.706586387314333*^9, 
+   3.7065864412564573`*^9}, {3.7065864713827143`*^9, 3.706586513473977*^9}, {
+   3.706586604716072*^9, 3.7065866144021397`*^9}, {3.706586748770212*^9, 
+   3.706586754768751*^9}, 3.706586791751061*^9, {3.706610190510768*^9, 
+   3.706610192032134*^9}, {3.7066102360677347`*^9, 3.706610237654504*^9}, {
+   3.7066103475235977`*^9, 3.7066104145609407`*^9}, {3.706610449825239*^9, 
+   3.7066104706946697`*^9}, {3.706611022957632*^9, 3.7066110523722763`*^9}, {
+   3.7066111259518833`*^9, 3.7066111324096317`*^9}, {3.706611193049308*^9, 
+   3.7066112422765207`*^9}, {3.7066116443896933`*^9, 3.706612062146669*^9}, {
+   3.706612115449435*^9, 3.7066121498655863`*^9}, {3.7066125218945227`*^9, 
+   3.7066125538344193`*^9}, {3.7066127224074917`*^9, 
+   3.7066127558304443`*^9}, {3.7066128013248*^9, 3.7066128054122753`*^9}, {
+   3.7066128910671167`*^9, 3.706613003454629*^9}, {3.706622114627138*^9, 
+   3.706622148841455*^9}},ExpressionUUID->"70a301dc-9b74-413f-b894-\
+1e3cf6eca5f0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorTerm", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"D", "[", 
+        RowBox[{"f", ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "n"}], "}"}]}], "]"}], ")"}], "/.", 
+      RowBox[{"x", "\[Rule]", "a"}]}], ")"}], "*", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"x", "-", "a"}], ")"}], "n"], "/", 
+     RowBox[{"(", 
+      RowBox[{"n", "!"}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorPolynomial", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_"}], "]"}], ":=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{"TaylorTerm", "[", 
+      RowBox[{"f", ",", "m", ",", "a"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"m", ",", "0", ",", "n"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "1"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Sin", "[", "x", "]"}]}], ";", "  ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "2"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Cos", "[", "x", "]"}]}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "3"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Tan", "[", "x", "]"}]}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "4"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Sec", "[", "x", "]"}]}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "5"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Csc", "[", "x", "]"}]}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "6"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Cot", "[", "x", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["name", "1"], " ", "=", " ", "\"\<Sine\>\""}], ";", 
+  RowBox[{
+   SubscriptBox["name", "2"], " ", "=", " ", "\"\<Cosine\>\""}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "3"], " ", "=", " ", "\"\<Tangent\>\""}], ";", 
+  RowBox[{
+   SubscriptBox["name", "4"], " ", "=", " ", "\"\<Secant\>\""}], ";", "  ", 
+  RowBox[{
+   SubscriptBox["name", "5"], " ", "=", " ", "\"\<Cosecant\>\""}], ";", "  ", 
+  
+  RowBox[{
+   SubscriptBox["name", "6"], " ", "=", " ", "\"\<Cotangent\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "7"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"2", "*", "x"}], "+", "4"}]}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "8"], "[", "x_", "]"}], " ", ":=", " ", 
+   SuperscriptBox["x", "2"]}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "9"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    SuperscriptBox["x", "5"], "-", 
+    RowBox[{".2", "*", 
+     SuperscriptBox["x", "4"]}], "-", 
+    RowBox[{"4", "*", 
+     SuperscriptBox["x", "3"]}], "-", 
+    RowBox[{".655", "*", 
+     SuperscriptBox["x", "2"]}], "+", 
+    RowBox[{"3", "*", "x"}], "+", ".92"}]}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "10"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Exp", "[", "x", "]"}]}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "11"], "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"Log", "[", "x", "]"}]}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "12"], "[", "x_", "]"}], " ", ":=", " ", 
+   SuperscriptBox["x", 
+    RowBox[{"1", "/", "2"}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["name", "7"], " ", "=", " ", "\"\<Linear (Offset)\>\""}], ";",
+   " ", 
+  RowBox[{
+   SubscriptBox["name", "8"], " ", "=", " ", "\"\<Parabola\>\""}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "9"], " ", "=", " ", 
+   "\"\<Quintic Function (Complicated)\>\""}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "10"], " ", "=", " ", "\"\<Exponential\>\""}], ";", 
+  "  ", 
+  RowBox[{
+   SubscriptBox["name", "11"], " ", "=", " ", "\"\<Log\>\""}], " ", ";", " ", 
+  
+  RowBox[{
+   SubscriptBox["name", "12"], " ", "=", " ", "\"\<Square Root\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NumFunctions", " ", "=", " ", "12"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{"OriginalOn", ",", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"TrueQ", "[", 
+            RowBox[{"g", "\[Equal]", "Null"}], "]"}], ",", 
+           RowBox[{
+            SubscriptBox["f", "m"], "[", "y", "]"}], ",", 
+           RowBox[{"g", "/.", 
+            RowBox[{"(", 
+             RowBox[{"x", "\[Rule]", "y"}], ")"}]}]}], "]"}]}], "]"}], ",", 
+       RowBox[{"If", "[", 
+        RowBox[{"ShowSteps", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"TaylorPolynomial", "[", 
+              RowBox[{
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"TrueQ", "[", 
+                  RowBox[{"g", "\[Equal]", "Null"}], "]"}], ",", 
+                 RowBox[{
+                  SubscriptBox["f", "m"], "[", "x", "]"}], ",", "g"}], "]"}], 
+               ",", "#", ",", "a"}], "]"}], "/.", 
+             RowBox[{"(", 
+              RowBox[{"x", "\[Rule]", "y"}], ")"}]}], ")"}], "&"}], "/@", 
+          RowBox[{"Range", "[", 
+           RowBox[{"0", ",", "n"}], "]"}]}], ",", 
+         RowBox[{
+          RowBox[{"TaylorPolynomial", "[", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"TrueQ", "[", 
+               RowBox[{"g", "\[Equal]", "Null"}], "]"}], ",", 
+              RowBox[{
+               SubscriptBox["f", "m"], "[", "x", "]"}], ",", "g"}], "]"}], 
+            ",", "n", ",", "a"}], "]"}], "/.", 
+          RowBox[{"(", 
+           RowBox[{"x", "\[Rule]", "y"}], ")"}]}]}], "]"}]}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "plotRange"}], ",", "plotRange"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "plotRange"}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "400"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m", ",", "1", ",", "\"\<Function\>\""}], "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"#", "\[Rule]", 
+         SubscriptBox["name", "#"]}], ")"}], "&"}], "/@", 
+      RowBox[{"Range", "[", "NumFunctions", "]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"g", ",", "Null", ",", "\"\<Custom\>\""}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"OriginalOn", ",", "True", ",", "\"\<Original On\>\""}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ShowSteps", ",", "False", ",", "\"\<Show Steps\>\""}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"n", ",", "0", ",", "50", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "0", ",", "\"\<Center\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotRange", ",", "5", ",", "\"\<Plot Range\>\""}], "}"}], ",", 
+     "1", ",", "20"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7065547447750263`*^9, 3.706554772795432*^9}, {
+   3.7065548099922857`*^9, 3.706554810348394*^9}, {3.706555338730391*^9, 
+   3.706555385490911*^9}, {3.706555432691599*^9, 3.7065554356837883`*^9}, {
+   3.706555491098277*^9, 3.706555491273383*^9}, {3.706555706477592*^9, 
+   3.706555707484128*^9}, 3.7065571366786737`*^9, {3.706558073715994*^9, 
+   3.706558099335198*^9}, {3.706575913322089*^9, 3.706575950764357*^9}, {
+   3.706575980773179*^9, 3.706576045265254*^9}, {3.7065760999450502`*^9, 
+   3.7065761105862513`*^9}, {3.70657617449683*^9, 3.7065761755260267`*^9}, {
+   3.706576252013216*^9, 3.706576252330063*^9}, {3.706576286856573*^9, 
+   3.706576321864925*^9}, {3.706576357592441*^9, 3.706576397862095*^9}, {
+   3.706576834425522*^9, 3.70657688178325*^9}, {3.706579265837947*^9, 
+   3.706579314761978*^9}, {3.706579355711038*^9, 3.706579394694104*^9}, {
+   3.706579438213245*^9, 3.706579478270131*^9}, {3.7065796617556067`*^9, 
+   3.706579762440049*^9}, {3.706584070831484*^9, 3.706584105578774*^9}, {
+   3.706584152658537*^9, 3.706584195215839*^9}, {3.7065842642462063`*^9, 
+   3.706584266691802*^9}, {3.706584499632011*^9, 3.706584503445751*^9}, {
+   3.706584774569265*^9, 3.7065848151120453`*^9}, {3.70658485947057*^9, 
+   3.70658490636922*^9}, {3.706584952176182*^9, 3.706585155273768*^9}, {
+   3.706585199900185*^9, 3.706585222540207*^9}, {3.706585309992413*^9, 
+   3.706585335340148*^9}, {3.70658538653468*^9, 3.706585415931638*^9}, {
+   3.706585489546034*^9, 3.7065854950452547`*^9}, {3.706585528763159*^9, 
+   3.706585529194509*^9}, {3.706585640124188*^9, 3.706585793538212*^9}, {
+   3.7065858279481688`*^9, 3.706585828097821*^9}, {3.706585902940734*^9, 
+   3.706585905195076*^9}, {3.706585995882084*^9, 3.706586023403688*^9}, {
+   3.7065860922805433`*^9, 3.70658612130943*^9}, {3.7065862161408243`*^9, 
+   3.706586216554204*^9}, {3.706586309539441*^9, 3.706586311971231*^9}, {
+   3.706586343768302*^9, 3.706586351599131*^9}, {3.706586387314333*^9, 
+   3.7065864412564573`*^9}, {3.7065864713827143`*^9, 3.706586513473977*^9}, {
+   3.706586604716072*^9, 3.7065866144021397`*^9}, {3.706586748770212*^9, 
+   3.706586754768751*^9}, 3.706586791751061*^9, {3.706610190510768*^9, 
+   3.706610192032134*^9}, {3.7066102360677347`*^9, 3.706610237654504*^9}, {
+   3.7066103475235977`*^9, 3.7066104145609407`*^9}, {3.706610449825239*^9, 
+   3.7066104706946697`*^9}, {3.706611022957632*^9, 3.7066110523722763`*^9}, {
+   3.7066111259518833`*^9, 3.7066111324096317`*^9}, {3.706611193049308*^9, 
+   3.7066112422765207`*^9}, {3.7066116443896933`*^9, 3.706612062146669*^9}, {
+   3.706612115449435*^9, 3.7066121498655863`*^9}, {3.7066125218945227`*^9, 
+   3.7066125538344193`*^9}, {3.7066127224074917`*^9, 
+   3.7066127558304443`*^9}, {3.7066128013248*^9, 3.7066128054122753`*^9}, {
+   3.7066128910671167`*^9, 3.706613003454629*^9}, {3.706622114627138*^9, 
+   3.706622128534265*^9}, 3.706626819475963*^9, 3.706893748113154*^9, 
+   3.706894329186324*^9, {3.7069008468440657`*^9, 3.7069008532105017`*^9}, {
+   3.70690106538067*^9, 3.706901069130529*^9}, {3.707658132612322*^9, 
+   3.707658163024167*^9}},ExpressionUUID->"38ce47a6-ef86-4b72-bf34-\
+b19e33367fcb"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 0, $CellContext`g$$ = 
+    Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+    0, $CellContext`OriginalOn$$ = True, $CellContext`plotRange$$ = 
+    5, $CellContext`ShowSteps$$ = False, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`m$$], 1, "Function"}, {
+      1 -> "Sine", 2 -> "Cosine", 3 -> "Tangent", 4 -> "Secant", 5 -> 
+       "Cosecant", 6 -> "Cotangent", 7 -> "Linear (Offset)", 8 -> "Parabola", 
+       9 -> "Quintic Function (Complicated)", 10 -> "Exponential", 11 -> 
+       "Log", 12 -> "Square Root"}}, {{
+       Hold[$CellContext`g$$], Null, "Custom"}}, {{
+       Hold[$CellContext`OriginalOn$$], True, "Original On"}, {
+      True, False}}, {{
+       Hold[$CellContext`ShowSteps$$], False, "Show Steps"}, {True, False}}, {
+     
+      Hold[$CellContext`n$$], 0, 50, 1}, {{
+       Hold[$CellContext`a$$], 0, "Center"}, -10, 10}, {{
+       Hold[$CellContext`plotRange$$], 5, "Plot Range"}, 1, 20}}, 
+    Typeset`size$$ = {400., {198., 202.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True, $CellContext`m$4084$$ =
+     False, $CellContext`OriginalOn$4085$$ = 
+    False, $CellContext`ShowSteps$4086$$ = False, $CellContext`n$4087$$ = 
+    0, $CellContext`a$4088$$ = 0, $CellContext`plotRange$4089$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 0, $CellContext`g$$ = 
+        Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+        0, $CellContext`OriginalOn$$ = True, $CellContext`plotRange$$ = 
+        5, $CellContext`ShowSteps$$ = False}, "ControllerVariables" :> {
+        Hold[$CellContext`m$$, $CellContext`m$4084$$, False], 
+        Hold[$CellContext`OriginalOn$$, $CellContext`OriginalOn$4085$$, 
+         False], 
+        Hold[$CellContext`ShowSteps$$, $CellContext`ShowSteps$4086$$, False], 
+        
+        Hold[$CellContext`n$$, $CellContext`n$4087$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$4088$$, 0], 
+        Hold[$CellContext`plotRange$$, $CellContext`plotRange$4089$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         If[$CellContext`OriginalOn$$, 
+          If[
+           TrueQ[$CellContext`g$$ == Null], 
+           Subscript[$CellContext`f, $CellContext`m$$][$CellContext`y], 
+           ReplaceAll[$CellContext`g$$, $CellContext`x -> $CellContext`y]]], 
+         If[$CellContext`ShowSteps$$, 
+          Map[ReplaceAll[
+            $CellContext`TaylorPolynomial[
+             If[
+              TrueQ[$CellContext`g$$ == Null], 
+              
+              Subscript[$CellContext`f, $CellContext`m$$][$CellContext`x], \
+$CellContext`g$$], #, $CellContext`a$$], $CellContext`x -> $CellContext`y]& , 
+           
+           Range[0, $CellContext`n$$]], 
+          ReplaceAll[
+           $CellContext`TaylorPolynomial[
+            If[
+             TrueQ[$CellContext`g$$ == Null], 
+             
+             Subscript[$CellContext`f, $CellContext`m$$][$CellContext`x], \
+$CellContext`g$$], $CellContext`n$$, $CellContext`a$$], $CellContext`x -> \
+$CellContext`y]]}, {$CellContext`y, -$CellContext`plotRange$$, \
+$CellContext`plotRange$$}, PlotRange -> $CellContext`plotRange$$, AspectRatio -> 
+        1, ImageSize -> 400], 
+      "Specifications" :> {{{$CellContext`m$$, 1, "Function"}, {
+         1 -> "Sine", 2 -> "Cosine", 3 -> "Tangent", 4 -> "Secant", 5 -> 
+          "Cosecant", 6 -> "Cotangent", 7 -> "Linear (Offset)", 8 -> 
+          "Parabola", 9 -> "Quintic Function (Complicated)", 10 -> 
+          "Exponential", 11 -> "Log", 12 -> 
+          "Square Root"}}, {{$CellContext`g$$, Null, 
+          "Custom"}}, {{$CellContext`OriginalOn$$, True, "Original On"}, {
+         True, False}}, {{$CellContext`ShowSteps$$, False, "Show Steps"}, {
+         True, False}}, {$CellContext`n$$, 0, 50, 
+         1}, {{$CellContext`a$$, 0, "Center"}, -10, 
+         10}, {{$CellContext`plotRange$$, 5, "Plot Range"}, 1, 20}}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{728., {227., 233.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.706586422350974*^9, 3.706586442425873*^9}, {
+   3.706586481538405*^9, 3.706586514691332*^9}, 3.706586617851059*^9, 
+   3.7065867075400457`*^9, 3.706586755849794*^9, 3.7065867943715467`*^9, 
+   3.706610194743943*^9, 3.7066102390161133`*^9, 3.706610365065734*^9, {
+   3.706610468128372*^9, 3.706610471492834*^9}, 3.7066106586820183`*^9, 
+   3.706610826622093*^9, 3.706611056755485*^9, 3.7066111333598623`*^9, 
+   3.706611196241375*^9, 3.706611244263545*^9, 3.7066114610759783`*^9, 
+   3.706612092700683*^9, {3.706612126824188*^9, 3.706612150827015*^9}, {
+   3.706612554878721*^9, 3.706612580866229*^9}, 3.7066127567889547`*^9, 
+   3.706612854230713*^9, 3.706613017357423*^9, 3.7066135893546057`*^9, 
+   3.7066207599520597`*^9, 3.706622194722864*^9, 3.706626820914948*^9, 
+   3.706626968364833*^9, 3.706633784628057*^9, 3.706634003215529*^9, 
+   3.706841868334703*^9, 3.70689374940357*^9, 3.706894330336155*^9, 
+   3.70690081517202*^9, 3.706901028396768*^9, 3.706901109925062*^9, 
+   3.70696049933673*^9, 3.707657347035624*^9, 3.707658121647167*^9, 
+   3.707658164375967*^9, 3.7156258740510798`*^9, 3.734252896349378*^9, 
+   3.734253027684331*^9, 3.737814347673541*^9, 3.740436341252069*^9, {
+   3.7447291467553377`*^9, 3.744729163385553*^9}, 3.7447292540345373`*^9, 
+   3.752813509223856*^9},ExpressionUUID->"1b4809a0-27b6-4bc6-ad49-\
+10cd817a2551"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["How To Use\n",
+  FontWeight->"Bold"],
+ "The \[OpenCurlyDoubleQuote]Function\[CloseCurlyDoubleQuote] drop-down menu \
+gives you options of pre-programmed functions to try approximating; if you \
+type a function of x into the \[OpenCurlyDoubleQuote]Custom\
+\[CloseCurlyDoubleQuote] box then the model will use that function. To go \
+back to using functions from the drop down \[OpenCurlyDoubleQuote]Function\
+\[CloseCurlyDoubleQuote] box just clear out the \[OpenCurlyDoubleQuote]Custom\
+\[CloseCurlyDoubleQuote] box. The \[OpenCurlyDoubleQuote]Original On\
+\[CloseCurlyDoubleQuote] checkbox controls whether or not you want the \
+function you are approximating to appear on the plot. The \
+\[OpenCurlyDoubleQuote]Show Steps\[CloseCurlyDoubleQuote] checkbox when \
+turned on shows you every Taylor Polynomial up to the one you are on, as \
+opposed to just ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "n"], "(", "x", ")"}], TraditionalForm]],
+  ExpressionUUID->"def43c61-c018-4a6f-bdac-602b1c8e2178"],
+ ". The \[OpenCurlyDoubleQuote]n\[CloseCurlyDoubleQuote] slider controls \
+which Taylor Polynomial you are looking at; you are looking at the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "th"], TraditionalForm]],ExpressionUUID->
+  "677d2480-1689-4078-a65a-37ab42306dc9"],
+ " degree Taylor Polynomial, n starting at 0 with a constant approximation, \
+n=1 being a linear approximation, etc. The \[OpenCurlyDoubleQuote]Center\
+\[CloseCurlyDoubleQuote] slider controls the point at which the derivatives \
+of the function are used for the approximation. The function generally is \
+approached more quickly by the Taylor Polynomial in the neighborhood of the \
+center; \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote] in the Taylor \
+Expansion equation. The \[OpenCurlyDoubleQuote]Plot Range\
+\[CloseCurlyDoubleQuote] slider zooms in and out for the plot, the min-x, \
+max-x, min-y, and max-y always staying the same; the plot has even spacing in \
+the x and y directions and is always a square.",
+ StyleBox["\nAnalysis\n",
+  FontWeight->"Bold"],
+ "Sine and Cosine: Approached well\nTangent: Approached well, but only the \
+period going through 0, even if the center is outside of that period - why?\n\
+Secant and Cosecant: Approaches well, fits whatever half-period the center is \
+in (Secant and Cosecant has two vertical asymptotes per period)\nCotangent: \
+Does not work at all\nLinear (Offset): Even when the center isn\
+\[CloseCurlyQuote]t equal to the x-intercept of the line, the Taylor \
+Expansion fits it perfectly after 1 term (cool)\nParabola: Fits it perfectly \
+after two steps (expected), regardless of center (cool, uses a linear term \
+b/c not symmetrical wrt non-zero center, then perfectly adjusts by the 2nd \
+term\nQuintic Function (Complicated): Amazingly fits the Quintic Function \
+perfectly at step 5 regardless of center, sometimes at step 4 does not look \
+close.\nExponential and Log: Very slow fit, fits the steep part very easily \
+but is consequently horribly slow at fitting the part with absolute slope \
+less than 1; Log needs a center >0\nSquare Root: Doesn\[CloseCurlyQuote]t \
+work at all, error at step 1, dividing by 0\n"
+}], "Text",
+ CellChangeTimes->{{3.706610586933941*^9, 3.70661065171072*^9}, {
+  3.706610781673875*^9, 3.706610809481688*^9}, {3.706610861111333*^9, 
+  3.706610987588146*^9}, {3.706611252524014*^9, 3.706611368831856*^9}, {
+  3.7066114437820063`*^9, 3.706611547794269*^9}, {3.706612789520973*^9, 
+  3.706612847840522*^9}, {3.706613007741743*^9, 3.706613282131844*^9}, {
+  3.706626846793807*^9, 
+  3.70662691762234*^9}},ExpressionUUID->"b1d6a3c8-c953-48ab-8ca5-\
+b0070379ae39"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2-Dimensional Taylor Approximation", "Subchapter",
+ CellChangeTimes->{{3.706613427993137*^9, 3.70661358848098*^9}, {
+   3.706613652562779*^9, 3.706613652710557*^9}, {3.706613733800205*^9, 
+   3.706613820998921*^9}, {3.706617801615197*^9, 3.7066179231134367`*^9}, 
+   3.706617983644356*^9, {3.7066180290014153`*^9, 3.706618080135676*^9}, {
+   3.706618138054241*^9, 3.706618147826252*^9}, {3.7066181850276213`*^9, 
+   3.706618213521736*^9}, {3.706618302321354*^9, 3.706618368538217*^9}, {
+   3.706618582597973*^9, 3.706618608959379*^9}, {3.706618639848917*^9, 
+   3.7066187064486513`*^9}, {3.706618739138031*^9, 3.7066187880235243`*^9}, {
+   3.706620002311904*^9, 3.706620046453532*^9}, {3.706620616651148*^9, 
+   3.706620684731875*^9}, {3.7066208919363527`*^9, 3.7066208936538982`*^9}, {
+   3.706621667336318*^9, 3.706621696523827*^9}, {3.706621760101256*^9, 
+   3.70662176738658*^9}, {3.70662215432559*^9, 
+   3.7066221777767878`*^9}},ExpressionUUID->"66c002b9-c707-4913-bc28-\
+d1c7e1cf21ab"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorTermSurface", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_", ",", "b_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"D", "[", 
+            RowBox[{"f", ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "n"}], "}"}]}], "]"}], ")"}], "/.", 
+          RowBox[{"x", "\[Rule]", "a"}]}], "/.", 
+         RowBox[{"y", "\[Rule]", "b"}]}], ")"}], "*", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"x", "-", "a"}], ")"}], "n"]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"D", "[", 
+            RowBox[{"f", ",", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", "n"}], "}"}]}], "]"}], ")"}], "/.", 
+          RowBox[{"x", "\[Rule]", "a"}]}], "/.", 
+         RowBox[{"y", "\[Rule]", "b"}]}], ")"}], "*", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"y", "-", "b"}], ")"}], "n"]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"D", "[", 
+              RowBox[{"f", ",", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", "n"}], "}"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"y", ",", "n"}], "}"}]}], "]"}], ")"}], "/.", 
+          RowBox[{"x", "\[Rule]", "a"}]}], "/.", 
+         RowBox[{"y", "\[Rule]", "b"}]}], ")"}], "*", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"y", "-", "b"}], ")"}], "*", 
+          RowBox[{"(", 
+           RowBox[{"x", "-", "a"}], ")"}]}], ")"}], "n"]}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"n", "!"}], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorPolynomialSurface", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_", ",", "b_"}], "]"}], ":=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{"TaylorTermSurface", "[", 
+      RowBox[{"f", ",", "m", ",", "a", ",", "b"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"m", ",", "0", ",", "n"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "1"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], " ", ":=", " ", 
+   RowBox[{
+    SuperscriptBox["x", "2"], "+", 
+    SuperscriptBox["y", "2"]}]}], ";", 
+  RowBox[{
+   SubscriptBox["name", "1"], " ", "=", " ", "\"\<Parabaloid\>\""}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "2"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], " ", ":=", " ", 
+   RowBox[{
+    SuperscriptBox["x", "2"], "-", 
+    SuperscriptBox["y", "2"]}]}], ";", 
+  RowBox[{
+   SubscriptBox["name", "2"], " ", "=", " ", 
+   "\"\<Hyperbolic Parabaloid\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "3"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Sin", "[", "x", "]"}]}], ";", 
+  RowBox[{
+   SubscriptBox["name", "3"], " ", "=", " ", "\"\<Sine\>\""}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "4"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], " ", ":=", 
+   RowBox[{
+    RowBox[{"Sin", "[", "x", "]"}], "*", 
+    RowBox[{"Sin", "[", "y", "]"}]}]}], ";", 
+  RowBox[{
+   SubscriptBox["name", "4"], " ", "=", " ", "\"\<2-Dimensional Wave\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "5"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], " ", ":=", 
+   RowBox[{"-", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox["x", "2"], "+", 
+       SuperscriptBox["y", "2"]}], ")"}], 
+     RowBox[{
+      RowBox[{"-", "1"}], "/", "2"}]]}]}], ";", 
+  RowBox[{
+   SubscriptBox["name", "5"], " ", "=", " ", "\"\<Infinite Well\>\""}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "6"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], " ", ":=", 
+   RowBox[{
+    RowBox[{"Exp", "[", "x", "]"}], "+", 
+    RowBox[{"Exp", "[", "y", "]"}]}]}], ";", 
+  RowBox[{
+   SubscriptBox["name", "6"], " ", "=", " ", "\"\<Exponential\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f2", "7"], "[", 
+    RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+   RowBox[{"x", "*", "y"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "7"], "=", "\"\<xy\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NumFunctions", " ", "=", " ", "7"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{"OriginalOn", ",", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"TrueQ", "[", 
+            RowBox[{"g2", "\[Equal]", "Null"}], "]"}], ",", 
+           RowBox[{
+            SubscriptBox["f2", "m"], "[", 
+            RowBox[{"z", ",", "w"}], "]"}], ",", 
+           RowBox[{
+            RowBox[{"g2", "/.", 
+             RowBox[{"(", 
+              RowBox[{"x", "\[Rule]", "z"}], ")"}]}], "/.", 
+            RowBox[{"(", 
+             RowBox[{"y", "\[Rule]", "w"}], ")"}]}]}], "]"}]}], "]"}], ",", 
+       RowBox[{"If", "[", 
+        RowBox[{"ShowSteps", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"TaylorPolynomialSurface", "[", 
+              RowBox[{
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"TrueQ", "[", 
+                  RowBox[{"g2", "\[Equal]", "Null"}], "]"}], ",", 
+                 RowBox[{
+                  SubscriptBox["f2", "m"], "[", 
+                  RowBox[{"x", ",", "y"}], "]"}], ",", "g2"}], "]"}], ",", 
+               "#", ",", "a", ",", "b"}], "]"}], "/.", 
+             RowBox[{"(", 
+              RowBox[{"x", "\[Rule]", "z"}], ")"}]}], "/.", 
+            RowBox[{"(", 
+             RowBox[{"y", "\[Rule]", "w"}], ")"}]}], "&"}], "/@", 
+          RowBox[{"Range", "[", 
+           RowBox[{"0", ",", "n"}], "]"}]}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"TaylorPolynomialSurface", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"TrueQ", "[", 
+                 RowBox[{"g2", "\[Equal]", "Null"}], "]"}], ",", 
+                RowBox[{
+                 SubscriptBox["f2", "m"], "[", 
+                 RowBox[{"x", ",", "y"}], "]"}], ",", "g2"}], "]"}], "2"}], 
+             ",", "n", ",", "a", ",", "b"}], "]"}], "/.", 
+           RowBox[{"(", 
+            RowBox[{"x", "\[Rule]", "z"}], ")"}]}], "/.", 
+          RowBox[{"(", 
+           RowBox[{"y", "\[Rule]", "w"}], ")"}]}]}], "]"}]}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"z", ",", 
+       RowBox[{"-", "plotRange"}], ",", "plotRange"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"w", ",", 
+       RowBox[{"-", "plotRange"}], ",", "plotRange"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"If", "[", 
+       RowBox[{"boundPlot", ",", "plotRange", ",", "Automatic"}], "]"}]}], 
+     ",", 
+     RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "400"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m", ",", "1", ",", "\"\<Function\>\""}], "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"#", "\[Rule]", 
+         SubscriptBox["name", "#"]}], ")"}], "&"}], "/@", 
+      RowBox[{"Range", "[", "NumFunctions", "]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"g2", ",", "Null", ",", "\"\<Custom\>\""}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"OriginalOn", ",", "True", ",", "\"\<Original On\>\""}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ShowSteps", ",", "False", ",", "\"\<Show Steps\>\""}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"n", ",", "0", ",", "50", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "0", ",", "\"\<Center X\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"b", ",", "0", ",", "\"\<Center Y\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"boundPlot", ",", "False", ",", "\"\<Plot Box\>\""}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotRange", ",", "5", ",", "\"\<Plot Range\>\""}], "}"}], ",", 
+     "1", ",", "20"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.70662745254368*^9, 3.706627484959743*^9}, 
+   3.706627520582206*^9, {3.7066275673978558`*^9, 3.706627580836358*^9}, {
+   3.7066276532012167`*^9, 3.70662767144162*^9}, {3.7068781773671913`*^9, 
+   3.706878223278981*^9}, {3.706900857964341*^9, 3.706900889687531*^9}, {
+   3.707657416104629*^9, 
+   3.707657417241412*^9}},ExpressionUUID->"02e1c94a-e6ba-43ab-bc1b-\
+f35845754c1d"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 0, $CellContext`b$$ = 
+    0, $CellContext`boundPlot$$ = False, $CellContext`g2$$ = 
+    Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+    0, $CellContext`OriginalOn$$ = True, $CellContext`plotRange$$ = 
+    5, $CellContext`ShowSteps$$ = False, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`m$$], 1, "Function"}, {
+      1 -> "Parabaloid", 2 -> "Hyperbolic Parabaloid", 3 -> "Sine", 4 -> 
+       "2-Dimensional Wave", 5 -> "Infinite Well", 6 -> "Exponential", 7 -> 
+       "xy"}}, {{
+       Hold[$CellContext`g2$$], Null, "Custom"}}, {{
+       Hold[$CellContext`OriginalOn$$], True, "Original On"}, {
+      True, False}}, {{
+       Hold[$CellContext`ShowSteps$$], False, "Show Steps"}, {True, False}}, {
+     
+      Hold[$CellContext`n$$], 0, 50, 1}, {{
+       Hold[$CellContext`a$$], 0, "Center X"}, -10, 10}, {{
+       Hold[$CellContext`b$$], 0, "Center Y"}, -10, 10}, {{
+       Hold[$CellContext`boundPlot$$], False, "Plot Box"}, {True, False}}, {{
+       Hold[$CellContext`plotRange$$], 5, "Plot Range"}, 1, 20}}, 
+    Typeset`size$$ = {400., {199., 204.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True, $CellContext`m$4174$$ =
+     False, $CellContext`OriginalOn$4175$$ = 
+    False, $CellContext`ShowSteps$4176$$ = False, $CellContext`n$4177$$ = 
+    0, $CellContext`a$4178$$ = 0, $CellContext`b$4179$$ = 
+    0, $CellContext`boundPlot$4180$$ = False, $CellContext`plotRange$4181$$ = 
+    0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 0, $CellContext`b$$ = 
+        0, $CellContext`boundPlot$$ = False, $CellContext`g2$$ = 
+        Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+        0, $CellContext`OriginalOn$$ = True, $CellContext`plotRange$$ = 
+        5, $CellContext`ShowSteps$$ = False}, "ControllerVariables" :> {
+        Hold[$CellContext`m$$, $CellContext`m$4174$$, False], 
+        Hold[$CellContext`OriginalOn$$, $CellContext`OriginalOn$4175$$, 
+         False], 
+        Hold[$CellContext`ShowSteps$$, $CellContext`ShowSteps$4176$$, False], 
+        
+        Hold[$CellContext`n$$, $CellContext`n$4177$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$4178$$, 0], 
+        Hold[$CellContext`b$$, $CellContext`b$4179$$, 0], 
+        Hold[$CellContext`boundPlot$$, $CellContext`boundPlot$4180$$, False], 
+        
+        Hold[$CellContext`plotRange$$, $CellContext`plotRange$4181$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot3D[{
+         If[$CellContext`OriginalOn$$, 
+          If[
+           TrueQ[$CellContext`g2$$ == Null], 
+           
+           Subscript[$CellContext`f2, $CellContext`m$$][$CellContext`z, \
+$CellContext`w], 
+           ReplaceAll[
+            
+            ReplaceAll[$CellContext`g2$$, $CellContext`x -> $CellContext`z], \
+$CellContext`y -> $CellContext`w]]], 
+         If[$CellContext`ShowSteps$$, 
+          Map[ReplaceAll[
+            ReplaceAll[
+             $CellContext`TaylorPolynomialSurface[
+              If[
+               TrueQ[$CellContext`g2$$ == Null], 
+               
+               Subscript[$CellContext`f2, $CellContext`m$$][$CellContext`x, \
+$CellContext`y], $CellContext`g2$$], #, $CellContext`a$$, $CellContext`b$$], \
+$CellContext`x -> $CellContext`z], $CellContext`y -> $CellContext`w]& , 
+           Range[0, $CellContext`n$$]], 
+          ReplaceAll[
+           ReplaceAll[
+            $CellContext`TaylorPolynomialSurface[If[
+               TrueQ[$CellContext`g2$$ == Null], 
+               
+               Subscript[$CellContext`f2, $CellContext`m$$][$CellContext`x, \
+$CellContext`y], $CellContext`g2$$] 
+             2, $CellContext`n$$, $CellContext`a$$, $CellContext`b$$], \
+$CellContext`x -> $CellContext`z], $CellContext`y -> $CellContext`w]]}, \
+{$CellContext`z, -$CellContext`plotRange$$, $CellContext`plotRange$$}, \
+{$CellContext`w, -$CellContext`plotRange$$, $CellContext`plotRange$$}, 
+        PlotRange -> 
+        If[$CellContext`boundPlot$$, $CellContext`plotRange$$, Automatic], 
+        AspectRatio -> 1, ImageSize -> 400], 
+      "Specifications" :> {{{$CellContext`m$$, 1, "Function"}, {
+         1 -> "Parabaloid", 2 -> "Hyperbolic Parabaloid", 3 -> "Sine", 4 -> 
+          "2-Dimensional Wave", 5 -> "Infinite Well", 6 -> "Exponential", 7 -> 
+          "xy"}}, {{$CellContext`g2$$, Null, 
+          "Custom"}}, {{$CellContext`OriginalOn$$, True, "Original On"}, {
+         True, False}}, {{$CellContext`ShowSteps$$, False, "Show Steps"}, {
+         True, False}}, {$CellContext`n$$, 0, 50, 
+         1}, {{$CellContext`a$$, 0, "Center X"}, -10, 
+         10}, {{$CellContext`b$$, 0, "Center Y"}, -10, 
+         10}, {{$CellContext`boundPlot$$, False, "Plot Box"}, {
+         True, False}}, {{$CellContext`plotRange$$, 5, "Plot Range"}, 1, 20}},
+       "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{714., {229., 234.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.706627544565917*^9, 3.706627601675108*^9}, {
+   3.7066276774460897`*^9, 3.7066277023388853`*^9}, 3.706634056608069*^9, {
+   3.7068781804422407`*^9, 3.70687819910238*^9}, 3.7068782381885433`*^9, 
+   3.7068937525216303`*^9, 3.7069008186413317`*^9, 3.706900896608974*^9, 
+   3.70690103270576*^9, 3.70690111318512*^9, 3.706960503235175*^9, 
+   3.7076573575329638`*^9, 3.7076574200615883`*^9, 3.708298886513575*^9, 
+   3.708299046468216*^9, 3.7156258823878317`*^9, 3.7378144990904007`*^9, 
+   3.740436388636211*^9, 
+   3.752813509497794*^9},ExpressionUUID->"b106d892-3349-46bf-addc-\
+3276de8a6fad"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Taylor Approximation of a Parameterized Curve (Component-Wise)\
+\>", "Subchapter",
+ CellChangeTimes->{{3.706841770938566*^9, 3.706841775626464*^9}, {
+  3.706841807459382*^9, 3.706841841629602*^9}, {3.706901179498988*^9, 
+  3.7069011966476927`*^9}},ExpressionUUID->"f6daed8b-a30c-4a22-b93f-\
+25dfae28cbe5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorTermParaCurve", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "n"}], "}"}]}], "]"}], "/.", 
+      RowBox[{"t", "\[Rule]", "a"}]}], ")"}], "*", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"t", "-", "a"}], ")"}], "n"], "/", 
+     RowBox[{"(", 
+      RowBox[{"n", "!"}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorPolynomialParaCurve", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_"}], "]"}], ":=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{"TaylorTermParaCurve", "[", 
+      RowBox[{"f", ",", "m", ",", "a"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"m", ",", "0", ",", "n"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PolarToRect", "[", 
+    RowBox[{"{", 
+     RowBox[{"r_", ",", "\[Theta]_"}], "}"}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"r", "*", 
+      RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+     RowBox[{"r", "*", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "1"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", 
+     SuperscriptBox["t", "2"]}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "1"], " ", "=", " ", "\"\<Parabola\>\""}], ";", " ", 
+  RowBox[{
+   SubscriptBox["polar", "1"], " ", "=", " ", "False"}], ";", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "2"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Cos", "[", "t", "]"}], ",", 
+     RowBox[{"Sin", "[", "t", "]"}]}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "2"], " ", "=", " ", "\"\<Circle\>\""}], ";", "  ", 
+  RowBox[{
+   SubscriptBox["polar", "2"], " ", "=", " ", "False"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "3"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", "t"}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "3"], " ", "=", " ", "\"\<Spiral\>\""}], ";", "  ", 
+  RowBox[{
+   SubscriptBox["polar", "3"], " ", "=", " ", "True"}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "4"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"5", "*", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"3", "*", "t"}], "]"}]}], ",", "t"}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "4"], " ", "=", " ", "\"\<3-Petal Flower\>\""}], ";", 
+  " ", 
+  RowBox[{
+   SubscriptBox["polar", "4"], " ", "=", " ", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "5"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"5", "*", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"4", "*", "t"}], "]"}]}], ",", "t"}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "5"], " ", "=", " ", "\"\<8-Petal Flower\>\""}], ";", 
+  " ", 
+  RowBox[{
+   SubscriptBox["polar", "5"], " ", "=", " ", "True"}], ";", " ", 
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "6"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"5", "*", 
+      RowBox[{"Sin", "[", "t", "]"}]}], ",", 
+     RowBox[{"5", "*", 
+      RowBox[{"Sin", "[", "t", "]"}]}]}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "6"], " ", "=", " ", "\"\<Peach\>\""}], ";", " ", 
+  RowBox[{
+   SubscriptBox["polar", "6"], " ", "=", " ", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f3", "7"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"5", "+", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"10", " ", "t"}], "]"}]}], ",", "t"}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "7"], " ", "=", " ", "\"\<Closed Wave\>\""}], ";", 
+  " ", 
+  RowBox[{
+   SubscriptBox["polar", "7"], " ", "=", " ", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NumFunctions", " ", "=", " ", "7"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"TrueQ", "[", 
+          RowBox[{"g3", "\[Equal]", "Null"}], "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           SubscriptBox["polar", "m"], ",", 
+           RowBox[{"PolarToRect", "[", 
+            RowBox[{
+             SubscriptBox["f3", "m"], "[", 
+             RowBox[{"s", "+", "paramStart"}], "]"}], "]"}], ",", 
+           RowBox[{
+            SubscriptBox["f3", "m"], "[", 
+            RowBox[{"s", "+", "paramStart"}], "]"}]}], "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{"polOn", ",", 
+           RowBox[{"PolarToRect", "[", 
+            RowBox[{"g3", "/.", 
+             RowBox[{"(", 
+              RowBox[{"t", "\[Rule]", "s"}], ")"}]}], "]"}], ",", 
+           RowBox[{"g3", "/.", 
+            RowBox[{"(", 
+             RowBox[{"t", "\[Rule]", "s"}], ")"}]}]}], "]"}]}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"TaylorPolynomialParaCurve", "[", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"TrueQ", "[", 
+              RowBox[{"g3", "\[Equal]", "Null"}], "]"}], ",", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               SubscriptBox["polar", "m"], ",", 
+               RowBox[{"PolarToRect", "[", 
+                RowBox[{
+                 SubscriptBox["f3", "m"], "[", 
+                 RowBox[{"t", "+", "paramStart"}], "]"}], "]"}], ",", 
+               RowBox[{
+                SubscriptBox["f3", "m"], "[", 
+                RowBox[{"t", "+", "paramStart"}], "]"}]}], "]"}], ",", 
+             RowBox[{"If", "[", 
+              RowBox[{"polOn", ",", 
+               RowBox[{"PolarToRect", "[", "g3", "]"}], ",", "g3"}], "]"}]}], 
+            "]"}], ",", "n", ",", 
+           RowBox[{"a", "-", "paramStart"}]}], "]"}], ")"}], "/.", 
+        RowBox[{"t", "\[Rule]", "s"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"s", ",", "0", ",", "15"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "plotRange"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m", ",", "1", ",", "\"\<Function\>\""}], "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"#", "\[Rule]", 
+         SubscriptBox["name", "#"]}], ")"}], "&"}], "/@", 
+      RowBox[{"Range", "[", "NumFunctions", "]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"g3", ",", "Null", ",", "\"\<Custom\>\""}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"polOn", ",", "False", ",", "\"\<Polar On\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", ",", "0"}], "}"}], ",", "0", ",", "50", ",", "1"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "0", ",", "\"\<Center\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"paramStart", ",", 
+       RowBox[{"-", "10"}], ",", "\"\<Parameter Start\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotRange", ",", "10", ",", "\"\<Plot Range\>\""}], "}"}], ",",
+      "1", ",", "25"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.706842633780547*^9, 3.706842734136323*^9}, {
+   3.706842769897965*^9, 3.7068428105751677`*^9}, {3.7068428558863983`*^9, 
+   3.706843069557906*^9}, {3.706843104149634*^9, 3.706843123316269*^9}, {
+   3.7068431632437973`*^9, 3.7068432432329817`*^9}, {3.706843322086276*^9, 
+   3.706843357411007*^9}, {3.706843432939753*^9, 3.706843469130394*^9}, {
+   3.706843541671194*^9, 3.706843583549179*^9}, {3.706843622470175*^9, 
+   3.7068437059637012`*^9}, {3.706875524464292*^9, 3.7068755827629547`*^9}, {
+   3.706875801289609*^9, 3.706875827992365*^9}, {3.70687586307024*^9, 
+   3.70687594096941*^9}, {3.706877820592682*^9, 3.706877911423533*^9}, {
+   3.706877954063175*^9, 3.70687808383989*^9}, {3.706878116070447*^9, 
+   3.706878116240974*^9}, {3.706878158599394*^9, 3.70687816827752*^9}, {
+   3.706878231102147*^9, 3.7068782326200943`*^9}, {3.706893967052272*^9, 
+   3.706893974363863*^9}, {3.706894023186735*^9, 3.706894023752799*^9}, {
+   3.7068940637788057`*^9, 3.706894090580435*^9}, {3.70689428120161*^9, 
+   3.7068943172163067`*^9}, {3.706894356663426*^9, 3.7068944309867973`*^9}, {
+   3.7068945456496*^9, 3.706894556085683*^9}, 3.7068945998226433`*^9, {
+   3.7068951550962877`*^9, 3.706895317447666*^9}, {3.706895352492095*^9, 
+   3.7068953527321587`*^9}, {3.706895454500662*^9, 3.706895626176976*^9}, {
+   3.706895752272036*^9, 3.706895808515387*^9}, {3.7068960081092873`*^9, 
+   3.706896037642857*^9}, {3.706896226942453*^9, 3.706896256674473*^9}, {
+   3.7068962988236017`*^9, 3.706896301693363*^9}, {3.7068965250135307`*^9, 
+   3.706896560538211*^9}, {3.706896640866427*^9, 3.706896643665831*^9}, {
+   3.70689667650114*^9, 3.706896676717368*^9}, {3.7068967769224*^9, 
+   3.706896806501013*^9}, {3.7068969740111923`*^9, 3.706897010029158*^9}, {
+   3.7068970470562077`*^9, 3.706897052083723*^9}, {3.706897168388898*^9, 
+   3.706897193610921*^9}, {3.7068972688221407`*^9, 3.706897269318652*^9}, {
+   3.706898608593286*^9, 3.706898643455344*^9}, {3.7068996484826937`*^9, 
+   3.706899684701764*^9}, {3.706899714889351*^9, 3.706899765054413*^9}, {
+   3.706899808322933*^9, 3.70689987382648*^9}, {3.7068999238429213`*^9, 
+   3.70689996280814*^9}, {3.706899995878653*^9, 3.7069000061379843`*^9}, {
+   3.70690004897989*^9, 3.7069002016653852`*^9}, {3.7069002389601727`*^9, 
+   3.7069002417099743`*^9}, {3.7069003499697847`*^9, 3.706900429918819*^9}, {
+   3.706900917430496*^9, 3.706900954603106*^9}, {3.7082992978654613`*^9, 
+   3.708299319235915*^9}, 
+   3.70829935996342*^9},ExpressionUUID->"0c5722fc-c827-428b-a6cb-\
+28c5bf628d13"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 0, $CellContext`g3$$ = 
+    Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+    0, $CellContext`paramStart$$ = -10, $CellContext`plotRange$$ = 
+    10, $CellContext`polOn$$ = False, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`m$$], 1, "Function"}, {
+      1 -> "Parabola", 2 -> "Circle", 3 -> "Spiral", 4 -> "3-Petal Flower", 5 -> 
+       "8-Petal Flower", 6 -> "Peach", 7 -> "Closed Wave"}}, {{
+       Hold[$CellContext`g3$$], Null, "Custom"}}, {{
+       Hold[$CellContext`polOn$$], False, "Polar On"}, {True, False}}, {{
+       Hold[$CellContext`n$$], 0}, 0, 50, 1}, {{
+       Hold[$CellContext`a$$], 0, "Center"}, -10, 10}, {{
+       Hold[$CellContext`paramStart$$], -10, "Parameter Start"}, -10, 10}, {{
+       Hold[$CellContext`plotRange$$], 10, "Plot Range"}, 1, 25}}, 
+    Typeset`size$$ = {360., {177., 182.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True, $CellContext`m$4270$$ =
+     False, $CellContext`polOn$4271$$ = False, $CellContext`n$4272$$ = 
+    0, $CellContext`a$4273$$ = 0, $CellContext`paramStart$4274$$ = 
+    0, $CellContext`plotRange$4275$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 0, $CellContext`g3$$ = 
+        Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+        0, $CellContext`paramStart$$ = -10, $CellContext`plotRange$$ = 
+        10, $CellContext`polOn$$ = False}, "ControllerVariables" :> {
+        Hold[$CellContext`m$$, $CellContext`m$4270$$, False], 
+        Hold[$CellContext`polOn$$, $CellContext`polOn$4271$$, False], 
+        Hold[$CellContext`n$$, $CellContext`n$4272$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$4273$$, 0], 
+        Hold[$CellContext`paramStart$$, $CellContext`paramStart$4274$$, 0], 
+        Hold[$CellContext`plotRange$$, $CellContext`plotRange$4275$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot[{
+         If[
+          TrueQ[$CellContext`g3$$ == Null], 
+          If[
+           Subscript[$CellContext`polar, $CellContext`m$$], 
+           $CellContext`PolarToRect[
+            
+            Subscript[$CellContext`f3, $CellContext`m$$][$CellContext`s + \
+$CellContext`paramStart$$]], 
+           
+           Subscript[$CellContext`f3, $CellContext`m$$][$CellContext`s + \
+$CellContext`paramStart$$]], 
+          If[$CellContext`polOn$$, 
+           $CellContext`PolarToRect[
+            ReplaceAll[$CellContext`g3$$, $CellContext`t -> $CellContext`s]], 
+           
+           ReplaceAll[$CellContext`g3$$, $CellContext`t -> $CellContext`s]]], 
+         
+         ReplaceAll[
+          $CellContext`TaylorPolynomialParaCurve[
+           If[
+            TrueQ[$CellContext`g3$$ == Null], 
+            If[
+             Subscript[$CellContext`polar, $CellContext`m$$], 
+             $CellContext`PolarToRect[
+              
+              Subscript[$CellContext`f3, $CellContext`m$$][$CellContext`t + \
+$CellContext`paramStart$$]], 
+             
+             Subscript[$CellContext`f3, $CellContext`m$$][$CellContext`t + \
+$CellContext`paramStart$$]], 
+            If[$CellContext`polOn$$, 
+             $CellContext`PolarToRect[$CellContext`g3$$], \
+$CellContext`g3$$]], $CellContext`n$$, $CellContext`a$$ - \
+$CellContext`paramStart$$], $CellContext`t -> $CellContext`s]}, \
+{$CellContext`s, 0, 15}, PlotRange -> $CellContext`plotRange$$], 
+      "Specifications" :> {{{$CellContext`m$$, 1, "Function"}, {
+         1 -> "Parabola", 2 -> "Circle", 3 -> "Spiral", 4 -> "3-Petal Flower",
+           5 -> "8-Petal Flower", 6 -> "Peach", 7 -> 
+          "Closed Wave"}}, {{$CellContext`g3$$, Null, 
+          "Custom"}}, {{$CellContext`polOn$$, False, "Polar On"}, {
+         True, False}}, {{$CellContext`n$$, 0}, 0, 50, 
+         1}, {{$CellContext`a$$, 0, "Center"}, -10, 
+         10}, {{$CellContext`paramStart$$, -10, "Parameter Start"}, -10, 
+         10}, {{$CellContext`plotRange$$, 10, "Plot Range"}, 1, 25}}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{692., {207., 212.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.7378146314753323`*^9, 3.740436422808597*^9, 
+  3.744729415172023*^9, 
+  3.752813509663499*^9},ExpressionUUID->"ba4343f0-2c51-49e9-a093-\
+8c3e9496004c"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Taylor Approximation of Parameterized Curve in 3-Space (Component-Wise)\
+\>", "Subchapter",
+ CellChangeTimes->{{3.706893775207836*^9, 3.706893776362259*^9}, {
+  3.706894264499279*^9, 3.7068942727095547`*^9}, {3.70690120190569*^9, 
+  3.706901207238858*^9}},ExpressionUUID->"c283e080-6353-475d-b0e3-\
+52b4d5d96bbc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorTermParaCurve3D", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "n"}], "}"}]}], "]"}], "/.", 
+      RowBox[{"t", "\[Rule]", "a"}]}], ")"}], "*", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"t", "-", "a"}], ")"}], "n"], "/", 
+     RowBox[{"(", 
+      RowBox[{"n", "!"}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TaylorPolynomialParaCurve3D", "[", 
+    RowBox[{"f_", ",", "n_", ",", "a_"}], "]"}], ":=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{"TaylorTermParaCurve", "[", 
+      RowBox[{"f", ",", "m", ",", "a"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"m", ",", "0", ",", "n"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PolarToRect3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"\[Rho]_", ",", "\[Theta]_", ",", "\[Phi]_"}], "}"}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\[Rho]", "*", 
+      RowBox[{"Cos", "[", "\[Theta]", "]"}], "*", 
+      RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ",", 
+     RowBox[{"\[Rho]", "*", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], "*", 
+      RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ",", 
+     RowBox[{"\[Rho]", "*", 
+      RowBox[{"Sin", "[", "\[Phi]", "]"}]}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f4", "1"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"5", "*", 
+      RowBox[{"Cos", "[", "t", "]"}]}], ",", 
+     RowBox[{"5", "*", 
+      RowBox[{"Sin", "[", "t", "]"}]}], ",", "t"}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "1"], " ", "=", " ", "\"\<Cylindrical Helix\>\""}], 
+  ";", "  ", 
+  RowBox[{
+   SubscriptBox["polar", "1"], " ", "=", " ", "False"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f4", "2"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"5", "-", 
+        RowBox[{"t", "/", "2"}]}], ")"}], "*", 
+      RowBox[{"Cos", "[", "t", "]"}]}], ",", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"5", "-", 
+        RowBox[{"t", "/", "2"}]}], ")"}], "*", 
+      RowBox[{"Sin", "[", "t", "]"}]}], ",", "t"}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "2"], " ", "=", " ", "\"\<Conical Helix\>\""}], ";", 
+  "  ", 
+  RowBox[{
+   SubscriptBox["polar", "2"], " ", "=", " ", "False"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f4", "3"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "t", ",", 
+     RowBox[{"Sin", "[", 
+      RowBox[{"8", "*", "t"}], "]"}]}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "3"], " ", "=", " ", "\"\<Sphere Cradle\>\""}], ";", 
+  "  ", 
+  RowBox[{
+   SubscriptBox["polar", "3"], " ", "=", " ", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f4", "4"], "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "t", ",", 
+     RowBox[{
+      RowBox[{"Log", "[", 
+       RowBox[{"41", ",", 
+        RowBox[{"11", "+", "t"}]}], "]"}], "*", 
+      RowBox[{"\[Pi]", "/", "2"}]}]}], "}"}]}], ";", " ", 
+  RowBox[{
+   SubscriptBox["name", "4"], " ", "=", " ", "\"\<Sphere Spiral\>\""}], ";", 
+  "  ", 
+  RowBox[{
+   SubscriptBox["polar", "4"], " ", "=", " ", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NumFunctions", " ", "=", " ", "4"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"TrueQ", "[", 
+          RowBox[{"g4", "\[Equal]", "Null"}], "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           SubscriptBox["polar", "m"], ",", 
+           RowBox[{"PolarToRect3D", "[", 
+            RowBox[{
+             SubscriptBox["f4", "m"], "[", 
+             RowBox[{"s", "+", "paramStart"}], "]"}], "]"}], ",", 
+           RowBox[{
+            SubscriptBox["f4", "m"], "[", 
+            RowBox[{"s", "+", "paramStart"}], "]"}]}], "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{"polOn", ",", 
+           RowBox[{"PolarToRect3D", "[", 
+            RowBox[{"g4", "/.", 
+             RowBox[{"(", 
+              RowBox[{"t", "\[Rule]", "s"}], ")"}]}], "]"}], ",", 
+           RowBox[{"g4", "/.", 
+            RowBox[{"(", 
+             RowBox[{"t", "\[Rule]", "s"}], ")"}]}]}], "]"}]}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"TaylorPolynomialParaCurve", "[", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"TrueQ", "[", 
+              RowBox[{"g4", "\[Equal]", "Null"}], "]"}], ",", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               SubscriptBox["polar", "m"], ",", 
+               RowBox[{"PolarToRect3D", "[", 
+                RowBox[{
+                 SubscriptBox["f4", "m"], "[", 
+                 RowBox[{"t", "+", "paramStart"}], "]"}], "]"}], ",", 
+               RowBox[{
+                SubscriptBox["f4", "m"], "[", 
+                RowBox[{"t", "+", "paramStart"}], "]"}]}], "]"}], ",", 
+             RowBox[{"If", "[", 
+              RowBox[{"polOn", ",", 
+               RowBox[{"PolarToRect3D", "[", "g4", "]"}], ",", "g4"}], 
+              "]"}]}], "]"}], ",", "n", ",", 
+           RowBox[{"a", "-", "paramStart"}]}], "]"}], ")"}], "/.", 
+        RowBox[{"t", "\[Rule]", "s"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"s", ",", "0", ",", "30"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "plotRange"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m", ",", "1", ",", "\"\<Function\>\""}], "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"#", "\[Rule]", 
+         SubscriptBox["name", "#"]}], ")"}], "&"}], "/@", 
+      RowBox[{"Range", "[", "NumFunctions", "]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"g4", ",", "Null", ",", "\"\<Custom\>\""}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"polOn", ",", "False", ",", "\"\<Polar On\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", ",", "0"}], "}"}], ",", "0", ",", "50", ",", "1"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "0", ",", "\"\<Center\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"paramStart", ",", 
+       RowBox[{"-", "10"}], ",", "\"\<Parameter Start\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotRange", ",", "10", ",", "\"\<Plot Range\>\""}], "}"}], ",",
+      "1", ",", "25"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.706897410326385*^9, 3.706897577212125*^9}, {
+  3.7068976607696123`*^9, 3.70689775672101*^9}, {3.706897790142295*^9, 
+  3.706897819763055*^9}, {3.706897950586712*^9, 3.706897994917673*^9}, {
+  3.706898127208185*^9, 3.706898132645113*^9}, {3.706898173488723*^9, 
+  3.7068982233965187`*^9}, {3.706898298114541*^9, 3.706898380187826*^9}, {
+  3.706898482811274*^9, 3.706898505842874*^9}, {3.7068986777137127`*^9, 
+  3.7068987359384737`*^9}, {3.706898817453374*^9, 3.706898825999341*^9}, {
+  3.706898881575666*^9, 3.7068989702379313`*^9}, {3.70689901676324*^9, 
+  3.706899053621228*^9}, {3.706899183431903*^9, 3.70689918478564*^9}, {
+  3.706899272726821*^9, 3.706899317267479*^9}, {3.706899414632183*^9, 
+  3.706899431582328*^9}, {3.706900966755472*^9, 
+  3.706901007933897*^9}},ExpressionUUID->"24444e87-8f57-4733-a695-\
+084e37a07473"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 0, $CellContext`g4$$ = 
+    Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+    0, $CellContext`paramStart$$ = -10, $CellContext`plotRange$$ = 
+    10, $CellContext`polOn$$ = False, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`m$$], 1, "Function"}, {
+      1 -> "Cylindrical Helix", 2 -> "Conical Helix", 3 -> "Sphere Cradle", 4 -> 
+       "Sphere Spiral"}}, {{
+       Hold[$CellContext`g4$$], Null, "Custom"}}, {{
+       Hold[$CellContext`polOn$$], False, "Polar On"}, {True, False}}, {{
+       Hold[$CellContext`n$$], 0}, 0, 50, 1}, {{
+       Hold[$CellContext`a$$], 0, "Center"}, -10, 10}, {{
+       Hold[$CellContext`paramStart$$], -10, "Parameter Start"}, -10, 10}, {{
+       Hold[$CellContext`plotRange$$], 10, "Plot Range"}, 1, 25}}, 
+    Typeset`size$$ = {360., {202., 207.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = True, $CellContext`m$4344$$ =
+     False, $CellContext`polOn$4345$$ = False, $CellContext`n$4346$$ = 
+    0, $CellContext`a$4347$$ = 0, $CellContext`paramStart$4348$$ = 
+    0, $CellContext`plotRange$4349$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 0, $CellContext`g4$$ = 
+        Null, $CellContext`m$$ = 1, $CellContext`n$$ = 
+        0, $CellContext`paramStart$$ = -10, $CellContext`plotRange$$ = 
+        10, $CellContext`polOn$$ = False}, "ControllerVariables" :> {
+        Hold[$CellContext`m$$, $CellContext`m$4344$$, False], 
+        Hold[$CellContext`polOn$$, $CellContext`polOn$4345$$, False], 
+        Hold[$CellContext`n$$, $CellContext`n$4346$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$4347$$, 0], 
+        Hold[$CellContext`paramStart$$, $CellContext`paramStart$4348$$, 0], 
+        Hold[$CellContext`plotRange$$, $CellContext`plotRange$4349$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot3D[{
+         If[
+          TrueQ[$CellContext`g4$$ == Null], 
+          If[
+           Subscript[$CellContext`polar, $CellContext`m$$], 
+           $CellContext`PolarToRect3D[
+            
+            Subscript[$CellContext`f4, $CellContext`m$$][$CellContext`s + \
+$CellContext`paramStart$$]], 
+           
+           Subscript[$CellContext`f4, $CellContext`m$$][$CellContext`s + \
+$CellContext`paramStart$$]], 
+          If[$CellContext`polOn$$, 
+           $CellContext`PolarToRect3D[
+            ReplaceAll[$CellContext`g4$$, $CellContext`t -> $CellContext`s]], 
+           
+           ReplaceAll[$CellContext`g4$$, $CellContext`t -> $CellContext`s]]], 
+         
+         ReplaceAll[
+          $CellContext`TaylorPolynomialParaCurve[
+           If[
+            TrueQ[$CellContext`g4$$ == Null], 
+            If[
+             Subscript[$CellContext`polar, $CellContext`m$$], 
+             $CellContext`PolarToRect3D[
+              
+              Subscript[$CellContext`f4, $CellContext`m$$][$CellContext`t + \
+$CellContext`paramStart$$]], 
+             
+             Subscript[$CellContext`f4, $CellContext`m$$][$CellContext`t + \
+$CellContext`paramStart$$]], 
+            If[$CellContext`polOn$$, 
+             $CellContext`PolarToRect3D[$CellContext`g4$$], \
+$CellContext`g4$$]], $CellContext`n$$, $CellContext`a$$ - \
+$CellContext`paramStart$$], $CellContext`t -> $CellContext`s]}, \
+{$CellContext`s, 0, 30}, PlotRange -> $CellContext`plotRange$$], 
+      "Specifications" :> {{{$CellContext`m$$, 1, "Function"}, {
+         1 -> "Cylindrical Helix", 2 -> "Conical Helix", 3 -> "Sphere Cradle",
+           4 -> "Sphere Spiral"}}, {{$CellContext`g4$$, Null, 
+          "Custom"}}, {{$CellContext`polOn$$, False, "Polar On"}, {
+         True, False}}, {{$CellContext`n$$, 0}, 0, 50, 
+         1}, {{$CellContext`a$$, 0, "Center"}, -10, 
+         10}, {{$CellContext`paramStart$$, -10, "Parameter Start"}, -10, 
+         10}, {{$CellContext`plotRange$$, 10, "Plot Range"}, 1, 25}}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{771., {232., 237.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.706897557032848*^9, 3.7068975780805597`*^9}, 
+   3.706897739200555*^9, 3.706897821207633*^9, 3.706897852740638*^9, {
+   3.706897953688262*^9, 3.706897996092416*^9}, 3.706898136392024*^9, {
+   3.70689816839004*^9, 3.7068982253998957`*^9}, {3.706898302607665*^9, 
+   3.706898381317494*^9}, 3.706898506613686*^9, 3.706898736900917*^9, {
+   3.706898819804946*^9, 3.7068988308340397`*^9}, {3.7068988909847403`*^9, 
+   3.7068989745118513`*^9}, 3.706899021295787*^9, 3.706899338131029*^9, {
+   3.706899416023121*^9, 3.706899434840279*^9}, 3.706900825580982*^9, 
+   3.7069010121037207`*^9, 3.706901044912581*^9, 3.7069011185319567`*^9, 
+   3.706960507253729*^9, 3.707657619135178*^9, 3.708299434103991*^9, 
+   3.715625886692189*^9, {3.737814718656724*^9, 3.737814722105994*^9}, 
+   3.7404364719170437`*^9, 
+   3.752813509830978*^9},ExpressionUUID->"0a6dddde-e675-4f2a-b401-\
+1ed911e78e7f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Matrix Exponentiation using a Taylor Expansion", "Subchapter",
+ CellChangeTimes->{{3.7069608451513767`*^9, 3.7069610049789267`*^9}, {
+  3.706961035320719*^9, 3.706961039215434*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"MatrixForm", "[", 
+          RowBox[{"TaylorTerm", "[", 
+           RowBox[{
+            RowBox[{"Exp", "[", "x", "]"}], ",", "#", ",", "0"}], "]"}], 
+          "]"}], "&"}], "/@", 
+        RowBox[{"Range", "[", 
+         RowBox[{"0", ",", "n"}], "]"}]}], ")"}], "/.", 
+      RowBox[{"x", "\[Rule]", 
+       RowBox[{"(", GridBox[{
+          {"a", "b"},
+          {"c", "d"}
+         }], ")"}]}]}], ",", 
+     RowBox[{
+      RowBox[{"\"\<Sum:\>\"", 
+       RowBox[{"MatrixForm", "[", 
+        RowBox[{"TaylorPolynomial", "[", 
+         RowBox[{
+          RowBox[{"Exp", "[", "x", "]"}], ",", "n", ",", "0"}], "]"}], 
+        "]"}]}], "/.", 
+      RowBox[{"x", "\[Rule]", 
+       RowBox[{"(", GridBox[{
+          {"a", "b"},
+          {"c", "d"}
+         }], ")"}]}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", ",", "0", ",", "\"\<Terms\>\""}], "}"}], ",", "0", ",", 
+     "15", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "1"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"b", ",", "0"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"c", ",", "0"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"d", ",", "1"}], "}"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7069608451513767`*^9, 3.706960973428462*^9}, {
+  3.706961061463756*^9, 3.7069612470848017`*^9}, {3.7076577646590643`*^9, 
+  3.7076577956475163`*^9}},ExpressionUUID->"02326b38-df21-44ae-931f-\
+25b2c738aa20"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 1, $CellContext`b$$ = 
+    0, $CellContext`c$$ = 0, $CellContext`d$$ = 1, $CellContext`n$$ = 0, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`n$$], 0, "Terms"}, 0, 15, 1}, {{
+       Hold[$CellContext`a$$], 1}}, {{
+       Hold[$CellContext`b$$], 0}}, {{
+       Hold[$CellContext`c$$], 0}}, {{
+       Hold[$CellContext`d$$], 1}}}, Typeset`size$$ = {95., {3., 9.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`n$4625$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 1, $CellContext`b$$ = 
+        0, $CellContext`c$$ = 0, $CellContext`d$$ = 1, $CellContext`n$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$4625$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> {
+        ReplaceAll[
+         Map[MatrixForm[
+           $CellContext`TaylorTerm[
+            Exp[$CellContext`x], #, 0]]& , 
+          Range[
+          0, $CellContext`n$$]], $CellContext`x -> {{$CellContext`a$$, \
+$CellContext`b$$}, {$CellContext`c$$, $CellContext`d$$}}], 
+        ReplaceAll["Sum:" MatrixForm[
+           $CellContext`TaylorPolynomial[
+            Exp[$CellContext`x], $CellContext`n$$, 
+            0]], $CellContext`x -> {{$CellContext`a$$, $CellContext`b$$}, \
+{$CellContext`c$$, $CellContext`d$$}}]}, 
+      "Specifications" :> {{{$CellContext`n$$, 0, "Terms"}, 0, 15, 
+         1}, {{$CellContext`a$$, 1}}, {{$CellContext`b$$, 
+          0}}, {{$CellContext`c$$, 0}}, {{$CellContext`d$$, 1}}}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{386., {76., 81.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.706960849817206*^9, {3.706960892647419*^9, 3.7069609244556217`*^9}, 
+   3.7069610636798363`*^9, {3.706961110881916*^9, 3.706961172644039*^9}, {
+   3.706961223610931*^9, 3.706961247720253*^9}, 3.707657655921052*^9, 
+   3.707657765866301*^9, 3.7076578049049377`*^9, 3.715625889270926*^9, 
+   3.740436518971859*^9, {3.752813503564391*^9, 
+   3.752813516764719*^9}},ExpressionUUID->"18cbf6bf-bb2f-41c9-a1cb-\
+d1134a9dc460"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1250, 808},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 207, 4, 69, "Chapter",ExpressionUUID->"1e2ea1b2-fe2d-456e-be02-258650c4c538"],
+Cell[790, 28, 2910, 88, 175, "Text",ExpressionUUID->"8eda410a-75cd-4b46-827c-2c2186d6b9ac"],
+Cell[CellGroupData[{
+Cell[3725, 120, 2999, 41, 65, "Subchapter",ExpressionUUID->"70a301dc-9b74-413f-b894-1e3cf6eca5f0"],
+Cell[CellGroupData[{
+Cell[6749, 165, 10677, 263, 326, "Input",ExpressionUUID->"38ce47a6-ef86-4b72-bf34-b19e33367fcb"],
+Cell[17429, 430, 6253, 114, 479, "Output",ExpressionUUID->"1b4809a0-27b6-4bc6-ad49-10cd817a2551"]
+}, Open  ]],
+Cell[23697, 547, 3682, 61, 449, "Text",ExpressionUUID->"b1d6a3c8-c953-48ab-8ca5-b0070379ae39"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27416, 613, 998, 14, 65, "Subchapter",ExpressionUUID->"66c002b9-c707-4913-bc28-d1c7e1cf21ab"],
+Cell[CellGroupData[{
+Cell[28439, 631, 9453, 276, 374, "Input",ExpressionUUID->"02e1c94a-e6ba-43ab-bc1b-f35845754c1d"],
+Cell[37895, 909, 6371, 122, 482, "Output",ExpressionUUID->"b106d892-3349-46bf-addc-3276de8a6fad"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44315, 1037, 315, 6, 65, "Subchapter",ExpressionUUID->"f6daed8b-a30c-4a22-b93f-25dfae28cbe5"],
+Cell[CellGroupData[{
+Cell[44655, 1047, 10341, 267, 349, "Input",ExpressionUUID->"0c5722fc-c827-428b-a6cb-28c5bf628d13"],
+Cell[54999, 1316, 5089, 100, 438, "Output",ExpressionUUID->"ba4343f0-2c51-49e9-a093-8c3e9496004c"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[60137, 1422, 323, 6, 65, "Subchapter",ExpressionUUID->"c283e080-6353-475d-b0e3-52b4d5d96bbc"],
+Cell[CellGroupData[{
+Cell[60485, 1432, 8116, 227, 347, "Input",ExpressionUUID->"24444e87-8f57-4733-a695-084e37a07473"],
+Cell[68604, 1661, 5749, 109, 488, "Output",ExpressionUUID->"0a6dddde-e675-4f2a-b401-1ed911e78e7f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74402, 1776, 187, 2, 65, "Subchapter",ExpressionUUID->"21d38667-4a35-44a6-bcef-a19cc49a03ca"],
+Cell[CellGroupData[{
+Cell[74614, 1782, 1752, 54, 76, "Input",ExpressionUUID->"02326b38-df21-44ae-931f-25b2c738aa20"],
+Cell[76369, 1838, 2979, 60, 176, "Output",ExpressionUUID->"18cbf6bf-bb2f-41c9-a1cb-d1134a9dc460"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

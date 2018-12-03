@@ -1,0 +1,276 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10354,        268]
+NotebookOptionsPosition[      9568,        244]
+NotebookOutlinePosition[      9926,        260]
+CellTagsIndexPosition[      9883,        257]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Visualizing Runge\[CloseCurlyQuote]s Phenomenon", "Title",
+ CellChangeTimes->{{3.744987151564184*^9, 
+  3.744987165410902*^9}},ExpressionUUID->"2f380ceb-064c-4a73-9780-\
+f16d68d555c0"],
+
+Cell[CellGroupData[{
+
+Cell["Interpolating Polynomials", "Subchapter",
+ CellChangeTimes->{{3.744987166245994*^9, 
+  3.744987191058256*^9}},ExpressionUUID->"24036c6c-eed8-406d-a98e-\
+b0562018ca02"],
+
+Cell["\<\
+An nth order interpolating polynomial of a function on an interval is an nth \
+order polynomial that is equal to the function at n+1 equally spaced points \
+along the interval.\
+\>", "Text",
+ CellChangeTimes->{{3.7449871926928988`*^9, 
+  3.744987242415004*^9}},ExpressionUUID->"91c93828-851d-440d-baa5-\
+b2e317a27f2e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"a", "[", "0", "]"}], "=", "0"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Solution", "=", 
+     RowBox[{"Solve", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"Sum", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"a", "[", "n", "]"}], 
+                 SuperscriptBox["#", 
+                  RowBox[{"k", "-", "n"}]]}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"n", ",", "1", ",", 
+                  RowBox[{"k", "-", "1"}], ",", "1"}], "}"}]}], "]"}], "+", 
+              RowBox[{"a", "[", "k", "]"}]}], "\[Equal]", "f"}], "/.", 
+            RowBox[{"{", 
+             RowBox[{"x", "->", "#"}], "}"}]}], ")"}], "&"}], ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"prl", "+", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"pru", "-", "prl"}], ")"}], "/", 
+               RowBox[{"(", 
+                RowBox[{"k", "-", "1"}], ")"}]}], ")"}], "n"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"n", ",", "0", ",", 
+             RowBox[{"k", "-", "1"}], ",", "1"}], "}"}]}], "]"}]}], "]"}], 
+       ",", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"a", "[", "n", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"n", ",", "1", ",", "k"}], "}"}]}], "]"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Plot", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"f", ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Sum", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"a", "[", "n", "]"}], 
+              SuperscriptBox["x", 
+               RowBox[{"k", "-", "n"}]]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"n", ",", "1", ",", 
+               RowBox[{"k", "-", "1"}], ",", "1"}], "}"}]}], "]"}], "+", 
+           RowBox[{"a", "[", "k", "]"}]}], ")"}], "/.", 
+         RowBox[{"Solution", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "prl", ",", "pru"}], "}"}], ",", 
+      RowBox[{"PlotRange", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "pr"}], ",", "pr"}], "}"}]}], ",", 
+      RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+      RowBox[{"PlotLabel", "\[Rule]", 
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<Interpolating Polynomial\>\"", ",", "Orange"}], 
+        "]"}]}]}], "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"prl", ",", 
+       RowBox[{"-", "5"}], ",", "\"\<Lower\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"pru", ",", "5", ",", "\"\<Upper\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"k", ",", "5", ",", "\"\<Points\>\""}], "}"}], ",", "2", ",", 
+     "20", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"pr", ",", "5", ",", "\"\<Plot Range\>\""}], "}"}], ",", "1", 
+     ",", "100"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"f", ",", 
+      RowBox[{"Sin", "[", "x", "]"}]}], "}"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7449914658879213`*^9, 3.744991485141924*^9}, {
+  3.744991516360539*^9, 3.744991579922309*^9}, {3.7449916402499647`*^9, 
+  3.744991653534688*^9}, {3.7449917304544*^9, 3.7449917383525257`*^9}, {
+  3.7449918000273533`*^9, 3.744991832858186*^9}, {3.7449918931370564`*^9, 
+  3.7449919525433064`*^9}, {3.744992082728918*^9, 3.744992110186789*^9}, {
+  3.752813972605638*^9, 
+  3.752813978979041*^9}},ExpressionUUID->"3c714507-044b-425d-8b3d-\
+cf7ae0358934"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`f$$ = 
+    Tan[$CellContext`x], $CellContext`k$$ = 15, $CellContext`pr$$ = 
+    50.2, $CellContext`prl$$ = -5, $CellContext`pru$$ = 5, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`prl$$], -5, "Lower"}, -10, 10}, {{
+       Hold[$CellContext`pru$$], 5, "Upper"}, -10, 10}, {{
+       Hold[$CellContext`k$$], 5, "Points"}, 2, 20, 1}, {{
+       Hold[$CellContext`pr$$], 5, "Plot Range"}, 1, 100}, {{
+       Hold[$CellContext`f$$], 
+       Sin[$CellContext`x]}}}, Typeset`size$$ = {576., {294., 298.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`prl$3639$$ = 0, $CellContext`pru$3640$$ = 
+    0, $CellContext`k$3641$$ = 0, $CellContext`pr$3642$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`f$$ = 
+        Sin[$CellContext`x], $CellContext`k$$ = 5, $CellContext`pr$$ = 
+        5, $CellContext`prl$$ = -5, $CellContext`pru$$ = 5}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`prl$$, $CellContext`prl$3639$$, 0], 
+        Hold[$CellContext`pru$$, $CellContext`pru$3640$$, 0], 
+        Hold[$CellContext`k$$, $CellContext`k$3641$$, 0], 
+        Hold[$CellContext`pr$$, $CellContext`pr$3642$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> ($CellContext`a[0] = 0; $CellContext`Solution = Solve[
+          Map[
+          ReplaceAll[
+           Sum[$CellContext`a[$CellContext`n] #^($CellContext`k$$ - \
+$CellContext`n), {$CellContext`n, 1, $CellContext`k$$ - 1, 
+                1}] + $CellContext`a[$CellContext`k$$] == $CellContext`f$$, \
+{$CellContext`x -> #}]& , 
+           
+           Table[$CellContext`prl$$ + (($CellContext`pru$$ - \
+$CellContext`prl$$)/($CellContext`k$$ - 1)) $CellContext`n, {$CellContext`n, 
+             0, $CellContext`k$$ - 1, 1}]], 
+          Table[
+           $CellContext`a[$CellContext`n], {$CellContext`n, 
+            1, $CellContext`k$$}]]; Plot[{$CellContext`f$$, 
+          ReplaceAll[
+          Sum[$CellContext`a[$CellContext`n] $CellContext`x^($CellContext`k$$ - \
+$CellContext`n), {$CellContext`n, 1, $CellContext`k$$ - 1, 
+              1}] + $CellContext`a[$CellContext`k$$], 
+           
+           Part[$CellContext`Solution, 
+            1]]}, {$CellContext`x, $CellContext`prl$$, $CellContext`pru$$}, 
+         PlotRange -> {-$CellContext`pr$$, $CellContext`pr$$}, AspectRatio -> 
+         1, ImageSize -> Large, PlotLabel -> 
+         Style["Interpolating Polynomial", Orange]]), 
+      "Specifications" :> {{{$CellContext`prl$$, -5, "Lower"}, -10, 
+         10}, {{$CellContext`pru$$, 5, "Upper"}, -10, 
+         10}, {{$CellContext`k$$, 5, "Points"}, 2, 20, 
+         1}, {{$CellContext`pr$$, 5, "Plot Range"}, 1, 
+         100}, {{$CellContext`f$$, 
+          Sin[$CellContext`x]}}}, "Options" :> {ControlPlacement -> Left}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{887., {323., 329.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.744991694520752*^9, 3.7449917390449667`*^9, {3.744991827466919*^9, 
+   3.744991833824417*^9}, {3.744991895676078*^9, 3.744991964280493*^9}, 
+   3.7449920315448313`*^9, 3.744992110919982*^9, 3.752813958228114*^9, 
+   3.752813989104495*^9},ExpressionUUID->"9c6cba6c-5311-4e97-b9f8-\
+72e3148c2ff5"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1424, 785},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 190, 3, 98, "Title",ExpressionUUID->"2f380ceb-064c-4a73-9780-f16d68d555c0"],
+Cell[CellGroupData[{
+Cell[795, 29, 173, 3, 65, "Subchapter",ExpressionUUID->"24036c6c-eed8-406d-a98e-b0562018ca02"],
+Cell[971, 34, 328, 7, 35, "Text",ExpressionUUID->"91c93828-851d-440d-baa5-b2e317a27f2e"],
+Cell[CellGroupData[{
+Cell[1324, 45, 4119, 112, 126, "Input",ExpressionUUID->"3c714507-044b-425d-8b3d-cf7ae0358934"],
+Cell[5446, 159, 4082, 80, 671, "Output",ExpressionUUID->"9c6cba6c-5311-4e97-b9f8-72e3148c2ff5"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

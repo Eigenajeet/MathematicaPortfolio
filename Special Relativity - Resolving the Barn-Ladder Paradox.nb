@@ -1,0 +1,1546 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     69904,       1538]
+NotebookOptionsPosition[     68228,       1500]
+NotebookOutlinePosition[     68586,       1516]
+CellTagsIndexPosition[     68543,       1513]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Model 1: Galilean Transformations and Additive Velocity", "Chapter",
+ CellChangeTimes->{{3.703297647272459*^9, 
+  3.703297716302539*^9}},ExpressionUUID->"cdc0de1a-34a8-4954-b7b9-\
+c0c112a86594"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    SubscriptBox["f", "1"], "[", 
+    RowBox[{"x_", ",", "x0_", ",", "v_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"x", "-", "x0"}], ")"}], "/", "v"}]}], ";", 
+  RowBox[{
+   RowBox[{"g", "[", "n_", "]"}], ":=", 
+   SubscriptBox["f", "n"]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"functionNumbers", "=", 
+   RowBox[{"List", "[", "]"}]}], ";", 
+  RowBox[{"functionList", " ", "=", " ", 
+   RowBox[{"Map", "[", 
+    RowBox[{"g", ",", "functionNumbers"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"R", "=", "0"}], ";", 
+  RowBox[{"G", "=", "0"}], ";", 
+  RowBox[{"B", "=", "1"}], ";", 
+  RowBox[{"line", "=", "False"}], ";", " ", 
+  RowBox[{"interval", "=", "False"}], ";", " ", 
+  RowBox[{"lock", " ", "=", " ", "False"}], ";", " ", 
+  RowBox[{"x0", "=", "0"}], ";", " ", 
+  RowBox[{"IntPow", " ", "=", " ", "2"}], ";", " ", 
+  RowBox[{"simTime", " ", "=", " ", "5"}], ";", " ", 
+  RowBox[{"intEdgeHeight", " ", "=", " ", ".5"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{"line", ",", "simTime", ",", 
+           RowBox[{"{", "}"}]}], "]"}], ",", 
+         RowBox[{
+          SubscriptBox["f", "1"], "[", 
+          RowBox[{"x", ",", "x0", ",", 
+           RowBox[{"v", "-", "boost"}]}], "]"}], ",", 
+         RowBox[{"Through", "[", 
+          RowBox[{"functionList", "[", "x", "]"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", "500"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "2"}], ",", "domain"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "2"}], ",", "10"}], "}"}]}], "}"}]}], ",", 
+       RowBox[{"AspectRatio", "\[Rule]", ".8"}], ",", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+       RowBox[{
+       "PlotLabel", "\[Rule]", 
+        "\"\<Galilean Constant Velocity Motion, t vs. x(t)\\nIncremented \
+Acceleration - Shearing Transformation\>\""}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<x(t)\>\"", ",", "\"\<t\>\""}], "}"}]}], ",", 
+       RowBox[{"PlotStyle", "\[Rule]", 
+        RowBox[{"Flatten", "[", 
+         RowBox[{"{", 
+          RowBox[{"Black", ",", 
+           RowBox[{"RGBColor", "[", 
+            RowBox[{"R", ",", "G", ",", "B"}], "]"}], ",", 
+           RowBox[{"RGBColor", "[", 
+            RowBox[{"R", ",", "G", ",", "B"}], "]"}]}], "}"}], "]"}]}]}], 
+      "]"}], ",", 
+     RowBox[{"If", "[", 
+      RowBox[{"interval", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Plot", "[", 
+          RowBox[{"simTime", ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{
+              RowBox[{"intStart", "^", "IntPow"}], "+", 
+              RowBox[{"If", "[", 
+               RowBox[{"lock", ",", 
+                RowBox[{"simTime", "*", 
+                 RowBox[{"-", "boost"}]}], ",", "0"}], "]"}]}], ",", 
+             RowBox[{
+              RowBox[{"simTime", "*", "a"}], "+", 
+              RowBox[{"intStart", "^", "IntPow"}], "+", 
+              RowBox[{"If", "[", 
+               RowBox[{"lock", ",", 
+                RowBox[{"simTime", "*", 
+                 RowBox[{"-", "boost"}]}], ",", "0"}], "]"}]}]}], "}"}], ",", 
+           
+           RowBox[{"PlotStyle", "\[Rule]", 
+            RowBox[{"If", "[", 
+             RowBox[{"lock", ",", 
+              RowBox[{"RGBColor", "[", 
+               RowBox[{"0", ",", "1", ",", "0"}], "]"}], ",", 
+              RowBox[{"RGBColor", "[", 
+               RowBox[{"1", ",", "0", ",", "1"}], "]"}]}], "]"}]}]}], "]"}], 
+         ",", 
+         RowBox[{"ParametricPlot", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"intStart", "^", "IntPow"}], "+", 
+              RowBox[{"If", "[", 
+               RowBox[{"lock", ",", 
+                RowBox[{
+                 RowBox[{"-", "boost"}], "*", "simTime"}], ",", "0"}], 
+               "]"}]}], ",", "r"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", 
+             RowBox[{"simTime", "-", 
+              RowBox[{"intEdgeHeight", "/", "2"}]}], ",", 
+             RowBox[{"simTime", "+", 
+              RowBox[{"intEdgeHeight", "/", "2"}]}]}], "}"}], ",", 
+           RowBox[{"PlotStyle", "\[Rule]", 
+            RowBox[{"If", "[", 
+             RowBox[{"lock", ",", 
+              RowBox[{"RGBColor", "[", 
+               RowBox[{"0", ",", "1", ",", "0"}], "]"}], ",", 
+              RowBox[{"RGBColor", "[", 
+               RowBox[{"1", ",", "0", ",", "1"}], "]"}]}], "]"}]}]}], "]"}], 
+         ",", 
+         RowBox[{"ParametricPlot", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"intStart", "^", "IntPow"}], "+", 
+              RowBox[{"a", "*", "simTime"}], "+", 
+              RowBox[{"If", "[", 
+               RowBox[{"lock", ",", 
+                RowBox[{
+                 RowBox[{"-", "boost"}], "*", "simTime"}], ",", "0"}], 
+               "]"}]}], ",", "r"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", 
+             RowBox[{"simTime", "-", 
+              RowBox[{"intEdgeHeight", "/", "2"}]}], ",", 
+             RowBox[{"simTime", "+", 
+              RowBox[{"intEdgeHeight", "/", "2"}]}]}], "}"}], ",", 
+           RowBox[{"PlotStyle", "\[Rule]", 
+            RowBox[{"If", "[", 
+             RowBox[{"lock", ",", 
+              RowBox[{"RGBColor", "[", 
+               RowBox[{"0", ",", "1", ",", "0"}], "]"}], ",", 
+              RowBox[{"RGBColor", "[", 
+               RowBox[{"1", ",", "0", ",", "1"}], "]"}]}], "]"}]}]}], "]"}]}],
+         "}"}], ",", 
+       RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"v", ",", "1"}], "}"}], ",", ".0001", ",", "30"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"boost", ",", "0", ",", "\"\<observor v\>\""}], "}"}], ",", 
+     RowBox[{"-", "5"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "1"}], "}"}], ",", ".1", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"intStart", ",", "0", ",", "\"\<Interval\>\""}], "}"}], ",", 
+     "0", ",", 
+     RowBox[{"300", "^", 
+      RowBox[{"(", 
+       RowBox[{"1", "/", "IntPow"}], ")"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"simTime", ",", "5", ",", "\"\<Simultaneity\>\""}], "}"}], ",", 
+     
+     RowBox[{"-", "2"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"domain", ",", "50"}], "}"}], ",", "50", ",", "300"}], "}"}], 
+   ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Accelerate\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"v", "=", 
+       RowBox[{"v", "+", "a"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<New Curve\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "vcurr", "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"vcurr", "=", "v"}], ",", 
+           RowBox[{
+            RowBox[{
+             SubscriptBox["f", "v"], "[", "x_", "]"}], ":=", 
+            RowBox[{
+             SubscriptBox["f", "1"], "[", 
+             RowBox[{"x", ",", "x0", ",", 
+              RowBox[{"vcurr", "-", "boost"}]}], "]"}]}]}], "}"}]}], "]"}], 
+       ",", 
+       RowBox[{"functionNumbers", "=", 
+        RowBox[{"Append", "[", 
+         RowBox[{"functionNumbers", ",", "v"}], "]"}]}], ",", 
+       RowBox[{"functionList", " ", "=", " ", 
+        RowBox[{"Map", "[", 
+         RowBox[{"g", ",", "functionNumbers"}], "]"}]}], ",", 
+       RowBox[{"v", "=", 
+        RowBox[{"v", "+", "a"}]}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Simultaneity Line\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"line", "=", 
+       RowBox[{"Not", "[", "line", "]"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Show Interval\>\"", ",", 
+     RowBox[{"interval", "=", 
+      RowBox[{"!", "interval"}]}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Lock\>\"", ",", 
+     RowBox[{"lock", "=", 
+      RowBox[{"!", "lock"}]}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Reset\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"boost", "=", "0"}], ",", 
+       RowBox[{"lock", "=", "False"}], ",", 
+       RowBox[{"interval", "=", "False"}], ",", 
+       RowBox[{"intStart", "=", "0"}], ",", 
+       RowBox[{"v", "=", "0.0001"}], ",", 
+       RowBox[{"x0", "=", "0"}], ",", 
+       RowBox[{"a", "=", "1"}], ",", 
+       RowBox[{"domain", "=", "50"}], ",", 
+       RowBox[{"functionNumbers", "=", 
+        RowBox[{"{", "}"}]}], ",", 
+       RowBox[{"functionList", "=", 
+        RowBox[{"{", "}"}]}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.703297647272459*^9, 3.703297651424629*^9}, {
+   3.703297767329801*^9, 3.7032978427192383`*^9}, 3.703297881840217*^9, {
+   3.7033317554022427`*^9, 
+   3.703331798288727*^9}},ExpressionUUID->"c6e0fa1a-4a6b-450b-93b8-\
+5aaa2ac26e8e"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 1, $CellContext`boost$$ = 
+    0, $CellContext`domain$$ = 50, $CellContext`intStart$$ = 
+    0, $CellContext`simTime$$ = 5, $CellContext`v$$ = 1, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`v$$], 1}, 0.0001, 30}, {{
+       Hold[$CellContext`boost$$], 0, "observor v"}, -5, 10}, {{
+       Hold[$CellContext`a$$], 1}, 0.1, 2}, {{
+       Hold[$CellContext`intStart$$], 0, "Interval"}, 0, 10 
+      3^Rational[1, 2]}, {{
+       Hold[$CellContext`simTime$$], 5, "Simultaneity"}, -2, 10}, {{
+       Hold[$CellContext`domain$$], 50}, 50, 300}, {
+      Hold[
+       Button[
+       "Accelerate", {$CellContext`v$$ = $CellContext`v$$ + \
+$CellContext`a$$}]], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button["New Curve", {
+         Module[{$CellContext`vcurr$}, {$CellContext`vcurr$ = \
+$CellContext`v$$, Subscript[$CellContext`f, $CellContext`v$$][
+             Pattern[$CellContext`x$, 
+              Blank[]]] := 
+           Subscript[$CellContext`f, 
+             1][$CellContext`x$, $CellContext`x0, $CellContext`vcurr$ - \
+$CellContext`boost$$]}], $CellContext`functionNumbers = 
+         Append[$CellContext`functionNumbers, $CellContext`v$$], \
+$CellContext`functionList = 
+         Map[$CellContext`g, $CellContext`functionNumbers], $CellContext`v$$ = \
+$CellContext`v$$ + $CellContext`a$$}]], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button[
+       "Simultaneity Line", {$CellContext`line = Not[$CellContext`line]}]], 
+      Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button[
+       "Show Interval", $CellContext`interval = Not[$CellContext`interval]]], 
+      Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button["Lock", $CellContext`lock = Not[$CellContext`lock]]], 
+      Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button[
+       "Reset", {$CellContext`boost$$ = 0, $CellContext`lock = 
+         False, $CellContext`interval = False, $CellContext`intStart$$ = 
+         0, $CellContext`v$$ = 0.0001, $CellContext`x0 = 0, $CellContext`a$$ = 
+         1, $CellContext`domain$$ = 
+         50, $CellContext`functionNumbers = {}, $CellContext`functionList = \
+{}}]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    576., {249., 254.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`v$2803$$ = 
+    0, $CellContext`boost$2808$$ = 0, $CellContext`a$2809$$ = 
+    0, $CellContext`intStart$2810$$ = 0, $CellContext`simTime$2811$$ = 
+    0, $CellContext`domain$2812$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 1, $CellContext`boost$$ = 
+        0, $CellContext`domain$$ = 50, $CellContext`intStart$$ = 
+        0, $CellContext`simTime$$ = 5, $CellContext`v$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`v$$, $CellContext`v$2803$$, 0], 
+        Hold[$CellContext`boost$$, $CellContext`boost$2808$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$2809$$, 0], 
+        Hold[$CellContext`intStart$$, $CellContext`intStart$2810$$, 0], 
+        Hold[$CellContext`simTime$$, $CellContext`simTime$2811$$, 0], 
+        Hold[$CellContext`domain$$, $CellContext`domain$2812$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[
+        Plot[{
+          If[$CellContext`line, $CellContext`simTime$$, {}], 
+          
+          Subscript[$CellContext`f, 
+           1][$CellContext`x, $CellContext`x0, $CellContext`v$$ - \
+$CellContext`boost$$], 
+          Through[
+           $CellContext`functionList[$CellContext`x]]}, {$CellContext`x, 0, 
+          500}, PlotRange -> {{-2, $CellContext`domain$$}, {-2, 10}}, 
+         AspectRatio -> 0.8, ImageSize -> Large, PlotLabel -> 
+         "Galilean Constant Velocity Motion, t vs. x(t)\nIncremented \
+Acceleration - Shearing Transformation", AxesLabel -> {"x(t)", "t"}, 
+         PlotStyle -> Flatten[{Black, 
+            RGBColor[$CellContext`R, $CellContext`G, $CellContext`B], 
+            RGBColor[$CellContext`R, $CellContext`G, $CellContext`B]}]], 
+        If[$CellContext`interval, {
+          
+          Plot[$CellContext`simTime$$, {$CellContext`x, \
+$CellContext`intStart$$^$CellContext`IntPow + 
+            If[$CellContext`lock, $CellContext`simTime$$ \
+(-$CellContext`boost$$), 
+              0], $CellContext`simTime$$ $CellContext`a$$ + \
+$CellContext`intStart$$^$CellContext`IntPow + 
+            If[$CellContext`lock, $CellContext`simTime$$ \
+(-$CellContext`boost$$), 0]}, PlotStyle -> If[$CellContext`lock, 
+             RGBColor[0, 1, 0], 
+             RGBColor[1, 0, 1]]], 
+          
+          ParametricPlot[{$CellContext`intStart$$^$CellContext`IntPow + 
+            If[$CellContext`lock, (-$CellContext`boost$$) \
+$CellContext`simTime$$, 
+              0], $CellContext`r}, {$CellContext`r, $CellContext`simTime$$ - \
+$CellContext`intEdgeHeight/
+            2, $CellContext`simTime$$ + $CellContext`intEdgeHeight/2}, 
+           PlotStyle -> If[$CellContext`lock, 
+             RGBColor[0, 1, 0], 
+             RGBColor[1, 0, 1]]], 
+          
+          ParametricPlot[{$CellContext`intStart$$^$CellContext`IntPow + \
+$CellContext`a$$ $CellContext`simTime$$ + 
+            If[$CellContext`lock, (-$CellContext`boost$$) \
+$CellContext`simTime$$, 
+              0], $CellContext`r}, {$CellContext`r, $CellContext`simTime$$ - \
+$CellContext`intEdgeHeight/
+            2, $CellContext`simTime$$ + $CellContext`intEdgeHeight/2}, 
+           PlotStyle -> If[$CellContext`lock, 
+             RGBColor[0, 1, 0], 
+             RGBColor[1, 0, 1]]]}, {}]], 
+      "Specifications" :> {{{$CellContext`v$$, 1}, 0.0001, 
+         30}, {{$CellContext`boost$$, 0, "observor v"}, -5, 
+         10}, {{$CellContext`a$$, 1}, 0.1, 
+         2}, {{$CellContext`intStart$$, 0, "Interval"}, 0, 10 
+         3^Rational[1, 2]}, {{$CellContext`simTime$$, 5, "Simultaneity"}, -2, 
+         10}, {{$CellContext`domain$$, 50}, 50, 300}, 
+        Button[
+        "Accelerate", {$CellContext`v$$ = $CellContext`v$$ + \
+$CellContext`a$$}], 
+        Button["New Curve", {
+          
+          Module[{$CellContext`vcurr$}, {$CellContext`vcurr$ = \
+$CellContext`v$$, Subscript[$CellContext`f, $CellContext`v$$][
+              Pattern[$CellContext`x$, 
+               Blank[]]] := 
+            Subscript[$CellContext`f, 
+              1][$CellContext`x$, $CellContext`x0, $CellContext`vcurr$ - \
+$CellContext`boost$$]}], $CellContext`functionNumbers = 
+          Append[$CellContext`functionNumbers, $CellContext`v$$], \
+$CellContext`functionList = 
+          Map[$CellContext`g, $CellContext`functionNumbers], $CellContext`v$$ = \
+$CellContext`v$$ + $CellContext`a$$}], 
+        Button[
+        "Simultaneity Line", {$CellContext`line = Not[$CellContext`line]}], 
+        Button[
+        "Show Interval", $CellContext`interval = Not[$CellContext`interval]], 
+        
+        Button["Lock", $CellContext`lock = Not[$CellContext`lock]], 
+        Button[
+        "Reset", {$CellContext`boost$$ = 0, $CellContext`lock = 
+          False, $CellContext`interval = False, $CellContext`intStart$$ = 
+          0, $CellContext`v$$ = 0.0001, $CellContext`x0 = 0, $CellContext`a$$ = 
+          1, $CellContext`domain$$ = 
+          50, $CellContext`functionNumbers = {}, $CellContext`functionList = \
+{}}]}, "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{892., {279., 284.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.703350091750618*^9, 3.703866356665681*^9, 
+  3.708299497578487*^9, 3.70926557800467*^9, 3.71270862408464*^9, 
+  3.7528117964358053`*^9},ExpressionUUID->"5ecafc35-7a8c-4354-8a37-\
+5fb69784eacf"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The models we\[CloseCurlyQuote]ll be using for this presentation plot \
+motion on a time vs. space graph, that is, time on the independent axis and \
+space on the dependent axis. You\[CloseCurlyQuote]re used to seeing this the \
+other way around but for our purposes this is more useful, which we\
+\[CloseCurlyQuote]ll see later. With time on the vertical axis and space on \
+the horizontal, a point on this plot is an event, something happening at a \
+concrete point in time and space, and a continuous line is a series of points \
+through space and time, that is, something moving. A straight line means that \
+the object has a constant velocity, in this graph that velocity being \
+1/slope. We read this graph by looking at a distance interval, say 10 \
+space-units, and seeing how long it takes to traverse that distance, say 10 \
+time-units, call them meters and seconds, then that means we are traveling 10 \
+meters in 10 seconds, or 1 m/s. We see that if we accelerate our slope \
+decreases, meaning that in the same amount of unit time we cover more \
+distance, which is what having a higher velocity is. Furthermore if our \
+velocity is 0 we see a vertical line, as the position coordinate stays \
+constant for all time values, and as our velocity increases towards infinity \
+our slope approaches 0, as a slope of zero would mean that an infinite \
+distance is traveled in 0 time, which is the limiting behaviour of constant \
+acceleration. Let\[CloseCurlyQuote]s add more curves at higher velocities. \
+These new curves are all increased from the original velocity by a constant \
+amount, meaning that over a fixed amount of time the extra distance that each \
+curve covers should be constant. We can put down a horizontal line which we \
+call a simultaneity line because it shows what each of these moving particles \
+is doing at the same moment in time, the same y-value. Let\[CloseCurlyQuote]s \
+verify that the distance covered by each of these particles in the same \
+amount of time is increasing consistently with a consistent velocity \
+addition. As you can see, increasing velocity by a constant value \
+\[CapitalDelta]v is the same thing as increasing the distance you travel in a \
+set amount of time by a constant \[CapitalDelta]x, the length of the pink \
+interval. One last thing we want to show with this model is invariance under \
+the velocity of the observer - what this means is that all of the physics \
+stays the same regardless of how fast you\[CloseCurlyQuote]re moving relative \
+to the action. If a car is flying down the freeway at 60 mph and you also are \
+moving at 60 mph in the same direction, the car next to you will appear to be \
+sitting still, and if they throw a baseball out of the window (forward) at 60 \
+mph relative to them it will appear to you to be moving at 60 mph. However if \
+you slow down to a stop before they throw the ball then when they do it will \
+appear to be moving at 120 mph - both calculations are correct and you can \
+move between them very easily, namely by adding or subtracting your relative \
+velocity, allowing all observers to agree on what\[CloseCurlyQuote]s going on \
+b adjusting by this additive velocity number to fix the observed motion to \
+your personal reference frame. Let\[CloseCurlyQuote]s show what this looks \
+like on the model. We see that all of the slopes change, but our \
+\[CapitalDelta]x, which defines our \[CapitalDelta]v, that is, the difference \
+in the velocities of the particles, remains constant, meaning that all \
+observers can very easily and consistently agree on the ",
+ StyleBox["difference",
+  FontSlant->"Italic"],
+ " in velocities of objects, if not the actual velocities themselves. In fact \
+we will see that the measurements from any reference frame are all equally \
+legitimate, and to communicate with someone in a different reference frame \
+all one must do is tack on the relative velocities of the reference frames."
+}], "Text",
+ CellChangeTimes->{{3.712708773037774*^9, 3.712709055931171*^9}, {
+  3.7127093338313923`*^9, 3.712709407743556*^9}, {3.712709446455768*^9, 
+  3.712710239352335*^9}, {3.712710881964657*^9, 3.712710930967029*^9}, {
+  3.746114361846012*^9, 3.746114384999745*^9}, {3.746114427711482*^9, 
+  3.746114429211076*^9}, {3.7461145128847933`*^9, 
+  3.7461145864671183`*^9}},ExpressionUUID->"143fe62c-5563-4043-9b39-\
+5393c9b880b0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[Cell["Model 2: Spacetime Events after a Lorentzian Boost", 
+  "Chapter",
+  CellChangeTimes->{{3.703297647272459*^9, 3.703297716302539*^9}},
+  ExpressionUUID->"db707bcc-3a94-4752-ba47-2ca07cdb51d6"]], "Chapter",
+ CellChangeTimes->{{3.70330847467074*^9, 3.7033084783309107`*^9}, {
+  3.703308582771871*^9, 
+  3.703308623656945*^9}},ExpressionUUID->"c747c0b8-2e1a-4a31-907f-\
+629e31bb274c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"c", "=", "1"}], ";", " ", 
+  RowBox[{
+   RowBox[{"\[Gamma]", "[", "v_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"v", "/", "c"}], ")"}], "^", "2"}]}], ")"}], "^", 
+    RowBox[{"-", ".5"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Lorentz", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x_", ",", "t_"}], "}"}], ",", "v_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Gamma]", "[", "v", "]"}], "*", 
+      RowBox[{"(", 
+       RowBox[{"x", "-", 
+        RowBox[{"v", "*", "t"}]}], ")"}]}], ",", 
+     RowBox[{
+      RowBox[{"\[Gamma]", "[", "v", "]"}], "*", 
+      RowBox[{"(", 
+       RowBox[{"t", "-", 
+        RowBox[{"v", "*", 
+         RowBox[{"x", "/", 
+          RowBox[{"(", 
+           RowBox[{"c", "^", "2"}], ")"}]}]}]}], ")"}]}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "x_", "]"}], ":=", 
+   RowBox[{"Map", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "#"}], "}"}], "&"}], ",", 
+     RowBox[{"Range", "[", 
+      RowBox[{
+       RowBox[{"-", "10"}], ",", "10", ",", "2"}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"velocity", " ", "=", " ", "True"}], ";", 
+  RowBox[{"simultaneity", " ", "=", " ", "True"}], ";", " ", 
+  RowBox[{"lightCone", " ", "=", " ", "True"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"ParametricPlot", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{"velocity", ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "v"}], "*", "t"}], ",", "t"}], "}"}], ",", 
+           RowBox[{"{", "}"}]}], "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{"simultaneity", ",", 
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{
+              RowBox[{"-", "v"}], "*", "t"}]}], "}"}], ",", 
+           RowBox[{"{", "}"}]}], "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{"lightCone", ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"t", ",", "t"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", 
+               RowBox[{"-", "t"}]}], "}"}]}], "}"}], ",", 
+           RowBox[{"{", "}"}]}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{"velocity", ",", "Green"}], "]"}], ",", 
+          RowBox[{"If", "[", 
+           RowBox[{"simultaneity", ",", "Blue"}], "]"}], ",", "Yellow", ",", 
+          "Yellow"}], "}"}]}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "}"}]}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<x\>\"", ",", "\"\<t\>\""}], "}"}]}], ",", 
+       RowBox[{
+       "PlotLabel", "\[Rule]", 
+        "\"\<Spacetime Events after a Lorentzian Boost\>\""}], ",", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"PointSize", "[", "Medium", "]"}], ",", 
+         RowBox[{"Point", "[", "u", "]"}], ",", 
+         RowBox[{"Point", "[", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Lorentz", "[", 
+              RowBox[{"#", ",", "v"}], "]"}], "&"}], ",", "u"}], "]"}], 
+          "]"}]}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "10"}], ",", 
+       RowBox[{"Axes", "\[Rule]", "True"}]}], "]"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"u", ",", 
+       RowBox[{"{", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], "}"}]}], "}"}], ",", "Locator", ",", 
+     
+     RowBox[{"LocatorAutoCreate", "\[Rule]", "True"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"v", ",", "0"}], "}"}], ",", 
+     RowBox[{"-", "c"}], ",", "c"}], "}"}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"velocity", ",", "True", ",", "\"\<Velocity\>\""}], "}"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}], ",", 
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"simultaneity", ",", "True", ",", "\"\<Simultaneity\>\""}],
+            "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}], ",", 
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"lightCone", ",", "True", ",", "\"\<Light Cone\>\""}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+     ",", 
+     RowBox[{"Spacer", "[", "15", "]"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Many Events\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"u", "=", 
+       RowBox[{"Union", "[", 
+        RowBox[{"u", ",", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{
+           RowBox[{"Map", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"f", "[", "#", "]"}], "&"}], ",", 
+             RowBox[{"Range", "[", 
+              RowBox[{
+               RowBox[{"-", "10"}], ",", "10", ",", "2"}], "]"}]}], "]"}], 
+           ",", "1"}], "]"}]}], "]"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Clear Events\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"u", "=", 
+       RowBox[{"{", "}"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.70330847467074*^9, 3.7033084783309107`*^9}, {
+  3.703308582771871*^9, 3.7033085902779617`*^9}, {3.703308628943001*^9, 
+  3.703308654098733*^9}, {3.703331706621254*^9, 3.703331708938665*^9}, {
+  3.703337851403759*^9, 
+  3.703337852193878*^9}},ExpressionUUID->"b36a9e58-0abd-4c7b-9b5d-\
+66a58ab363ee"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`lightCone$$ = 
+    True, $CellContext`simultaneity$$ = True, $CellContext`u$$ = {{0, 
+    0}}, $CellContext`v$$ = 0, $CellContext`velocity$$ = True, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`u$$], {{0, 0}}}, Automatic}, {{
+       Hold[$CellContext`v$$], 0}, -1, 1}, {{
+       Hold[$CellContext`velocity$$], True, "Velocity"}, {True, False}}, {{
+       Hold[$CellContext`simultaneity$$], True, "Simultaneity"}, {
+      True, False}}, {{
+       Hold[$CellContext`lightCone$$], True, "Light Cone"}, {True, False}}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Manipulate`Place[2], 
+         Manipulate`Place[3]}, 
+        Spacer[15]]], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button["Many Events", {$CellContext`u$$ = Union[$CellContext`u$$, 
+           Flatten[
+            Map[$CellContext`f[#]& , 
+             Range[-10, 10, 2]], 1]]}]], Manipulate`Dump`ThisIsNotAControl}, {
+     
+      Hold[
+       Button["Clear Events", {$CellContext`u$$ = {}}]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    576., {296., 300.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`v$3153$$ = 
+    0, $CellContext`velocity$3154$$ = 
+    False, $CellContext`simultaneity$3155$$ = 
+    False, $CellContext`lightCone$3156$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`lightCone$$ = 
+        True, $CellContext`simultaneity$$ = 
+        True, $CellContext`u$$ = {{0, 0}}, $CellContext`v$$ = 
+        0, $CellContext`velocity$$ = True}, "ControllerVariables" :> {
+        Hold[$CellContext`v$$, $CellContext`v$3153$$, 0], 
+        Hold[$CellContext`velocity$$, $CellContext`velocity$3154$$, False], 
+        Hold[$CellContext`simultaneity$$, $CellContext`simultaneity$3155$$, 
+         False], 
+        Hold[$CellContext`lightCone$$, $CellContext`lightCone$3156$$, False]},
+       "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[
+        ParametricPlot[{
+          
+          If[$CellContext`velocity$$, {(-$CellContext`v$$) $CellContext`t, \
+$CellContext`t}, {}], 
+          
+          If[$CellContext`simultaneity$$, {$CellContext`t, \
+(-$CellContext`v$$) $CellContext`t}, {}], 
+          
+          If[$CellContext`lightCone$$, {{$CellContext`t, $CellContext`t}, \
+{$CellContext`t, -$CellContext`t}}, {}]}, {$CellContext`t, -10, 10}, 
+         PlotStyle -> {
+           If[$CellContext`velocity$$, Green], 
+           If[$CellContext`simultaneity$$, Blue], Yellow, Yellow}, 
+         PlotRange -> {{-10, 10}, {-10, 10}}, AxesLabel -> {"x", "t"}, 
+         PlotLabel -> "Spacetime Events after a Lorentzian Boost", ImageSize -> 
+         Large], 
+        Graphics[{
+          PointSize[Medium], 
+          Point[$CellContext`u$$], 
+          Point[
+           
+           Map[$CellContext`Lorentz[#, $CellContext`v$$]& , \
+$CellContext`u$$]]}, PlotRange -> 10, Axes -> True]], 
+      "Specifications" :> {{{$CellContext`u$$, {{0, 0}}}, Automatic, 
+         ControlType -> Locator, LocatorAutoCreate -> 
+         True}, {{$CellContext`v$$, 0}, -1, 
+         1}, {{$CellContext`velocity$$, True, "Velocity"}, {True, False}, 
+         ControlPlacement -> 
+         1}, {{$CellContext`simultaneity$$, True, "Simultaneity"}, {
+         True, False}, ControlPlacement -> 
+         2}, {{$CellContext`lightCone$$, True, "Light Cone"}, {True, False}, 
+         ControlPlacement -> 3}, 
+        Row[{
+          Manipulate`Place[1], 
+          Manipulate`Place[2], 
+          Manipulate`Place[3]}, 
+         Spacer[15]], 
+        Button["Many Events", {$CellContext`u$$ = Union[$CellContext`u$$, 
+            Flatten[
+             Map[$CellContext`f[#]& , 
+              Range[-10, 10, 2]], 1]]}], 
+        Button["Clear Events", {$CellContext`u$$ = {}}]}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{881., {328., 334.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.703308359627121*^9, {3.703308480020032*^9, 3.703308497541357*^9}, {
+   3.7033086415939913`*^9, 3.7033086559461823`*^9}, 3.703311271533181*^9, 
+   3.703326226236556*^9, 3.7033264330853577`*^9, 3.703330539633173*^9, 
+   3.703331710241928*^9, 3.703337572144164*^9, 3.703337855460373*^9, 
+   3.703339051907072*^9, 3.703347109308076*^9, 3.7033483432377234`*^9, 
+   3.703350094971702*^9, 3.703350677503434*^9, 3.7038663568795137`*^9, 
+   3.708299502880354*^9, 3.709265582507154*^9, 3.712708627405171*^9, 
+   3.746114680495614*^9, 
+   3.752811803743404*^9},ExpressionUUID->"419bf618-4516-439f-a07d-\
+3c2c8caba93f"]
+}, Open  ]],
+
+Cell["\<\
+Again we have time on the independent axis and position on the dependent \
+axis, so we should expect things moving faster to have a lower slope, as they\
+\[CloseCurlyQuote]re covering more distance, traversing farther along the \
+horizontal axis, in the same amount of unit time. According to Einstein\
+\[CloseCurlyQuote]s second postulate, we now have a speed limit on the \
+universe, that is, all speeds must be less than or equal to the speed of \
+light. This means that the Euclidean model will not do, as you can have a \
+particle\[CloseCurlyQuote]s motion represented by an arbitrarily small slope, \
+that is, an arbitrarily large velocity. In our Lorentzian model we should \
+expect that the slops of all particles motion is bounded by a line with a \
+slope corresponding to the speed of light, here pictured in yellow. We call \
+this pair of lines the light cone, and a requirement for our model is that no \
+spacetime trajectories may ever cross this lane, that is, no particle that \
+exists at a time and place inside this light cone may ever leave it, as to do \
+so would mean that at some point the particle\[CloseCurlyQuote]s velocity \
+must have been greater than speed of light, outrunning the the light cone to \
+pass it. The green line is a constant velocity curve, lets observe what \
+happens to it as we increase the velocity. We see that, as we would expect, \
+the slope decreases, however it does not decrease in the same way as with the \
+Euclidean model. As our velocity gets bigger and bigger, the amount which the \
+slope changes gets less and less dramatic as it approaches the light cone. \
+The \[CapitalDelta]x associated with each acceleration jump decreases and \
+decreases, causing the slope of the line to approach the light cone as the \
+velocity it represents approaches c. It\[CloseCurlyQuote]s worth noting that \
+there is no bound on the amount of kinetic energy something can possess, \
+applying a force to something in the direction it\[CloseCurlyQuote]s moving \
+will always increase its velocity a little, it just becomes harder and harder \
+to do so as the object approaches the universal speed limit c. Now let\
+\[CloseCurlyQuote]s see what happens to an event under a Lorentzian boost, \
+that is, a change of velocity of the observer in Minkowski space. A spacetime \
+event is something that we model as happening at one specific location at one \
+instant in time, so like opening a can of soda really quickly - you snap it \
+open in one location at one instant in time, represented by a point on our \
+spacetime plot. So this point at the origin is an event that happened at 0 \
+seconds and 0 meters. Now in the Euclidean metric you would expect that a \
+change in reference frame of the observer would only mean a change in \
+position of all spacetime events, that is, they happen at same time that you \
+thought they did but at a different position after you reset your coordinate \
+system to your new reference frame, and indeed this is what happens. However \
+in the Lorentzian metric this is not what happens. The small black dots \
+correspond to the Lorentzian transformed spacetime events after applying our \
+Lorentzian reference frame change. We see that to the observer in the new \
+reference frame the original event now appears to occur at a different \
+location in space as well as a different time. Furthermore it doesn\
+\[CloseCurlyQuote]t move in a linear way, but rather along a hyperbola \
+bounded by the light cone, that is, as your velocity as an observer \
+approaches the speed of light in special relativity, events appear to \
+approach extreme space and time coordinates, causing increasingly strange \
+behavior at higher and higher speeds. The blue line represents simultaneity, \
+it is the reflection of the velocity line across the light cone. In the \
+Euclidian model, simultaneity is a vertical line, that is, a line that \
+collects all of the spacetime events that happen at one set point in time. In \
+the Lorentzian world, simultaneity also changes under reference frame \
+changes, that is, observers moving at different speeds experience different \
+slices of spacetime as being \[OpenCurlyDoubleQuote]now\
+\[CloseCurlyDoubleQuote], meaning that the order in which certain events \
+happen does not have to be preserved between reference frames. This will be \
+critical in understanding the barn-ladder paradox.\
+\>", "Text",
+ CellChangeTimes->{{3.712710795458149*^9, 3.7127108748480787`*^9}, {
+   3.7127110544117727`*^9, 3.712711236036878*^9}, {3.7127113614276733`*^9, 
+   3.712711662207136*^9}, {3.712712788992679*^9, 3.712713137430335*^9}, {
+   3.7127131903984756`*^9, 3.712713219984008*^9}, {3.71271335441914*^9, 
+   3.712713385529376*^9}, {3.7127145942838497`*^9, 3.712714612127152*^9}, {
+   3.746114720544612*^9, 3.7461147966218224`*^9}, {3.746117881747154*^9, 
+   3.74611788264784*^9}, {3.746117978829068*^9, 3.746117985948339*^9}, {
+   3.746118074316387*^9, 3.7461181185815763`*^9}, {3.7461186991193523`*^9, 
+   3.746118814255986*^9}, {3.746119634599079*^9, 3.746119856871719*^9}, {
+   3.746119893246632*^9, 3.746119904412834*^9}, 
+   3.7461199530376062`*^9},ExpressionUUID->"b6a19f03-f0a6-4eec-a6e5-\
+bdc706208630"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Model 3 : Barn-Ladder Paradox", "Chapter",
+ CellChangeTimes->{{3.703329251021076*^9, 
+  3.7033292852615967`*^9}},ExpressionUUID->"97cec6c7-5911-41ef-9dee-\
+6e81b4ba2455"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"lightCone", " ", "=", " ", "True"}], ";", 
+  RowBox[{"Clear", "[", "t", "]"}], ";", 
+  RowBox[{"barnSimOn", "=", "True"}], ";", " ", 
+  RowBox[{"simOn", "=", "True"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "=", "1"}], ";", " ", 
+   RowBox[{
+    RowBox[{"\[Gamma]", "[", "v_", "]"}], " ", ":=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "-", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"v", "/", "c"}], ")"}], "^", "2"}]}], ")"}], "^", 
+     RowBox[{"-", ".5"}]}]}], ";", " ", 
+   RowBox[{"w", "=", ".9"}], ";"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Lorentz", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x_", ",", "t_"}], "}"}], ",", "v_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Gamma]", "[", "v", "]"}], "*", 
+      RowBox[{"(", 
+       RowBox[{"x", "-", 
+        RowBox[{"v", "*", "t"}]}], ")"}]}], ",", 
+     RowBox[{
+      RowBox[{"\[Gamma]", "[", "v", "]"}], "*", 
+      RowBox[{"(", 
+       RowBox[{"t", "-", 
+        RowBox[{"v", "*", 
+         RowBox[{"x", "/", 
+          RowBox[{"(", 
+           RowBox[{"c", "^", "2"}], ")"}]}]}]}], ")"}]}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LDot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x1_", ",", "t1_"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x2_", ",", "t2_"}], "}"}]}], "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"x1", "*", "x2"}], " ", "-", " ", 
+    RowBox[{"t1", "*", "t2"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"RegionPlot", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "3"}], "<", 
+          RowBox[{"LDot", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x", ",", "t"}], "}"}], ",", 
+            RowBox[{"Lorentz", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"1", ",", "0"}], "}"}], ",", "v"}], "]"}]}], "]"}], 
+          "<", "3"}], ",", 
+         RowBox[{
+          RowBox[{"-", "3.5"}], "<", 
+          RowBox[{"LDot", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"x", ",", "t"}], "}"}], ",", 
+            RowBox[{"Lorentz", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"1", ",", "0"}], "}"}], ",", 
+              RowBox[{"v", "-", "w"}]}], "]"}]}], "]"}], "<", "3.5"}]}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "12"}], ",", "12"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "12"}], ",", "12"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "}"}]}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<x\>\"", ",", "\"\<t\>\""}], "}"}]}], ",", 
+       RowBox[{"BoundaryStyle", "\[Rule]", "None"}], ",", 
+       RowBox[{"PlotStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Directive", "[", 
+           RowBox[{"Red", ",", 
+            RowBox[{"Opacity", "[", "0.4", "]"}]}], "]"}], ",", 
+          RowBox[{"Directive", "[", 
+           RowBox[{"Brown", ",", 
+            RowBox[{"Opacity", "[", "0.4", "]"}]}], "]"}]}], "}"}]}], ",", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+     RowBox[{"ParametricPlot", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{"barnSimOn", ",", 
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", "v"}], "*", "t"}], "+", "simShift"}]}], "}"}]}], 
+          "]"}], ",", 
+         RowBox[{"If", "[", 
+          RowBox[{"lightCone", ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"t", ",", "t"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", 
+               RowBox[{"-", "t"}]}], "}"}]}], "}"}], ",", 
+           RowBox[{"{", "}"}]}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"Blue", ",", "Yellow", ",", "Yellow"}], "}"}]}]}], "]"}], 
+     ",", 
+     RowBox[{"Graphics", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Polygon", "[", 
+         RowBox[{"{", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Lorentz", "[", 
+              RowBox[{"#", ",", "v"}], "]"}], "&"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "3.3"}], ",", 
+                RowBox[{"-", "1"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "2.7"}], ",", 
+                RowBox[{"-", "1"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "2.7"}], ",", "1"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "3.3"}], ",", "1"}], "}"}]}], "}"}]}], "]"}], 
+          "}"}], "]"}], ",", 
+        RowBox[{"Polygon", "[", 
+         RowBox[{"{", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Lorentz", "[", 
+              RowBox[{"#", ",", "v"}], "]"}], "&"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"3.3", ",", "1"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"3.3", ",", 
+                RowBox[{"-", "1"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"2.7", ",", 
+                RowBox[{"-", "1"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"2.7", ",", "1"}], "}"}]}], "}"}]}], "]"}], "}"}], 
+         "]"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{"simOn", ",", "sim"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", 
+         RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"v", ",", "0"}], "}"}], ",", "0", ",", "w"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"v", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0", "\[Rule]", "\"\<Barn\>\""}], ",", 
+       RowBox[{".9", "\[Rule]", "\"\<Ladder\>\""}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"sim", ",", "0", ",", "\"\<Simultaneity\>\""}], "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"simShift", ",", "0", ",", "\"\<Simultaneity Barn\>\""}], "}"}],
+      ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"lightCone", ",", "True", ",", "\"\<Light Cone\>\""}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}], ",", 
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"simOn", ",", "True", ",", "\"\<Sim Line\>\""}], "}"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}], ",", 
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"barnSimOn", ",", "True", ",", "\"\<Barn Sim Line\>\""}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+     ",", 
+     RowBox[{"Spacer", "[", "15", "]"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Reset\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"v", "=", "0"}], ",", 
+       RowBox[{"simShift", "=", "0"}], ",", 
+       RowBox[{"sim", "=", "0"}], ",", 
+       RowBox[{"lightCone", "=", "True"}], ",", 
+       RowBox[{"barnSimOn", "=", "True"}], ",", 
+       RowBox[{"simOn", "=", "True"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.703329251021076*^9, 3.703329256499737*^9}, {
+   3.703331641878539*^9, 3.7033316629164133`*^9}, {3.703337582649907*^9, 
+   3.7033376552351418`*^9}, {3.703337755446968*^9, 3.7033378221928043`*^9}, 
+   3.7033378711944227`*^9, {3.703338046086031*^9, 3.703338068927195*^9}, {
+   3.703338103279256*^9, 3.703338152091704*^9}, {3.703338235610138*^9, 
+   3.7033382725834007`*^9}, {3.7033383168117943`*^9, 3.703338320327174*^9}, {
+   3.703338350782452*^9, 3.703338440578781*^9}, {3.703348379630053*^9, 
+   3.703348379943872*^9}, {3.7033487377526007`*^9, 3.703348834134714*^9}, {
+   3.7033488681641703`*^9, 
+   3.703348870297233*^9}},ExpressionUUID->"a89fde1e-1150-4177-85fd-\
+00d8b8c5b97d"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`barnSimOn$$ = 
+    True, $CellContext`lightCone$$ = True, $CellContext`sim$$ = 
+    0, $CellContext`simOn$$ = True, $CellContext`simShift$$ = 
+    0, $CellContext`v$$ = 0, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`v$$], 0}, 0, 0.9}, {
+      Hold[$CellContext`v$$], {0 -> "Barn", 0.9 -> "Ladder"}}, {{
+       Hold[$CellContext`sim$$], 0, "Simultaneity"}, -10, 10}, {{
+       Hold[$CellContext`simShift$$], 0, "Simultaneity Barn"}, -10, 10}, {{
+       Hold[$CellContext`lightCone$$], True, "Light Cone"}, {True, False}}, {{
+      
+       Hold[$CellContext`simOn$$], True, "Sim Line"}, {True, False}}, {{
+       Hold[$CellContext`barnSimOn$$], True, "Barn Sim Line"}, {
+      True, False}}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Manipulate`Place[2], 
+         Manipulate`Place[3]}, 
+        Spacer[15]]], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button[
+       "Reset", {$CellContext`v$$ = 0, $CellContext`simShift$$ = 
+         0, $CellContext`sim$$ = 0, $CellContext`lightCone$$ = 
+         True, $CellContext`barnSimOn$$ = True, $CellContext`simOn$$ = 
+         True}]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    576., {284., 289.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`v$3390$$ = 
+    0, $CellContext`sim$3391$$ = 0, $CellContext`simShift$3392$$ = 
+    0, $CellContext`lightCone$3393$$ = False, $CellContext`simOn$3394$$ = 
+    False, $CellContext`barnSimOn$3395$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`barnSimOn$$ = 
+        True, $CellContext`lightCone$$ = True, $CellContext`sim$$ = 
+        0, $CellContext`simOn$$ = True, $CellContext`simShift$$ = 
+        0, $CellContext`v$$ = 0}, "ControllerVariables" :> {
+        Hold[$CellContext`v$$, $CellContext`v$3390$$, 0], 
+        Hold[$CellContext`sim$$, $CellContext`sim$3391$$, 0], 
+        Hold[$CellContext`simShift$$, $CellContext`simShift$3392$$, 0], 
+        Hold[$CellContext`lightCone$$, $CellContext`lightCone$3393$$, False], 
+        
+        Hold[$CellContext`simOn$$, $CellContext`simOn$3394$$, False], 
+        Hold[$CellContext`barnSimOn$$, $CellContext`barnSimOn$3395$$, False]},
+       "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[
+        RegionPlot[{-3 < $CellContext`LDot[{$CellContext`x, $CellContext`t}, 
+            $CellContext`Lorentz[{1, 0}, $CellContext`v$$]] < 
+          3, -3.5 < $CellContext`LDot[{$CellContext`x, $CellContext`t}, 
+            $CellContext`Lorentz[{1, 0}, $CellContext`v$$ - $CellContext`w]] < 
+          3.5}, {$CellContext`x, -12, 12}, {$CellContext`t, -12, 12}, 
+         PlotRange -> {{-10, 10}, {-10, 10}}, AxesLabel -> {"x", "t"}, 
+         BoundaryStyle -> None, PlotStyle -> {
+           Directive[Red, 
+            Opacity[0.4]], 
+           Directive[Brown, 
+            Opacity[0.4]]}, ImageSize -> Large], 
+        ParametricPlot[{
+          
+          If[$CellContext`barnSimOn$$, {$CellContext`t, (-$CellContext`v$$) \
+$CellContext`t + $CellContext`simShift$$}], 
+          
+          If[$CellContext`lightCone$$, {{$CellContext`t, $CellContext`t}, \
+{$CellContext`t, -$CellContext`t}}, {}]}, {$CellContext`t, -10, 10}, 
+         PlotStyle -> {Blue, Yellow, Yellow}], 
+        Graphics[{
+          Polygon[{
+            
+            Map[$CellContext`Lorentz[#, $CellContext`v$$]& , {{-3.3, -1}, \
+{-2.7, -1}, {-2.7, 1}, {-3.3, 1}}]}], 
+          Polygon[{
+            
+            Map[$CellContext`Lorentz[#, $CellContext`v$$]& , {{3.3, 1}, {
+              3.3, -1}, {2.7, -1}, {2.7, 1}}]}]}], 
+        Plot[
+         If[$CellContext`simOn$$, $CellContext`sim$$], {$CellContext`t, -10, 
+          10}]], "Specifications" :> {{{$CellContext`v$$, 0}, 0, 
+         0.9}, {$CellContext`v$$, {
+         0 -> "Barn", 0.9 -> "Ladder"}}, {{$CellContext`sim$$, 0, 
+          "Simultaneity"}, -10, 
+         10}, {{$CellContext`simShift$$, 0, "Simultaneity Barn"}, -10, 
+         10}, {{$CellContext`lightCone$$, True, "Light Cone"}, {True, False}, 
+         ControlPlacement -> 1}, {{$CellContext`simOn$$, True, "Sim Line"}, {
+         True, False}, ControlPlacement -> 
+         2}, {{$CellContext`barnSimOn$$, True, "Barn Sim Line"}, {
+         True, False}, ControlPlacement -> 3}, 
+        Row[{
+          Manipulate`Place[1], 
+          Manipulate`Place[2], 
+          Manipulate`Place[3]}, 
+         Spacer[15]], 
+        Button[
+        "Reset", {$CellContext`v$$ = 0, $CellContext`simShift$$ = 
+          0, $CellContext`sim$$ = 0, $CellContext`lightCone$$ = 
+          True, $CellContext`barnSimOn$$ = True, $CellContext`simOn$$ = 
+          True}]}, "Options" :> {ControlPlacement -> Left}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{915., {314., 319.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.7033382377080317`*^9, 3.703338275212913*^9, 3.703338321702696*^9, 
+   3.703338447568325*^9, 3.7033475386984463`*^9, {3.703348756120425*^9, 
+   3.7033488055235443`*^9}, 3.7033488356682377`*^9, 3.703348872040902*^9, 
+   3.703350098002755*^9, 3.703351014556497*^9, 3.703866357048769*^9, 
+   3.708299505591173*^9, 3.709265604380266*^9, 3.71270862994386*^9, 
+   3.752811807198318*^9},ExpressionUUID->"eda01fcd-8a9b-43c0-b0a1-\
+b58cd7957601"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The Barn-Ladder Paradox goes like this: A particularly science-savvy farmer \
+was reading up on special relativity and came across length contraction, that \
+if an object moved fast enough it physically contracts. This gave him an idea \
+- there\[CloseCurlyQuote]s this ladder he\[CloseCurlyQuote]s been trying to \
+get into his barn, but the problem is that the barn is 10 meters deep but the \
+ladder is 11 meters long. The farmer speculates that if his, extremely \
+athletic, son could hold the ladder and run at the barn at near light speed, \
+the ladder would contract, and then he could close the barn doors at that \
+instant and trap the ladder inside. After telling the son his plan, he goes \
+and reads the article as well, and reports back to his dad claiming that this \
+is impossible - as he runs towards the barn, form his perspective, the ",
+ StyleBox["barn",
+  FontSlant->"Italic"],
+ " would be the thing undergoing length contraction, making the ladder even \
+more unable to fit, so there\[CloseCurlyQuote]s no way this will work. Both \
+arguments seem reasonable - let\[CloseCurlyQuote]s see who\[CloseCurlyQuote]s \
+right!\n\nHere we have another spacetime diagram with time on the vertical \
+axis and space on the horizontal axis. The red rectangle is the barn through \
+time at a stationary location - earlier we saw that a point traveling through \
+space creates a line because it occupies various spacetime points as it \
+moves, however an object with dimension, with length, occupies a range of \
+space values at every instance in time, that is, at every time-slice, \
+represented by our horizontal simultaneity line, the barn exists at a range \
+of locations in space, and as time goes on, for a stationary object, this \
+range of position values stays constant. The ladder is the brown slanted \
+rectangle - at every instant in time the ladder is the same constant length, \
+but since it\[CloseCurlyQuote]s moving through space as time goes on, that \
+is, as you move along the time axis, the range of space values it occupies \
+slides up the space axis, forming this slanted rectangle shape on our \
+spacetime diagram. This is from the farmer\[CloseCurlyQuote]s perspective and \
+so, as expected, the ladder is indeed length contracted, and you can see that \
+at any slice of time the ladder occupies a smaller amount of space than the \
+barn does, that is, it\[CloseCurlyQuote]s shorter thanks to length \
+contraction.The black rectangles represent the doors opening and closing, \
+that is, the doors occupy a small horizontal distance, having a bit of \
+thickness, and close instantaneously, appearing in space at a certain point \
+in time. The doors are in the way for a period of time, being closed, and \
+then they disappear from our spacetime diagram when the doors are \
+instantaneously opened. We see here that they open and close at the exact \
+same time, just as the farmer wanted. Let\[CloseCurlyQuote]s track the path \
+of the ladder. The ladder starts out completely outside of the barn, \
+approaching the left side of the barn as time goes on. We see at this \
+intersection the ladder has passed into the front door of the barn, it gets \
+deeper into the barn until eventually the back end passes into the barn as \
+well, so at this instant in time the entire ladder is inside the barn. When \
+the farmer sees this happen he closes the door, trapping the ladder inside \
+for this interval of time. Here where the black blocks are shown, the farmer \
+sees both doors closes with the son with the ladder inside, confirming his \
+hypothesis. The son approaches the end of the barn and the farmer opens the \
+doors again. The right end of the ladder leaves the back end of the barn, the \
+son keeps running, and eventually the back end of the ladder leaves the barn \
+as well and the son is again completely outside of the barn, totally \
+unharmed. At this point the farmer thinks he\[CloseCurlyQuote]s won since his \
+observations matched his mathematical expectation perfectly, however lets \
+look at what the son experienced. What we are about to do is change the \
+velocity of the observer, which, as we saw in the previous model, causes \
+spacetime events to travel along hyperbolas and motion lines to slant, \
+approaching the light cone. As we increase the velocity of the observer we \
+see the velocity of the barn increase and that of the ladder decrease, that \
+is, relative to the observer it now looks like the barn is moving the \
+opposite direction as the runner and that the runner with the ladder \
+relatively isn\[CloseCurlyQuote]t moving as fast as he was, until eventually \
+the observer reaches the velocity of the runner, so that the runner and \
+ladder appear stationary, the large brown rectangle, and in fact the barn \
+looks like it\[CloseCurlyQuote]s the thing moving, the slanted red rectangle; \
+this is what the son who is doing the running sees from his perspective once \
+he gets up to speed. We see that, as the son expected, the ladder is still \
+too long to fit in the barn, and in fact the ",
+ StyleBox["barn",
+  FontSlant->"Italic"],
+ " is now length contracted, making the ladder very noticeably too long to \
+fit in the barn. Remember that we are looking from the runner\
+\[CloseCurlyQuote]s perspective, who can think of himself as stationary and \
+so the barn is the thing with the velocity. At first the ladder is completely \
+outside the barn, not touching, and it gets closer and closer as the barn \
+approaches. We see though that as the barn approaches, the back door closes \
+before we even get there. The barn keeps flying at us with back door closed, \
+and then the back door opens before the front end of our ladder even enters \
+the barn, then the front end of the ladder enters the barn and leaves out the \
+back, and for a good while the barn is passing over the runner with the \
+ladder, the ladder never being completely inside the barn, the barn always \
+straddling it like a moving car wash passing over it. Finally the front end \
+and then the back end of the ladder exit the back end of the barn, and then, \
+as the barn is flying away behind the runner, the front door of the barn \
+closes and then opens, at no threat to the ladder that\[CloseCurlyQuote]s \
+already cleared the back door of the barn. So, the runner observed that the \
+doors closed and opened alright, but not at the same time, rather at times \
+that made them not interact with the ladder at all! So the ladder was never \
+inside the barn completely, but since the doors opening and closing was not \
+simultaneous anymore the ladder got away with getting through the barn!\n\n\
+What we see is that ",
+ StyleBox["both",
+  FontSlant->"Italic"],
+ " observers were correct; from the farmer\[CloseCurlyQuote]s perspective the \
+ladder was completely inside the closed barn for a fraction of a second and \
+from the son\[CloseCurlyQuote]s perspective the ladder was never completely \
+inside the barn. Both observer\[CloseCurlyQuote]s had a mathematically sound \
+prediction going into the situation, so it wouldn\[CloseCurlyQuote]t have \
+made sense for one of them to be correct and the other to be incorrect, as \
+Einstein\[CloseCurlyQuote]s first postulate says, physics is the same from \
+all reference frames, and in fact you can choose any reference frame you want \
+and all of your math should work out perfectly. There is no preferred \
+reference frame or objective coordinate system or timeline to appeal to, all \
+observer\[CloseCurlyQuote]s observations from their perspective at rest are \
+equally valid and only comparable to each other by applying a Lorentzian \
+transformation as opposed to a Galilean one. The fallacy that the farmer and \
+son here made was assuming that simultaneity would be preserved, but just \
+because the doors closed simultaneously for the farmer does not mean that \
+they do so for the son, and in fact this the crux for both observations being \
+accurate. Both reference frames are equally valid, the problem is symmetric, \
+and so by accepting that simultaneity is not preserved between reference \
+frames in special relativity, both observations are confirmed and the paradox \
+is resolved. Thank you.\n\nQuestion: What if the runner chooses to think that \
+the barn is stationary and that he is moving?\nAnswer: Well I\
+\[CloseCurlyQuote]ve been saying that you can always think of yourself as \
+stationary and that everything else is moving, but mathematically you\
+\[CloseCurlyQuote]re always doing this, considering yourself to be \
+stationary. For these calculations you can\[CloseCurlyQuote]t really consider \
+yourself to be moving, instead you switch your reference frame to that of \
+someone who is moving with a different velocity and make believe that you\
+\[CloseCurlyQuote]re them, so when your brain tells you that you\
+\[CloseCurlyQuote]re moving it\[CloseCurlyQuote]s really just to compensate \
+for observations that don\[CloseCurlyQuote]t make sense to our minds. So like \
+when you\[CloseCurlyQuote]re in the car on the highway and everything in the \
+car looks still to you it definitely feels like you\[CloseCurlyQuote]re at \
+rest, and if you black out the windows it would be totally logical to say you\
+\[CloseCurlyQuote]re at rest, however when you look out the window and see \
+everything moving your brain freaks out and says \[OpenCurlyDoubleQuote]wait \
+why is the entire world flying backwards at 60 mph?\[CloseCurlyDoubleQuote], \
+so to rationalize it says that ",
+ StyleBox["you\[CloseCurlyQuote]re",
+  FontSlant->"Italic"],
+ " what\[CloseCurlyQuote]s moving and that everything else is in fact staying \
+still because that feels like it makes more sense to us. So, to answer your \
+question, in our models you will always consider yourself to be stationary in \
+your reference frame, and if you would rather think of yourself as moving \
+then what you should do is switch to a different reference frame where again \
+you would be stationary in that frame but you could observe the previous \
+frame moving with the desired velocity, watching yourself from afar."
+}], "Text",
+ CellChangeTimes->{{3.712716560709578*^9, 3.712717167942297*^9}, {
+  3.712717252016637*^9, 3.712717452898658*^9}, {3.71271754216923*^9, 
+  3.7127175883458643`*^9}, {3.712717743164762*^9, 3.712718000500287*^9}, {
+  3.712718033324226*^9, 3.712718304815949*^9}, {3.712718352980914*^9, 
+  3.712718408700601*^9}, {3.712718850703063*^9, 3.712718974697208*^9}, {
+  3.712719015357826*^9, 3.7127190164807043`*^9}, {3.71271907023317*^9, 
+  3.712719280301752*^9}, {3.712719330964896*^9, 3.712719398543407*^9}, {
+  3.7461189859409513`*^9, 3.746119073064702*^9}, {3.7461191088089943`*^9, 
+  3.7461191127726707`*^9}, {3.746119166113305*^9, 3.7461191755277433`*^9}, {
+  3.746119308264208*^9, 3.746119309810934*^9}, {3.746119339998983*^9, 
+  3.746119344368732*^9}, {3.74611995618186*^9, 3.746119959117915*^9}, {
+  3.746120027765555*^9, 3.746120031658744*^9}, {3.74612012673418*^9, 
+  3.7461201428203363`*^9}},ExpressionUUID->"2d3663e3-f203-4156-a31c-\
+1570793b9b6d"],
+
+Cell[TextData[{
+ "\n",
+ StyleBox["Ajeet Gary\nUMD Undergraduate Math/CS Major\nLast Updated : \
+8/26/17",
+  FontWeight->"Bold"]
+}], "Text",
+ CellChangeTimes->{{3.703866376398128*^9, 3.703866388253559*^9}, {
+  3.712719430149201*^9, 3.712719440145878*^9}, {3.74612017627069*^9, 
+  3.746120188259688*^9}},ExpressionUUID->"1ba89a1f-866e-4c0d-b4a4-\
+02c116b061e2"]
+}, Open  ]]
+},
+WindowSize->{1418, 799},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 200, 3, 69, "Chapter",ExpressionUUID->"cdc0de1a-34a8-4954-b7b9-c0c112a86594"],
+Cell[CellGroupData[{
+Cell[805, 29, 9543, 256, 388, "Input",ExpressionUUID->"c6e0fa1a-4a6b-450b-93b8-5aaa2ac26e8e"],
+Cell[10351, 287, 8452, 171, 582, "Output",ExpressionUUID->"5ecafc35-7a8c-4354-8a37-5fb69784eacf"]
+}, Open  ]],
+Cell[18818, 461, 4390, 61, 426, "Text",ExpressionUUID->"143fe62c-5563-4043-9b39-5393c9b880b0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23245, 527, 399, 7, 71, "Chapter",ExpressionUUID->"c747c0b8-2e1a-4a31-907f-629e31bb274c"],
+Cell[CellGroupData[{
+Cell[23669, 538, 6686, 196, 262, "Input",ExpressionUUID->"b36a9e58-0abd-4c7b-9b5d-66a58ab363ee"],
+Cell[30358, 736, 5421, 115, 681, "Output",ExpressionUUID->"419bf618-4516-439f-a07d-3c2c8caba93f"]
+}, Open  ]],
+Cell[35794, 854, 5210, 71, 472, "Text",ExpressionUUID->"b6a19f03-f0a6-4eec-a6e5-bdc706208630"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41041, 930, 176, 3, 69, "Chapter",ExpressionUUID->"97cec6c7-5911-41ef-9dee-6e81b4ba2455"],
+Cell[CellGroupData[{
+Cell[41242, 937, 9401, 267, 283, "Input",ExpressionUUID->"a89fde1e-1150-4177-85fd-00d8b8c5b97d"],
+Cell[50646, 1206, 6111, 123, 652, "Output",ExpressionUUID->"eda01fcd-8a9b-43c0-b0a1-b58cd7957601"]
+}, Open  ]],
+Cell[56772, 1332, 11078, 154, 1116, "Text",ExpressionUUID->"2d3663e3-f203-4156-a31c-1570793b9b6d"],
+Cell[67853, 1488, 359, 9, 104, "Text",ExpressionUUID->"1ba89a1f-866e-4c0d-b4a4-02c116b061e2"]
+}, Open  ]]
+}
+]
+*)
+

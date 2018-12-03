@@ -1,0 +1,991 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     45475,        983]
+NotebookOptionsPosition[     44708,        961]
+NotebookOutlinePosition[     45066,        977]
+CellTagsIndexPosition[     45023,        974]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Retrograde Motion - Precursor to Heliocentrism", "Chapter",
+ CellChangeTimes->{{3.7044951188681192`*^9, 3.7044951488377743`*^9}, {
+  3.746109005402746*^9, 
+  3.746109017119534*^9}},ExpressionUUID->"eda616d9-56dc-4dce-adf7-\
+2352ca44c80f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AU", " ", "=", " ", "1"}], ";", " ", 
+  RowBox[{"EMDist", "=", ".5"}], ";", " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Astronomical", " ", "Unit"}], " ", "*)"}], ";", 
+  RowBox[{"yr", " ", "=", " ", "1"}], ";", " ", 
+  RowBox[{"month", " ", "=", " ", "yr"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Sun", "[", "t_", "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ";", " ", 
+   RowBox[{
+    RowBox[{"Earth", "[", "t_", "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"AU", " ", 
+       RowBox[{"Cos", "[", 
+        RowBox[{"2", "\[Pi]", " ", "t", 
+         RowBox[{
+          RowBox[{"(", 
+           SuperscriptBox["AU", 
+            RowBox[{
+             RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "yr"}]}], "]"}]}], 
+      ",", 
+      RowBox[{"AU", " ", 
+       RowBox[{"Sin", "[", 
+        RowBox[{"2", "\[Pi]", " ", "t", 
+         RowBox[{
+          RowBox[{"(", 
+           SuperscriptBox["AU", 
+            RowBox[{
+             RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "yr"}]}], "]"}]}], 
+      ",", "0"}], "}"}]}], ";", " ", 
+   RowBox[{
+    RowBox[{"Planet", "[", 
+     RowBox[{"t_", ",", "R_", ",", "\[Theta]0_"}], "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"R", " ", 
+       RowBox[{"Cos", "[", 
+        RowBox[{
+         RowBox[{"2", "\[Pi]", " ", "t", 
+          RowBox[{
+           RowBox[{"(", 
+            SuperscriptBox["R", 
+             RowBox[{
+              RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "yr"}]}], "+", 
+         "\[Theta]0"}], "]"}]}], ",", 
+      RowBox[{"R", " ", 
+       RowBox[{"Sin", "[", 
+        RowBox[{
+         RowBox[{"2", "\[Pi]", " ", "t", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            SuperscriptBox["R", 
+             RowBox[{
+              RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "yr"}]}], "+", 
+         "\[Theta]0"}], "]"}]}], ",", "0"}], "}"}]}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Moon", "[", "t_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"Earth", "[", "t", "]"}], "+", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"EMDist", " ", 
+      RowBox[{"Cos", "[", 
+       RowBox[{"2", "\[Pi]", " ", "t", " ", 
+        RowBox[{
+         RowBox[{"(", 
+          SuperscriptBox["EMDist", 
+           RowBox[{
+            RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "month"}]}], "]"}]}],
+      ",", 
+     RowBox[{"EMDist", " ", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"2", "\[Pi]", " ", "t", 
+        RowBox[{
+         RowBox[{"(", 
+          SuperscriptBox["EMDist", 
+           RowBox[{
+            RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "month"}]}], "]"}]}],
+      ",", "0"}], "}"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SunRad", " ", "=", " ", ".5"}], ";", " ", 
+  RowBox[{"EarthRad", " ", "=", " ", ".2"}], ";", 
+  RowBox[{"CelSphereRad", "=", 
+   RowBox[{"EarthRad", "+", ".15"}]}], ";", " ", 
+  RowBox[{"PlanetRad", " ", "=", " ", ".2"}], ";", " ", 
+  RowBox[{"MoonRad", "=", ".08"}], ";", 
+  RowBox[{"MaxTime", "=", 
+   RowBox[{"2", "yr"}]}], ";", " ", 
+  RowBox[{"A", "=", 
+   RowBox[{"(", GridBox[{
+      {"1", "0"},
+      {"0", "1"},
+      {"0", "0"}
+     }], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Rot", "[", "\[Theta]_", "]"}], ":=", 
+    RowBox[{"(", GridBox[{
+       {
+        RowBox[{"Cos", "[", "\[Theta]", "]"}], 
+        RowBox[{"-", 
+         RowBox[{"Sin", "[", "\[Theta]", "]"}]}]},
+       {
+        RowBox[{"Sin", "[", "\[Theta]", "]"}], 
+        RowBox[{"Cos", "[", "\[Theta]", "]"}]}
+      }], ")"}]}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"2", "x2", " ", "Rotation", " ", "Matrix"}], " ", "*)"}], ";", " ", 
+  RowBox[{
+   RowBox[{"SunFixRot", "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{"Rot", "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", "\[Pi]", " ", "t", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         SuperscriptBox["AU", 
+          RowBox[{
+           RowBox[{"-", "3"}], "/", "2"}]], ")"}], "/", "yr"}]}], ")"}], "-", 
+     
+     RowBox[{"\[Pi]", "/", "2"}]}], "]"}]}], ";", " ", 
+  RowBox[{"Id", " ", "=", " ", 
+   RowBox[{"(", GridBox[{
+      {"1", "0"},
+      {"0", "1"}
+     }], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CSProj", "[", 
+    RowBox[{"Satellite_", ",", "Body_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"Satellite", "-", "Body"}], ")"}], ".", "A"}], ")"}], "/", 
+    RowBox[{"Norm", "[", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"Satellite", "-", "Body"}], ")"}], ".", "A"}], "]"}]}]}], ";", 
+  " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Celestial", " ", "Sphere", " ", "Projection"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"GraphicsGrid", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Show", "[", 
+          RowBox[{
+           RowBox[{"Graphics3D", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"Yellow", ",", 
+               RowBox[{"Sphere", "[", 
+                RowBox[{
+                 RowBox[{"Sun", "[", "T", "]"}], ",", "SunRad"}], "]"}], ",", 
+               "Blue", ",", 
+               RowBox[{"Sphere", "[", 
+                RowBox[{
+                 RowBox[{"Earth", "[", "T", "]"}], ",", "EarthRad"}], "]"}], 
+               ",", "Red", ",", 
+               RowBox[{"Sphere", "[", 
+                RowBox[{
+                 RowBox[{"Planet", "[", 
+                  RowBox[{"T", ",", "R", ",", "\[Theta]0"}], "]"}], ",", 
+                 "PlanetRad"}], "]"}], ",", "Gray", ",", 
+               RowBox[{"If", "[", 
+                RowBox[{"MoonOn", ",", 
+                 RowBox[{"Sphere", "[", 
+                  RowBox[{
+                   RowBox[{"Moon", "[", "T", "]"}], ",", "MoonRad"}], "]"}], 
+                 ",", 
+                 RowBox[{"{", "}"}]}], "]"}]}], "}"}], ",", 
+             RowBox[{"PlotRange", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"-", 
+                    RowBox[{"Max", "[", 
+                    RowBox[{"R", ",", "AU"}], "]"}]}], "-", 
+                   RowBox[{"Max", "[", 
+                    RowBox[{"PlanetRad", ",", "EarthRad"}], "]"}]}], ",", 
+                  RowBox[{
+                   RowBox[{"Max", "[", 
+                    RowBox[{"R", ",", "AU"}], "]"}], "+", 
+                   RowBox[{"Max", "[", 
+                    RowBox[{"PlanetRad", ",", "EarthRad"}], "]"}]}]}], "}"}], 
+                ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"-", 
+                    RowBox[{"Max", "[", 
+                    RowBox[{"R", ",", "AU"}], "]"}]}], "-", 
+                   RowBox[{"Max", "[", 
+                    RowBox[{"PlanetRad", ",", "EarthRad"}], "]"}]}], ",", 
+                  RowBox[{
+                   RowBox[{"Max", "[", 
+                    RowBox[{"R", ",", "AU"}], "]"}], "+", 
+                   RowBox[{"Max", "[", 
+                    RowBox[{"PlanetRad", ",", "EarthRad"}], "]"}]}]}], "}"}], 
+                ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"-", "1.5"}], "SunRad"}], ",", 
+                  RowBox[{"1.5", "SunRad"}]}], "}"}]}], "}"}]}]}], "]"}], ",", 
+           RowBox[{"If", "[", 
+            RowBox[{"CelestialSphereOn", ",", 
+             RowBox[{"Graphics3D", "[", 
+              RowBox[{"{", 
+               RowBox[{"Cyan", ",", 
+                RowBox[{"Opacity", "[", ".5", "]"}], ",", 
+                RowBox[{"Sphere", "[", 
+                 RowBox[{
+                  RowBox[{"Earth", "[", "T", "]"}], ",", "CelSphereRad"}], 
+                 "]"}]}], "}"}], "]"}], ",", 
+             RowBox[{"{", "}"}]}], "]"}], ",", 
+           RowBox[{"If", "[", 
+            RowBox[{"CelestialSphereOn", ",", 
+             RowBox[{"ParametricPlot3D", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Sun", "[", "T", "]"}], "\[Alpha]"}], "+", 
+                  RowBox[{
+                   RowBox[{"Earth", "[", "T", "]"}], 
+                   RowBox[{"(", 
+                    RowBox[{"1", "-", "\[Alpha]"}], ")"}]}]}], ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Planet", "[", 
+                    RowBox[{"T", ",", "R", ",", "\[Theta]0"}], "]"}], 
+                   "\[Alpha]"}], "+", 
+                  RowBox[{
+                   RowBox[{"Earth", "[", "T", "]"}], 
+                   RowBox[{"(", 
+                    RowBox[{"1", "-", "\[Alpha]"}], ")"}]}]}], ",", 
+                 RowBox[{"If", "[", 
+                  RowBox[{"MoonOn", ",", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"Moon", "[", "T", "]"}], "\[Alpha]"}], "+", 
+                    RowBox[{
+                    RowBox[{"Earth", "[", "T", "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "\[Alpha]"}], ")"}]}]}], ",", 
+                   RowBox[{"{", "}"}]}], "]"}]}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"\[Alpha]", ",", "0", ",", "1"}], "}"}], ",", 
+               RowBox[{"PlotStyle", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"Thickness", "[", ".008", "]"}], "}"}]}]}], "]"}], 
+             ",", 
+             RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", 
+         RowBox[{"Show", "[", 
+          RowBox[{
+           RowBox[{"ParametricPlot", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"CSProj", "[", 
+               RowBox[{
+                RowBox[{"Sun", "[", "T", "]"}], ",", 
+                RowBox[{"Earth", "[", "T", "]"}]}], "]"}], ".", 
+              RowBox[{"If", "[", 
+               RowBox[{"MidnightFix", ",", 
+                RowBox[{"SunFixRot", "[", "T", "]"}], ",", "Id"}], "]"}]}], 
+             ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+             RowBox[{"PlotRange", "\[Rule]", "1.2"}], ",", 
+             RowBox[{"PlotStyle", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Thickness", "[", ".02", "]"}], ",", "Yellow"}], 
+               "}"}]}]}], "]"}], ",", 
+           RowBox[{"ParametricPlot", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"CSProj", "[", 
+               RowBox[{
+                RowBox[{"Planet", "[", 
+                 RowBox[{"T", ",", "R", ",", "\[Theta]0"}], "]"}], ",", 
+                RowBox[{"Earth", "[", "T", "]"}]}], "]"}], ".", 
+              RowBox[{"If", "[", 
+               RowBox[{"MidnightFix", ",", 
+                RowBox[{"SunFixRot", "[", "T", "]"}], ",", "Id"}], "]"}]}], 
+             ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+             RowBox[{"PlotRange", "\[Rule]", "1.2"}], ",", 
+             RowBox[{"PlotStyle", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Thickness", "[", ".02", "]"}], ",", "Red"}], 
+               "}"}]}]}], "]"}], ",", 
+           RowBox[{"If", "[", 
+            RowBox[{"MoonOn", ",", 
+             RowBox[{"ParametricPlot", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"CSProj", "[", 
+                 RowBox[{
+                  RowBox[{"Moon", "[", "T", "]"}], ",", 
+                  RowBox[{"Earth", "[", "T", "]"}]}], "]"}], ".", 
+                RowBox[{"If", "[", 
+                 RowBox[{"MidnightFix", ",", 
+                  RowBox[{"SunFixRot", "[", "T", "]"}], ",", "Id"}], "]"}]}], 
+               ",", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+               RowBox[{"PlotRange", "\[Rule]", "1.2"}], ",", 
+               RowBox[{"PlotStyle", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"Thickness", "[", ".02", "]"}], ",", "Gray"}], 
+                 "}"}]}]}], "]"}], ",", 
+             RowBox[{"{", "}"}]}], "]"}], ",", 
+           RowBox[{"If", "[", 
+            RowBox[{"CelestialSphereOn", ",", 
+             RowBox[{"Graphics", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Opacity", "[", ".5", "]"}], ",", "Cyan", ",", 
+                RowBox[{"Circle", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", "1"}], "]"}]}], "}"}],
+               "]"}], ",", 
+             RowBox[{"{", "}"}]}], "]"}], ",", 
+           RowBox[{"If", "[", 
+            RowBox[{"MidnightFix", ",", 
+             RowBox[{"Graphics", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Text", "[", 
+                 RowBox[{
+                 "\"\<\!\(\*StyleBox[\"Midnight\",FontWeight->\"Bold\"]\)\>\"\
+", ",", 
+                  RowBox[{"{", 
+                   RowBox[{".15", ",", "1.1"}], "}"}]}], "]"}], ",", 
+                RowBox[{"Text", "[", 
+                 RowBox[{
+                 "\"\<\!\(\*StyleBox[\"Noon\",FontWeight->\"Bold\"]\)\>\"", 
+                  ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", ".1"}], ",", 
+                    RowBox[{"-", "1.1"}]}], "}"}]}], "]"}], ",", 
+                RowBox[{"Text", "[", 
+                 RowBox[{
+                 "\"\<\!\(\*StyleBox[\"6\",FontWeight->\"Bold\"]\)\!\(\*\
+StyleBox[\" \
+\",FontWeight->\"Bold\"]\)\!\(\*StyleBox[\"AM\",FontWeight->\"Bold\"]\)\>\"", 
+                  ",", 
+                  RowBox[{"{", 
+                   RowBox[{"1.12", ",", 
+                    RowBox[{"-", ".1"}]}], "}"}]}], "]"}], ",", 
+                RowBox[{"Text", "[", 
+                 RowBox[{
+                 "\"\<\!\(\*StyleBox[\"6\",FontWeight->\"Bold\"]\)\!\(\*\
+StyleBox[\" \
+\",FontWeight->\"Bold\"]\)\!\(\*StyleBox[\"PM\",FontWeight->\"Bold\"]\)\>\"", 
+                  ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "1.1"}], ",", ".1"}], "}"}]}], "]"}]}], 
+               "}"}], "]"}], ",", 
+             RowBox[{"{", "}"}]}], "]"}], ",", 
+           RowBox[{"Graphics", "[", 
+            RowBox[{"{", 
+             RowBox[{"Blue", ",", 
+              RowBox[{"Line", "[", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Rot", "[", 
+                   RowBox[{"\[Pi]", "/", "2"}], "]"}], ".", 
+                  RowBox[{"CSProj", "[", 
+                   RowBox[{
+                    RowBox[{"Sun", "[", "T", "]"}], ",", 
+                    RowBox[{"Earth", "[", "T", "]"}]}], "]"}], ".", 
+                  RowBox[{"If", "[", 
+                   RowBox[{"MidnightFix", ",", 
+                    RowBox[{"SunFixRot", "[", "T", "]"}], ",", "Id"}], 
+                   "]"}]}], ",", 
+                 RowBox[{
+                  RowBox[{"Rot", "[", 
+                   RowBox[{
+                    RowBox[{"-", "\[Pi]"}], "/", "2"}], "]"}], ".", 
+                  RowBox[{"CSProj", "[", 
+                   RowBox[{
+                    RowBox[{"Sun", "[", "T", "]"}], ",", 
+                    RowBox[{"Earth", "[", "T", "]"}]}], "]"}], ".", 
+                  RowBox[{"If", "[", 
+                   RowBox[{"MidnightFix", ",", 
+                    RowBox[{"SunFixRot", "[", "T", "]"}], ",", "Id"}], 
+                   "]"}]}]}], "}"}], "]"}]}], "}"}], "]"}]}], "]"}]}], "}"}], 
+       "}"}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "800"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"T", ",", "0", ",", "\"\<Time\>\""}], "}"}], ",", "0", ",", 
+      "MaxTime"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"R", ",", 
+        RowBox[{"2", "*", "AU"}], ",", "\"\<Orbital Radius\>\""}], "}"}], ",", 
+      RowBox[{".1", "*", "AU"}], ",", 
+      RowBox[{"3", "*", "AU"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "\[Theta]0", ",", "0", ",", "\"\<Initial Planet Position\>\""}], "}"}],
+       ",", "0", ",", 
+      RowBox[{"2", "*", "\[Pi]"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "CelestialSphereOn", ",", "True", ",", "\"\<Celestial Sphere\>\""}], 
+       "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"MoonOn", ",", "False", ",", "\"\<Moon\>\""}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"MidnightFix", ",", "False", ",", "\"\<Fix at Midnight\>\""}], 
+       "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+    RowBox[{"Button", "[", 
+     RowBox[{"\"\<Reset\>\"", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"T", "=", "0"}], ",", 
+        RowBox[{"R", "=", 
+         RowBox[{"2", "*", "AU"}]}], ",", 
+        RowBox[{"\[Theta]0", "=", "0"}], ",", 
+        RowBox[{"CelestialSphereOn", "=", "True"}], ",", 
+        RowBox[{"MidnightFix", "=", "False"}]}], "}"}]}], "]"}], ",", 
+    RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.704495130200058*^9, {3.704495162670004*^9, 3.7044952599933*^9}, {
+   3.7044953016650963`*^9, 3.704495496138617*^9}, {3.704495709013866*^9, 
+   3.7044959021254997`*^9}, {3.7044959481018953`*^9, 
+   3.7044959912585363`*^9}, {3.7044960348348503`*^9, 3.704496117332847*^9}, {
+   3.704496563146634*^9, 3.704496570058001*^9}, {3.7044966846483088`*^9, 
+   3.704496772700734*^9}, {3.704496846908347*^9, 3.704496868498267*^9}, {
+   3.70449696236747*^9, 3.7044970025647287`*^9}, 3.7044970537272882`*^9, {
+   3.7044971510900183`*^9, 3.704497185447686*^9}, {3.704497278751747*^9, 
+   3.704497282668334*^9}, {3.704497338593655*^9, 3.7044974195295963`*^9}, {
+   3.7044975683257236`*^9, 3.704497614156481*^9}, {3.704497656337915*^9, 
+   3.704497673015807*^9}, {3.704497954310349*^9, 3.70449797605999*^9}, {
+   3.704498178908338*^9, 3.704498404555107*^9}, {3.704498811044389*^9, 
+   3.704498861672744*^9}, {3.7044988917704144`*^9, 3.70449889841551*^9}, {
+   3.704498959293621*^9, 3.704499042896022*^9}, {3.704499081123164*^9, 
+   3.704499208287774*^9}, {3.704499919413176*^9, 3.704499936058683*^9}, {
+   3.704500069350716*^9, 3.7045000702858677`*^9}, {3.704501039538348*^9, 
+   3.7045011124235477`*^9}, {3.70450115128174*^9, 3.704501201350504*^9}, {
+   3.704501242121552*^9, 3.70450132156256*^9}, {3.7045015191144447`*^9, 
+   3.70450153257137*^9}, {3.7045015825871964`*^9, 3.704501592117392*^9}, {
+   3.704501709938393*^9, 3.704501735016433*^9}, {3.704501855831588*^9, 
+   3.704501856323744*^9}, {3.704502161859015*^9, 3.704502201124419*^9}, {
+   3.7045070278242807`*^9, 3.704507221896202*^9}, {3.7045072625130672`*^9, 
+   3.704507317077795*^9}, {3.704507351828815*^9, 3.704507379675949*^9}, {
+   3.704507886453373*^9, 3.704507928592825*^9}, {3.704508062822434*^9, 
+   3.7045081415382967`*^9}, {3.704508182560876*^9, 3.70450834776326*^9}, {
+   3.7045083867077923`*^9, 3.704508408962579*^9}, {3.704508479342042*^9, 
+   3.704508577763208*^9}, {3.70450861545119*^9, 3.704508830715292*^9}, {
+   3.704508882427204*^9, 3.704508996757873*^9}, {3.704509069037243*^9, 
+   3.704509111553968*^9}, {3.7045092136467657`*^9, 3.7045094554146023`*^9}, {
+   3.7045094909895697`*^9, 3.704509691030821*^9}, {3.7045097702592287`*^9, 
+   3.7045098752172203`*^9}, {3.704509916265188*^9, 3.704509942662681*^9}, {
+   3.704509973102831*^9, 3.704510152231798*^9}, {3.704510239414629*^9, 
+   3.704510252294119*^9}, {3.704657824372855*^9, 3.7046578314336977`*^9}, {
+   3.704658435123569*^9, 3.704658447849205*^9}, {3.7046684327804747`*^9, 
+   3.70466845498517*^9}, {3.704669251671399*^9, 3.7046692620690737`*^9}, {
+   3.704669342544907*^9, 3.704669442278442*^9}, {3.704669496068432*^9, 
+   3.7046695141882753`*^9}, {3.704669560660348*^9, 3.704669561114997*^9}, {
+   3.704669702047576*^9, 3.704669792476779*^9}, {3.704669872025629*^9, 
+   3.704669938581172*^9}, {3.704670051521591*^9, 3.7046702644162207`*^9}, {
+   3.7046703051224422`*^9, 3.704670374310246*^9}, {3.704670438967709*^9, 
+   3.7046704667071447`*^9}, {3.704670525787422*^9, 3.70467058178516*^9}, {
+   3.704670638965137*^9, 3.704670639185309*^9}, {3.704670705529628*^9, 
+   3.704670727121442*^9}, {3.70467084097611*^9, 3.704670859725939*^9}, {
+   3.7046708943004427`*^9, 3.704670965857841*^9}, {3.7046710042196198`*^9, 
+   3.704671182808579*^9}, {3.7046712673154*^9, 3.704671278870273*^9}, {
+   3.704671317808189*^9, 3.704671353380848*^9}, {3.704671409435264*^9, 
+   3.7046714727919416`*^9}, {3.7046715321831493`*^9, 3.70467156446138*^9}, {
+   3.704671609227393*^9, 3.704671632770219*^9}, {3.704671670724208*^9, 
+   3.704671670971925*^9}, {3.704671707137095*^9, 3.704671768709001*^9}, {
+   3.704683828375875*^9, 3.7046838758583603`*^9}, {3.704683921078104*^9, 
+   3.7046839462257442`*^9}, {3.704684045201064*^9, 3.704684069164563*^9}, {
+   3.7046841027015038`*^9, 3.704684103580742*^9}, {3.7046844117382383`*^9, 
+   3.704684430616024*^9}, {3.704684492671727*^9, 3.704684562051651*^9}, {
+   3.704684667393729*^9, 3.704684741697692*^9}, {3.704685163512039*^9, 
+   3.704685220433803*^9}, {3.70468530222672*^9, 3.7046853048331423`*^9}, {
+   3.7046855453631277`*^9, 3.704685546840597*^9}, {3.704765034094535*^9, 
+   3.70476508036485*^9}, {3.704765182694141*^9, 3.704765281504125*^9}, {
+   3.704765333091062*^9, 3.7047653345144787`*^9}, {3.704765368457223*^9, 
+   3.704765513534917*^9}, {3.704817888687427*^9, 3.704817949711793*^9}, {
+   3.704890615874501*^9, 3.704890648567583*^9}, {3.704890684153998*^9, 
+   3.7048909336387444`*^9}, {3.704891012230727*^9, 3.704891030547873*^9}, {
+   3.704891073987105*^9, 3.7048912025313*^9}, {3.705057567878662*^9, 
+   3.705057591298646*^9}, {3.705057632393194*^9, 3.705057688670512*^9}, {
+   3.705057719849393*^9, 3.705057738926529*^9}, {3.705057773116807*^9, 
+   3.705057775978305*^9}, {3.70505877241402*^9, 3.7050587819310513`*^9}, {
+   3.705058840890728*^9, 3.705058845009124*^9}, {3.705058972002651*^9, 
+   3.705058972608127*^9}, {3.705059124148901*^9, 3.7050593819904737`*^9}, {
+   3.705059913140444*^9, 3.705060104036256*^9}, {3.705060164730612*^9, 
+   3.705060165354286*^9}, {3.705060212138089*^9, 3.705060249277183*^9}, {
+   3.70506028054031*^9, 3.7050602889942503`*^9}, {3.7050603218823547`*^9, 
+   3.705060342184218*^9}, {3.705060419011294*^9, 3.705060452732164*^9}, {
+   3.705060533628023*^9, 3.705060534713378*^9}, {3.705060760501669*^9, 
+   3.705060767589642*^9}, {3.7050608537794523`*^9, 3.705060967917728*^9}, {
+   3.70506108749129*^9, 3.705061115921319*^9}, {3.705061294286628*^9, 
+   3.7050613448509274`*^9}, {3.7050613956028347`*^9, 
+   3.7050614244452953`*^9}, {3.705141656292753*^9, 3.705141657717519*^9}, {
+   3.705141842774695*^9, 3.705141853531885*^9}, {3.752811514031454*^9, 
+   3.75281168462191*^9}},ExpressionUUID->"b815087d-9749-4b87-9774-\
+5d8522358524"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`CelestialSphereOn$$ = 
+    True, $CellContext`MidnightFix$$ = False, $CellContext`MoonOn$$ = 
+    False, $CellContext`R$$ = 2, $CellContext`T$$ = 
+    0.10347816364746211`, $CellContext`\[Theta]0$$ = 0, Typeset`show$$ = True,
+     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`T$$], 0, "Time"}, 0, 2}, {{
+       Hold[$CellContext`R$$], 2, "Orbital Radius"}, 0.1, 3}, {{
+       Hold[$CellContext`\[Theta]0$$], 0, "Initial Planet Position"}, 0, 2 
+      Pi}, {{
+       Hold[$CellContext`CelestialSphereOn$$], True, "Celestial Sphere"}, {
+      True, False}}, {{
+       Hold[$CellContext`MoonOn$$], False, "Moon"}, {True, False}}, {{
+       Hold[$CellContext`MidnightFix$$], False, "Fix at Midnight"}, {
+      True, False}}, {
+      Hold[
+       Button[
+       "Reset", {$CellContext`T$$ = 0, $CellContext`R$$ = 
+         2 $CellContext`AU, $CellContext`\[Theta]0$$ = 
+         0, $CellContext`CelestialSphereOn$$ = 
+         True, $CellContext`MidnightFix$$ = False}]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    800., {207., 211.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`T$2803$$ = 
+    0, $CellContext`R$2808$$ = 0, $CellContext`\[Theta]0$2809$$ = 
+    0, $CellContext`CelestialSphereOn$2810$$ = 
+    False, $CellContext`MoonOn$2811$$ = 
+    False, $CellContext`MidnightFix$2812$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`CelestialSphereOn$$ = 
+        True, $CellContext`MidnightFix$$ = False, $CellContext`MoonOn$$ = 
+        False, $CellContext`R$$ = 2, $CellContext`T$$ = 
+        0, $CellContext`\[Theta]0$$ = 0}, "ControllerVariables" :> {
+        Hold[$CellContext`T$$, $CellContext`T$2803$$, 0], 
+        Hold[$CellContext`R$$, $CellContext`R$2808$$, 0], 
+        Hold[$CellContext`\[Theta]0$$, $CellContext`\[Theta]0$2809$$, 0], 
+        Hold[$CellContext`CelestialSphereOn$$, \
+$CellContext`CelestialSphereOn$2810$$, False], 
+        Hold[$CellContext`MoonOn$$, $CellContext`MoonOn$2811$$, False], 
+        Hold[$CellContext`MidnightFix$$, $CellContext`MidnightFix$2812$$, 
+         False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> GraphicsGrid[{{
+          Show[
+           Graphics3D[{Yellow, 
+             Sphere[
+              $CellContext`Sun[$CellContext`T$$], $CellContext`SunRad], Blue, 
+             
+             Sphere[
+              $CellContext`Earth[$CellContext`T$$], $CellContext`EarthRad], 
+             Red, 
+             Sphere[
+              $CellContext`Planet[$CellContext`T$$, $CellContext`R$$, \
+$CellContext`\[Theta]0$$], $CellContext`PlanetRad], Gray, 
+             If[$CellContext`MoonOn$$, 
+              Sphere[
+               $CellContext`Moon[$CellContext`T$$], $CellContext`MoonRad], \
+{}]}, PlotRange -> {{-Max[$CellContext`R$$, $CellContext`AU] - 
+               Max[$CellContext`PlanetRad, $CellContext`EarthRad], 
+               Max[$CellContext`R$$, $CellContext`AU] + 
+               Max[$CellContext`PlanetRad, $CellContext`EarthRad]}, {-
+                Max[$CellContext`R$$, $CellContext`AU] - 
+               Max[$CellContext`PlanetRad, $CellContext`EarthRad], 
+               Max[$CellContext`R$$, $CellContext`AU] + 
+               Max[$CellContext`PlanetRad, $CellContext`EarthRad]}, {(-1.5) \
+$CellContext`SunRad, 1.5 $CellContext`SunRad}}], 
+           If[$CellContext`CelestialSphereOn$$, 
+            Graphics3D[{Cyan, 
+              Opacity[0.5], 
+              Sphere[
+               $CellContext`Earth[$CellContext`T$$], \
+$CellContext`CelSphereRad]}], {}], 
+           If[$CellContext`CelestialSphereOn$$, 
+            
+            ParametricPlot3D[{$CellContext`Sun[$CellContext`T$$] \
+$CellContext`\[Alpha] + $CellContext`Earth[$CellContext`T$$] (
+                1 - $CellContext`\[Alpha]), \
+$CellContext`Planet[$CellContext`T$$, $CellContext`R$$, \
+$CellContext`\[Theta]0$$] $CellContext`\[Alpha] + \
+$CellContext`Earth[$CellContext`T$$] (1 - $CellContext`\[Alpha]), 
+              
+              If[$CellContext`MoonOn$$, $CellContext`Moon[$CellContext`T$$] \
+$CellContext`\[Alpha] + $CellContext`Earth[$CellContext`T$$] (
+                 1 - $CellContext`\[Alpha]), {}]}, {$CellContext`\[Alpha], 0, 
+              1}, PlotStyle -> {
+               Thickness[0.008]}], {}]], 
+          Show[
+           ParametricPlot[
+            Dot[
+             $CellContext`CSProj[
+              $CellContext`Sun[$CellContext`T$$], 
+              $CellContext`Earth[$CellContext`T$$]], 
+             If[$CellContext`MidnightFix$$, 
+              $CellContext`SunFixRot[$CellContext`T$$], $CellContext`Id]], \
+{$CellContext`x, 0, 1}, PlotRange -> 1.2, PlotStyle -> {
+              Thickness[0.02], Yellow}], 
+           ParametricPlot[
+            Dot[
+             $CellContext`CSProj[
+              $CellContext`Planet[$CellContext`T$$, $CellContext`R$$, \
+$CellContext`\[Theta]0$$], 
+              $CellContext`Earth[$CellContext`T$$]], 
+             If[$CellContext`MidnightFix$$, 
+              $CellContext`SunFixRot[$CellContext`T$$], $CellContext`Id]], \
+{$CellContext`x, 0, 1}, PlotRange -> 1.2, PlotStyle -> {
+              Thickness[0.02], Red}], 
+           If[$CellContext`MoonOn$$, 
+            ParametricPlot[
+             Dot[
+              $CellContext`CSProj[
+               $CellContext`Moon[$CellContext`T$$], 
+               $CellContext`Earth[$CellContext`T$$]], 
+              If[$CellContext`MidnightFix$$, 
+               $CellContext`SunFixRot[$CellContext`T$$], $CellContext`Id]], \
+{$CellContext`x, 0, 1}, PlotRange -> 1.2, PlotStyle -> {
+               Thickness[0.02], Gray}], {}], 
+           If[$CellContext`CelestialSphereOn$$, 
+            Graphics[{
+              Opacity[0.5], Cyan, 
+              Circle[{0, 0}, 1]}], {}], 
+           If[$CellContext`MidnightFix$$, 
+            Graphics[{
+              Text[
+              "\!\(\*StyleBox[\"Midnight\",FontWeight->\"Bold\"]\)", {0.15, 
+               1.1}], 
+              Text[
+              "\!\(\*StyleBox[\"Noon\",FontWeight->\"Bold\"]\)", {-0.1, \
+-1.1}], 
+              Text[
+              "\!\(\*StyleBox[\"6\",FontWeight->\"Bold\"]\)\!\(\*StyleBox[\" \
+\",FontWeight->\"Bold\"]\)\!\(\*StyleBox[\"AM\",FontWeight->\"Bold\"]\)", {
+               1.12, -0.1}], 
+              Text[
+              "\!\(\*StyleBox[\"6\",FontWeight->\"Bold\"]\)\!\(\*StyleBox[\" \
+\",FontWeight->\"Bold\"]\)\!\(\*StyleBox[\"PM\",FontWeight->\"Bold\"]\)", \
+{-1.1, 0.1}]}], {}], 
+           Graphics[{Blue, 
+             Line[{
+               Dot[
+                $CellContext`Rot[Pi/2], 
+                $CellContext`CSProj[
+                 $CellContext`Sun[$CellContext`T$$], 
+                 $CellContext`Earth[$CellContext`T$$]], 
+                If[$CellContext`MidnightFix$$, 
+                 $CellContext`SunFixRot[$CellContext`T$$], $CellContext`Id]], 
+               
+               Dot[
+                $CellContext`Rot[(-Pi)/2], 
+                $CellContext`CSProj[
+                 $CellContext`Sun[$CellContext`T$$], 
+                 $CellContext`Earth[$CellContext`T$$]], 
+                If[$CellContext`MidnightFix$$, 
+                 $CellContext`SunFixRot[$CellContext`T$$], \
+$CellContext`Id]]}]}]]}}, ImageSize -> 800], 
+      "Specifications" :> {{{$CellContext`T$$, 0, "Time"}, 0, 
+         2}, {{$CellContext`R$$, 2, "Orbital Radius"}, 0.1, 
+         3}, {{$CellContext`\[Theta]0$$, 0, "Initial Planet Position"}, 0, 2 
+         Pi}, {{$CellContext`CelestialSphereOn$$, True, "Celestial Sphere"}, {
+         True, False}}, {{$CellContext`MoonOn$$, False, "Moon"}, {
+         True, False}}, {{$CellContext`MidnightFix$$, False, 
+          "Fix at Midnight"}, {True, False}}, 
+        Button[
+        "Reset", {$CellContext`T$$ = 0, $CellContext`R$$ = 
+          2 $CellContext`AU, $CellContext`\[Theta]0$$ = 
+          0, $CellContext`CelestialSphereOn$$ = 
+          True, $CellContext`MidnightFix$$ = False}]}, 
+      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1154., {236., 242.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.704890862448406*^9, 3.7048909068729897`*^9}, 
+   3.7048910316545763`*^9, {3.704891094999756*^9, 3.7048911468708344`*^9}, {
+   3.70489117760999*^9, 3.7048912038632183`*^9}, 3.705057526780542*^9, {
+   3.705057653168727*^9, 3.705057690773487*^9}, {3.705057722326174*^9, 
+   3.705057740287925*^9}, 3.705057777233657*^9, 3.705058788160182*^9, 
+   3.705058846883945*^9, 3.705058976531019*^9, 3.705059210766204*^9, 
+   3.705059299449422*^9, 3.7050593547057*^9, 3.705059870929702*^9, {
+   3.705059914483199*^9, 3.705059918728731*^9}, {3.705060076458774*^9, 
+   3.705060105557453*^9}, {3.705060139686172*^9, 3.705060166613443*^9}, {
+   3.705060229461046*^9, 3.705060250012598*^9}, 3.705060290669053*^9, {
+   3.705060331196541*^9, 3.705060343574821*^9}, 3.7050604596509333`*^9, 
+   3.705060535983534*^9, 3.705060768755444*^9, {3.7050608664024754`*^9, 
+   3.705060969109778*^9}, 3.7050611215350313`*^9, 3.705061352246543*^9, 
+   3.70506142637357*^9, 3.7050831864334097`*^9, 3.7051415237810907`*^9, {
+   3.705141658813085*^9, 3.705141670935919*^9}, 3.7051417258591213`*^9, 
+   3.708302060401486*^9, 3.7342526634706306`*^9, 3.73781475257873*^9, 
+   3.7447303545441523`*^9, 3.746099131818672*^9, 3.7461052964533987`*^9, 
+   3.752811738937958*^9},ExpressionUUID->"4be1f03b-63d1-4f90-bd5c-\
+3dfcec73e3cd"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Retrograde Motion",
+  FontWeight->"Bold"],
+ "\nRetrograde motion is the phenomenon where over the course of time, on the \
+scale of years, a planet will move in your sky in generally an arc but \
+sometimes move backwards for a few days and then start moving in the normal \
+direction again. This is called retrograde motion and is utterly \
+unexplainable by a planetary model where Earth is at the center of the Solar \
+System and everything revolves around it.\n",
+ StyleBox["Circular Planetary Orbits\n",
+  FontWeight->"Bold"],
+ "The left model shows the Sun, Earth, and some other Planet all rotating in \
+the same plane. The orbit of the planet can be controlled by the Orbital \
+Radius slider and the Initial Position slider, which places the planet at an \
+initial angle around the sun from 0 to 2\[Pi]. By Newton\[CloseCurlyQuote]s \
+Third Law, the force of gravity between the Sun and a planet is in magnitude \
+the centripetal force for circular motion, so",
+ StyleBox[" ",
+  FontSlant->"Italic"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      SubscriptBox["Gm", "1"], 
+      StyleBox[
+       SubscriptBox["m", "2"],
+       FontSlant->"Italic"]}], 
+     SuperscriptBox["r", "2"]], "="}], TraditionalForm]],
+  FontSlant->"Italic",ExpressionUUID->
+  "bd536ddf-84e0-4a74-9217-a7a1b6683bfb"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     SubscriptBox["m", "1"], 
+     SuperscriptBox["v", "2"]}], "r"], TraditionalForm]],ExpressionUUID->
+  "08d34257-1857-4df4-85a9-01005bdf95c6"],
+ " \[Implies] v = ",
+ Cell[BoxData[
+  FormBox[
+   SqrtBox[
+    RowBox[{
+     SubscriptBox["Gm", "2"], "/", "r"}]], TraditionalForm]],ExpressionUUID->
+  "a89fefe2-8510-461c-99a9-965331f8bcea"],
+ ", that is, the tangential velocity of the planet and therefore the orbital \
+period of the planet is completely determined by the radius at which the \
+circular orbit is occurring, meaning that the Orbital Radius slider is the \
+only one we need to talk about all circular orbits, both closer to the Sun \
+than Earth and farther.\n",
+ StyleBox["The Celestial Sphere",
+  FontWeight->"Bold"],
+ "\nThe Celestial Sphere, as can be turned on with the check box, is the sky \
+of the planet it\[CloseCurlyQuote]s surrounding. The lines connecting every \
+body in the sky to the center of the Earth intersects the Celestial Sphere at \
+one point, which is the point in the sky you would see if you looked up. The \
+right model shows the projection of the objects in space onto the celestial \
+sphere. Here the sizes of the objects don\[CloseCurlyQuote]t matter, the \
+planet and the Sun show up as the same sized dots on the celestial sphere; \
+back when retrograde motion was first noticed it is definitely plausible that \
+their equipment was nowhere near sophisticated enough to measure the changes \
+in sizes of celestial bodies over the course of a few years, meaning that a \
+point in the sky is all they have to go off of anyway.\n",
+ StyleBox["Not to Scale\n",
+  FontWeight->"Bold"],
+ "Making the sizes of bodies relative to each other to scale doesn\
+\[CloseCurlyQuote]t work for this model, as the Sun would be one million \
+times bigger than the Earth, which, when scaled to fit the model, would make \
+the Earth invisible. Scaling for distance also doesn\[CloseCurlyQuote]t make \
+sense, as even for the Sun, a very large object, it might only barely appear \
+in the model if the distances were accurate, that is, the diameter of the Sun \
+is less than 900,000 miles, 1/100th the 93 million miles from the Earth to \
+the Sun. Finally the Moon\[CloseCurlyQuote]s orbital period cannot be \
+accurate, as the Moon going around the Earth 13.4 times a year would be way \
+too sensitive, the time slider would have to be slid extremely carefully to \
+be able to see the Moon moving as opposed to jumping around the Earth.\n",
+ StyleBox["Explanation of Retrograde Motion\n",
+  FontWeight->"Bold"],
+ "When we move the time slider, or alternatively hit play on the time \
+animation (slowing it down is advised), we can see night to night the red \
+planet moving along Earth\[CloseCurlyQuote]s sky counter-clockwise. The Sun \
+is also moving counter-clockwise, as is the moon. The apparent similarity in \
+behaviour could plausibly lead one to believe that Earth is at the center of \
+the solar system. However, we see that at some point in the year, the red \
+planet moves backwards in our sky for a while, and the continues on its \
+counterclockwise trajectory. This retrograde motion cannot be explained by \
+models putting Earth as the center of the solar system. By inspecting the \
+left model in real time as the retrograde motion unfolds on the right model, \
+we see that retrograde motion is really the effect of the Earth ",
+ StyleBox["passing",
+  FontSlant->"Italic"],
+ " the red planet in its orbit, this makes it clear how why a parallax effect \
+is coming in to play. Parallax is the phenomenon by which an object appears \
+to move with respect to the background. As we are catching up to the red \
+planet in the orbit, it moves somewhat circularly (this, too, is not obvious \
+- the model shows us though how early astronomers made the mistake, as it \
+looks awfully similar to how the moon goes around us), but when we pass it \
+the parallax effect takes over and the projection of the planet onto the \
+celestial sphere moves backwards for a while. This model also allows us to \
+visualize why retrograde motion occurs when the planet is both farther away \
+and closer to the Sun than Earth is.",
+ StyleBox["\nFixing at Midnight\n",
+  FontWeight->"Bold"],
+ "The horizontal blue line is the horizon. Time of day is really a measure of \
+where on the planet you are standing, so by midnight I really mean opposite \
+the Sun, and by horizon I mean the diameter of Earth perpendicular to the \
+vector connecting the Sun and Earth, which can be thought of as the line \
+connecting the positions of 6pm and 6am. When we fix at midnight and place \
+the planet farther from the Sun than the Earth is, we do not see the planet \
+move backwards on the projection - this is because when we don\
+\[CloseCurlyQuote]t fix the horizon, it\[CloseCurlyQuote]s moving at a speed \
+faster than the planet\[CloseCurlyQuote]s negative movement speed when it \
+goes backward; fixing the horizon is equivalent to rotating everything by the \
+opposite of the inclination of the horizon, so the planet\[CloseCurlyQuote]s \
+motion will always be in the same direction. The way to interpret retrograde \
+motion here is by the slowing down of the red dot on the projection, which is \
+hard to see on this model. The inner planet still does though show the \
+retrograde motion on the projection when we fix at midnight. We could get \
+this more obvious effect for the outer planet if we increased the speed \
+(reduced the period) of its orbit.",
+ StyleBox["\nA Brief History of Heliocentrism\n",
+  FontWeight->"Bold"],
+ "In short, Copernicus designed a model where the Earth is not the center of \
+the solar system but rather the Sun is. His measurements allowed for \
+predictions that matched the precision of the previously established \
+geocentric Ptolemaic system, but additionally gave an explanation for \
+retrograde motion.\n\n",
+ StyleBox["A note on the code\n",
+  FontWeight->"Bold"],
+ "This notebook was created for expository purposes, to explain retrograde \
+motion, rather than to showcase the code - consequently the code is rather \
+dense and not particularly friendly to read. The variable decelerations at \
+the top before the Manipulate function tell most of the story. The left model \
+uses Graphics3D where the bodies are Spheres with a predetermined radius and \
+a center that is a vector determined by a function that takes as argument the \
+manipulated variable T. The rotation of these vectors is done with a 2x2 \
+rotation matrix - the 3D model is inherently 2D mathematically speaking as \
+all of the orbits lie in one plane. The right model is literally a projection \
+of the left model, using the projection function CSProj defined in the top. \
+Everything inside the Manipulate is to draw everything and allow for options \
+- all of the options are If statements for turning things on and off (like \
+the Celestial Sphere checkbox) and in the case of fixing at midnight a \
+rotation matrix inside of an If statement, that is applied only if the Fix at \
+Midnight checkbox is checked."
+}], "Text",
+ CellChangeTimes->{{3.7045102698326263`*^9, 3.704511147053228*^9}, {
+   3.704511211915805*^9, 3.7045112130404882`*^9}, {3.704684787746043*^9, 
+   3.704685066119755*^9}, {3.7048180611254673`*^9, 3.704818064851819*^9}, {
+   3.746099554370105*^9, 3.7460995566501303`*^9}, {3.746099623584227*^9, 
+   3.746099696131976*^9}, {3.746099827449853*^9, 3.7460998482294807`*^9}, {
+   3.746107035114623*^9, 3.746107044488759*^9}, {3.746108352171938*^9, 
+   3.746108591449332*^9}, {3.746109024931633*^9, 3.746109077336501*^9}, {
+   3.746109113936874*^9, 3.7461093175996323`*^9}, {3.7461093641951838`*^9, 
+   3.7461094136099377`*^9}, 3.7461101726018877`*^9, {3.746110246493361*^9, 
+   3.7461102698074512`*^9}, {3.7461103314342003`*^9, 3.74611055448482*^9}, {
+   3.746110586726343*^9, 3.7461105891240396`*^9}, {3.746110631092414*^9, 
+   3.746110688078293*^9}, {3.7461108594417753`*^9, 3.7461109438178997`*^9}, {
+   3.7461109913156137`*^9, 3.746111047603195*^9}, {3.7461110890677423`*^9, 
+   3.746111386704165*^9}},ExpressionUUID->"7872dbd9-a2c3-4c9e-982f-\
+102b95f21f77"],
+
+Cell[TextData[StyleBox["Ajeet Gary - University of Maryland Experimental \
+Geometry Lab\nCreated: May 30th, 2017\nLast Updated: September 16th, 2018",
+ FontFamily->"Calibri",
+ FontSize->14,
+ FontWeight->"Bold",
+ FontColor->RGBColor[0.9688410772869459, 0., 0.04487678339818418]]], "Section",\
+
+ CellChangeTimes->{{3.744720759361576*^9, 3.744720769654295*^9}, {
+  3.744720816813613*^9, 3.7447208223929443`*^9}, {3.744720856164445*^9, 
+  3.744720891474593*^9}, {3.744838141121181*^9, 3.744838147182004*^9}, {
+  3.7455144445849237`*^9, 3.745514445699499*^9}, {3.7460997875592747`*^9, 
+  3.746099798005487*^9}, {3.746110812006076*^9, 3.7461108372935534`*^9}},
+ TextAlignment->Right,ExpressionUUID->"919cba0b-1692-441b-a460-f51f18dc75d3"]
+}, Open  ]]
+},
+WindowSize->{1385, 785},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 244, 4, 69, "Chapter",ExpressionUUID->"eda616d9-56dc-4dce-adf7-2352ca44c80f"],
+Cell[CellGroupData[{
+Cell[849, 30, 23373, 545, 618, "Input",ExpressionUUID->"b815087d-9749-4b87-9774-5d8522358524"],
+Cell[24225, 577, 10198, 204, 497, "Output",ExpressionUUID->"4be1f03b-63d1-4f90-bd5c-3dfcec73e3cd"]
+}, Open  ]],
+Cell[34438, 784, 9519, 160, 1067, "Text",ExpressionUUID->"7872dbd9-a2c3-4c9e-982f-102b95f21f77"],
+Cell[43960, 946, 732, 12, 89, "Section",ExpressionUUID->"919cba0b-1692-441b-a460-f51f18dc75d3"]
+}, Open  ]]
+}
+]
+*)
+

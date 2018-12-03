@@ -1,0 +1,1058 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     50125,       1050]
+NotebookOptionsPosition[     49452,       1029]
+NotebookOutlinePosition[     49812,       1045]
+CellTagsIndexPosition[     49769,       1042]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Relativistic Beaming", "Chapter",
+ CellChangeTimes->{{3.703558921180785*^9, 3.703558930386145*^9}, {
+  3.703616979321669*^9, 
+  3.7036169857598963`*^9}},ExpressionUUID->"d71076ed-5a73-4a5e-be3b-\
+41ce265da2d1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"ClearAll", ";", " ", 
+  RowBox[{"c", "=", "1"}], ";", " ", 
+  RowBox[{
+   RowBox[{"\[Beta]", "[", "v_", "]"}], " ", ":=", " ", 
+   RowBox[{"v", "/", "c"}]}], ";", " ", 
+  RowBox[{
+   RowBox[{"\[Gamma]", "[", "v_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{
+       RowBox[{"\[Beta]", "[", "v", "]"}], "^", "2"}]}], ")"}], "^", 
+    RowBox[{"-", ".5"}]}]}], ";", " ", 
+  RowBox[{"lightConeOn", "=", "True"}], ";", " ", 
+  RowBox[{"MeshOn", "=", "False"}], ";", " ", 
+  RowBox[{"linesOn", " ", "=", " ", "False"}], ";", 
+  RowBox[{"plotRangeOn", "=", "True"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Lorentz3D", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x_", ",", "y_", ",", "t_"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"vr_", ",", "v\[Theta]_"}], "}"}]}], "]"}], " ", ":=", " ", 
+    RowBox[{"Part", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", GridBox[{
+          {"0", "1", "0"},
+          {"0", "0", "1"},
+          {"1", "0", "0"}
+         }], ")"}], ".", 
+       RowBox[{"(", GridBox[{
+          {
+           RowBox[{"\[Gamma]", "[", "vr", "]"}], 
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"\[Gamma]", "[", "vr", "]"}]}], 
+            RowBox[{"\[Beta]", "[", "vr", "]"}], 
+            RowBox[{"Cos", "[", "v\[Theta]", "]"}]}], 
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"\[Gamma]", "[", "vr", "]"}]}], 
+            RowBox[{"\[Beta]", "[", "vr", "]"}], 
+            RowBox[{"Sin", "[", "v\[Theta]", "]"}]}]},
+          {
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"\[Gamma]", "[", "vr", "]"}]}], 
+            RowBox[{"\[Beta]", "[", "vr", "]"}], 
+            RowBox[{"Cos", "[", "v\[Theta]", "]"}]}], 
+           RowBox[{
+            RowBox[{
+             RowBox[{"\[Gamma]", "[", "vr", "]"}], 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Cos", "[", "v\[Theta]", "]"}], "^", "2"}], ")"}]}], 
+            "+", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Sin", "[", "v\[Theta]", "]"}], "^", "2"}], ")"}]}], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"\[Gamma]", "[", "vr", "]"}], "-", "1"}], ")"}], 
+            RowBox[{"Sin", "[", "v\[Theta]", "]"}], 
+            RowBox[{"Cos", "[", "v\[Theta]", "]"}]}]},
+          {
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"\[Gamma]", "[", "vr", "]"}]}], 
+            RowBox[{"\[Beta]", "[", "vr", "]"}], 
+            RowBox[{"Sin", "[", "v\[Theta]", "]"}]}], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"\[Gamma]", "[", "vr", "]"}], "-", "1"}], ")"}], 
+            RowBox[{"Sin", "[", "v\[Theta]", "]"}], 
+            RowBox[{"Cos", "[", "v\[Theta]", "]"}]}], 
+           RowBox[{
+            RowBox[{
+             RowBox[{"\[Gamma]", "[", "vr", "]"}], 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Sin", "[", "v\[Theta]", "]"}], "^", "2"}], ")"}]}], 
+            "+", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Cos", "[", "v\[Theta]", "]"}], "^", "2"}], ")"}]}]}
+         }], ")"}], ".", 
+       RowBox[{"(", GridBox[{
+          {"t"},
+          {"x"},
+          {"y"}
+         }], ")"}]}], ",", "All", ",", "1"}], "]"}]}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"Graphics3D", "[", 
+      RowBox[{
+       RowBox[{"{", "}"}], ",", 
+       RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+       RowBox[{"PlotLabel", "\[Rule]", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<Relativistic Beaming\>\"", ",", "Black", ",", "15"}], 
+         "]"}]}], ",", 
+       RowBox[{"If", "[", 
+        RowBox[{"plotRangeOn", ",", 
+         RowBox[{"PlotRange", "\[Rule]", "plotRange"}], ",", 
+         RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", 
+     RowBox[{"If", "[", 
+      RowBox[{"linesOn", ",", 
+       RowBox[{"ParametricPlot3D", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"w", "*", "c", "*", 
+                RowBox[{"Cos", "[", 
+                 RowBox[{
+                  RowBox[{"j", "*", "2", 
+                   RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                  "v\[Theta]"}], "]"}], "*", "i"}], ",", 
+               RowBox[{"w", "*", "c", "*", 
+                RowBox[{"Sin", "[", 
+                 RowBox[{
+                  RowBox[{"j", "*", "2", 
+                   RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                  "v\[Theta]"}], "]"}], "*", "i"}], ",", "i"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "0", ",", 
+               RowBox[{"angularPoints", "-", "1"}]}], "}"}]}], "]"}], ",", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"Lorentz3D", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"w", "*", "c", "*", 
+                  RowBox[{"Cos", "[", 
+                   RowBox[{
+                    RowBox[{"j", "*", "2", 
+                    RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                    "v\[Theta]"}], "]"}], "*", "i"}], ",", 
+                 RowBox[{"w", "*", "c", "*", 
+                  RowBox[{"Sin", "[", 
+                   RowBox[{
+                    RowBox[{"j", "*", "2", 
+                    RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                    "v\[Theta]"}], "]"}], "*", "i"}], ",", "i"}], "}"}], ",", 
+               
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"-", "vr"}], ",", "v\[Theta]"}], "}"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "0", ",", 
+               RowBox[{"angularPoints", "-", "1"}]}], "}"}]}], "]"}]}], "}"}],
+          ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "0", ",", "propagationPoints"}], "}"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Black", ",", "Red"}], "}"}]}]}], "]"}], ",", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Point", "[", 
+           RowBox[{"Flatten", "[", 
+            RowBox[{
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"w", "*", "c", "*", 
+                  RowBox[{"Cos", "[", 
+                   RowBox[{
+                    RowBox[{"j", "*", "2", 
+                    RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                    "v\[Theta]"}], "]"}], "*", "i"}], ",", 
+                 RowBox[{"w", "*", "c", "*", 
+                  RowBox[{"Sin", "[", 
+                   RowBox[{
+                    RowBox[{"j", "*", "2", 
+                    RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                    "v\[Theta]"}], "]"}], "*", "i"}], ",", "i"}], "}"}], ",", 
+               
+               RowBox[{"{", 
+                RowBox[{"i", ",", "propagationPoints"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"j", ",", "0", ",", 
+                 RowBox[{"angularPoints", "-", "1"}]}], "}"}]}], "]"}], ",", 
+             "1"}], "]"}], "]"}], ",", "Red", ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"Flatten", "[", 
+            RowBox[{
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"Lorentz3D", "[", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"w", "*", "c", "*", 
+                    RowBox[{"Cos", "[", 
+                    RowBox[{
+                    RowBox[{"j", "*", "2", 
+                    RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                    "v\[Theta]"}], "]"}], "*", "i"}], ",", 
+                   RowBox[{"w", "*", "c", "*", 
+                    RowBox[{"Sin", "[", 
+                    RowBox[{
+                    RowBox[{"j", "*", "2", 
+                    RowBox[{"\[Pi]", "/", "angularPoints"}]}], "-", 
+                    "v\[Theta]"}], "]"}], "*", "i"}], ",", "i"}], "}"}], ",", 
+                 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"-", "vr"}], ",", "v\[Theta]"}], "}"}]}], "]"}], 
+               ",", 
+               RowBox[{"{", 
+                RowBox[{"i", ",", "propagationPoints"}], "}"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"j", ",", "0", ",", 
+                 RowBox[{"angularPoints", "-", "1"}]}], "}"}]}], "]"}], ",", 
+             "1"}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}], ",", 
+     RowBox[{"If", "[", 
+      RowBox[{"velocityLineOn", ",", 
+       RowBox[{"ParametricPlot3D", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"vr", "*", 
+            RowBox[{"Cos", "[", "v\[Theta]", "]"}], "*", "\[Tau]"}], ",", 
+           RowBox[{"vr", "*", 
+            RowBox[{"Sin", "[", "v\[Theta]", "]"}], "*", "\[Tau]"}], ",", 
+           "\[Tau]"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Tau]", ",", 
+           RowBox[{"-", "10"}], ",", "propagationPoints"}], "}"}]}], "]"}], 
+       ",", 
+       RowBox[{"{", "}"}]}], "]"}], ",", 
+     RowBox[{"If", "[", 
+      RowBox[{"lightConeOn", ",", 
+       RowBox[{"ParametricPlot3D", "[", 
+        RowBox[{
+         RowBox[{"Lorentz3D", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"c", "*", 
+              RowBox[{"Cos", "[", "\[Theta]", "]"}], "\[Tau]"}], ",", 
+             RowBox[{"c", "*", 
+              RowBox[{"Sin", "[", "\[Theta]", "]"}], "\[Tau]"}], ",", 
+             "\[Tau]"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"lightConeV", ",", "lightCone\[Theta]"}], "}"}]}], "]"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Tau]", ",", 
+           RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Theta]", ",", "0", ",", 
+           RowBox[{"2", "\[Pi]"}]}], "}"}], ",", 
+         RowBox[{"Mesh", "\[Rule]", 
+          RowBox[{"If", "[", 
+           RowBox[{"MeshOn", ",", "Full", ",", "None"}], "]"}]}]}], "]"}], 
+       ",", 
+       RowBox[{"{", "}"}]}], "]"}], ",", 
+     RowBox[{"If", "[", 
+      RowBox[{"SimPlaneOn", ",", 
+       RowBox[{"ParametricPlot3D", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "simTime"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", 
+           RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", 
+           RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+         RowBox[{"Mesh", "\[Rule]", "None"}], ",", 
+         RowBox[{"PlotStyle", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"Gray", ",", 
+            RowBox[{"Opacity", "[", ".5", "]"}]}], "}"}]}]}], "]"}], ",", 
+       RowBox[{"{", "}"}]}], "]"}]}], "]"}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"lightConeOn", ",", "True", ",", "\"\<Light Cone\>\""}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}], ",", 
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"MeshOn", ",", "False", ",", "\"\<Mesh\>\""}], "}"}], ",", 
+          
+          RowBox[{"{", 
+           RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+     ",", 
+     RowBox[{"Spacer", "[", "15", "]"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"velocityLineOn", ",", "True", ",", "\"\<Velocity Line\>\""}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "lightConeV", ",", "0", ",", "\"\<Light Cone Boost Magnitude\>\""}], 
+      "}"}], ",", "0", ",", "c"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "lightCone\[Theta]", ",", "0", ",", "\"\<Light Cone Boost Angle\>\""}], 
+      "}"}], ",", "0", ",", 
+     RowBox[{"2", "\[Pi]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"w", ",", "c", ",", "\"\<Radiation Speed\>\""}], "}"}], ",", 
+     "0", ",", "c"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"w", ",", "c", ",", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0", "\[Rule]", "\"\<0\>\""}], ",", 
+       RowBox[{".25", "\[Rule]", "\"\<.25c\>\""}], ",", 
+       RowBox[{".5", "\[Rule]", "\"\<.5c\>\""}], ",", 
+       RowBox[{".9", "\[Rule]", "\"\<.9c\>\""}], ",", 
+       RowBox[{"1", "\[Rule]", "\"\<c\>\""}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"vr", ",", "0", ",", "\"\<Boost Velocity Magnitude\>\""}], 
+      "}"}], ",", "0", ",", "c"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"v\[Theta]", ",", "0", ",", "\"\<Boost Velocity Angle\>\""}], 
+      "}"}], ",", "0", ",", 
+     RowBox[{"2", "\[Pi]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"vr", ",", "0", ",", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0", "\[Rule]", "\"\<0\>\""}], ",", 
+       RowBox[{".5", "\[Rule]", "\"\<.5c\>\""}], ",", 
+       RowBox[{".9", "\[Rule]", "\"\<.9c\>\""}], ",", 
+       RowBox[{".95", "\[Rule]", "\"\<.95c\>\""}], ",", 
+       RowBox[{".99", "\[Rule]", "\"\<.99c\>\""}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"SimPlaneOn", ",", "True", ",", "\"\<Simultaneity Plane\>\""}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"simTime", ",", "0", ",", "\"\<Simultaneity Plane Time\>\""}], 
+      "}"}], ",", 
+     RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"linesOn", ",", "False", ",", "\"\<Particle Display\>\""}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"False", "\[Rule]", "\"\<Points\>\""}], ",", 
+       RowBox[{"True", "\[Rule]", "\"\<Lines\>\""}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "propagationPoints", ",", "10", ",", 
+       "\"\<Propagation Points/Distance\>\""}], "}"}], ",", "1", ",", "100"}],
+     "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"propagationPoints", ",", "10", ",", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "10", ",", "20", ",", "50", ",", "100"}], "}"}]}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"angularPoints", ",", "30", ",", "\"\<Anglular Points\>\""}], 
+      "}"}], ",", "1", ",", "120"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"angularPoints", ",", "30", ",", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "10", ",", "30", ",", "60", ",", "120"}], "}"}]}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotRangeOn", ",", "True", ",", "\"\<Plot Range Bounded\>\""}],
+       "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotRange", ",", "10", ",", "\"\<Plot Range\>\""}], "}"}], ",",
+      "1", ",", "100"}], "}"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Relativistic Beaming Set-Up\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lightConeOn", "=", "True"}], ",", 
+       RowBox[{"MeshOn", "=", "False"}], ",", 
+       RowBox[{"velocityLineOn", "=", "True"}], ",", 
+       RowBox[{"lightConeV", "=", "0"}], ",", 
+       RowBox[{"lightCone\[Theta]", "=", "0"}], ",", 
+       RowBox[{"w", "=", 
+        RowBox[{".75", "c"}]}], ",", 
+       RowBox[{"vr", "=", ".8"}], ",", 
+       RowBox[{"v\[Theta]", "=", "\[Pi]"}], ",", 
+       RowBox[{"SimPlaneOn", "=", "True"}], ",", 
+       RowBox[{"simTime", "=", "10"}], ",", 
+       RowBox[{"propagationPoints", "=", "50"}], ",", 
+       RowBox[{"angularPoints", "=", "24"}], ",", 
+       RowBox[{"plotRangeOn", "=", "True"}], ",", 
+       RowBox[{"plotRange", "=", "12"}], ",", 
+       RowBox[{"linesOn", "=", "True"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Shortcut Using Light Cone Mesh\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lightConeOn", "=", "True"}], ",", 
+       RowBox[{"MeshOn", "=", "True"}], ",", 
+       RowBox[{"velocityLineOn", "=", "False"}], ",", 
+       RowBox[{"lightConeV", "=", "0"}], ",", 
+       RowBox[{"lightCone\[Theta]", "=", "0"}], ",", 
+       RowBox[{"SimPlaneOn", "=", "False"}], ",", 
+       RowBox[{"propagationPoints", "=", "0"}], ",", 
+       RowBox[{"angularPoints", "=", "0"}], ",", 
+       RowBox[{"plotRangeOn", "=", "False"}], ",", 
+       RowBox[{"linesOn", "=", "False"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"Button", "[", 
+    RowBox[{"\"\<Reset\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"lightConeOn", "=", "True"}], ",", 
+       RowBox[{"MeshOn", "=", "False"}], ",", 
+       RowBox[{"velocityLineOn", "=", "True"}], ",", 
+       RowBox[{"lightConeV", "=", "0"}], ",", 
+       RowBox[{"lightCone\[Theta]", "=", "0"}], ",", 
+       RowBox[{"w", "=", "c"}], ",", 
+       RowBox[{"vr", "=", "0"}], ",", 
+       RowBox[{"v\[Theta]", "=", "0"}], ",", 
+       RowBox[{"SimPlaneOn", "=", "True"}], ",", 
+       RowBox[{"simTime", "=", "10"}], ",", 
+       RowBox[{"propagationPoints", "=", "10"}], ",", 
+       RowBox[{"angularPoints", "=", "30"}], ",", 
+       RowBox[{"plotRangeOn", "=", "True"}], ",", 
+       RowBox[{"plotRangeOn", "=", "True"}], ",", 
+       RowBox[{"plotRange", " ", "=", " ", "10"}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.703558921180785*^9, 3.703558925958891*^9}, {
+   3.703558962542408*^9, 3.703559010717266*^9}, {3.703559065764291*^9, 
+   3.703559171471546*^9}, {3.703559306920373*^9, 3.703559366232643*^9}, {
+   3.703559398725214*^9, 3.703559456170294*^9}, {3.703559487962232*^9, 
+   3.7035594902333717`*^9}, {3.703559711000269*^9, 3.7035597648046103`*^9}, {
+   3.703559946612978*^9, 3.703560062663596*^9}, {3.7035600939235764`*^9, 
+   3.7035602690428143`*^9}, {3.70356033266145*^9, 3.703560418858214*^9}, {
+   3.703560577174068*^9, 3.703560583397605*^9}, {3.703560617642209*^9, 
+   3.703560624587336*^9}, {3.703560769007607*^9, 3.7035609063975077`*^9}, {
+   3.7035609495744677`*^9, 3.7035609700106573`*^9}, {3.703561002827306*^9, 
+   3.7035611464497337`*^9}, {3.703617234216876*^9, 3.703617308640349*^9}, {
+   3.703617373873073*^9, 3.7036174411672783`*^9}, {3.703617715257945*^9, 
+   3.703617937594966*^9}, {3.70361796817306*^9, 3.703617974554459*^9}, {
+   3.703618460206978*^9, 3.703618544097005*^9}, {3.703618584164955*^9, 
+   3.703618585572279*^9}, {3.703618890927272*^9, 3.703618902043848*^9}, {
+   3.703619025983364*^9, 3.7036190262702427`*^9}, {3.7036194001140537`*^9, 
+   3.703619446311634*^9}, {3.7036195386248083`*^9, 3.70361970648774*^9}, {
+   3.70361973696308*^9, 3.703619749994884*^9}, {3.7036197915380697`*^9, 
+   3.703619996695718*^9}, {3.7036200327827387`*^9, 3.703620034550639*^9}, {
+   3.703620689631459*^9, 3.703620698068439*^9}, {3.703621080822299*^9, 
+   3.70362108148491*^9}, {3.7036211612987633`*^9, 3.703621208533687*^9}, {
+   3.703621253368678*^9, 3.703621253828742*^9}, 3.7036212906083*^9, {
+   3.7036213630858097`*^9, 3.703621416686499*^9}, {3.703629419518059*^9, 
+   3.703629449562367*^9}, {3.70363295383043*^9, 3.7036329545634947`*^9}, {
+   3.703633192651588*^9, 3.703633290448469*^9}, {3.703633336204052*^9, 
+   3.703633408933848*^9}, {3.703633470919717*^9, 3.703633582909649*^9}, {
+   3.7036635298344917`*^9, 3.703663551048279*^9}, {3.70366670159473*^9, 
+   3.703666732285137*^9}, {3.703667078196456*^9, 3.703667079674657*^9}, {
+   3.703667129707793*^9, 3.70366713610891*^9}, {3.703667173226796*^9, 
+   3.703667207252818*^9}, {3.703667253385519*^9, 3.703667266433309*^9}, {
+   3.703671555799452*^9, 3.703671585216803*^9}, {3.703671622364931*^9, 
+   3.703671632387065*^9}, 3.703671685627095*^9, {3.70367232519223*^9, 
+   3.703672327692877*^9}, {3.703672486670854*^9, 3.7036724960440073`*^9}, {
+   3.70368810879114*^9, 3.703688119206428*^9}, {3.7036881531013813`*^9, 
+   3.7036882438665867`*^9}, {3.7036883573236322`*^9, 
+   3.7036884459343653`*^9}, {3.70368848638669*^9, 3.703688537077899*^9}, {
+   3.703688594392681*^9, 3.70368870398098*^9}, {3.703688894501651*^9, 
+   3.703688909881497*^9}, {3.70368895212554*^9, 3.703688965091082*^9}, {
+   3.703689075422275*^9, 3.703689077219377*^9}, {3.703689134285738*^9, 
+   3.7036891369728737`*^9}, {3.7037669604625263`*^9, 3.703767012966372*^9}, {
+   3.7037671663009577`*^9, 3.703767196302116*^9}, {3.70376723171067*^9, 
+   3.703767290736923*^9}, 3.703767326913794*^9, {3.7037674486924553`*^9, 
+   3.703767448771096*^9}, {3.703767491172454*^9, 3.7037675006337767`*^9}, {
+   3.703857230200449*^9, 3.703857345839633*^9}, {3.703857470938147*^9, 
+   3.703857476606144*^9}, {3.70385755216319*^9, 3.703857568875333*^9}, {
+   3.703857606593824*^9, 3.7038576089171333`*^9}, {3.703861003876561*^9, 
+   3.703861008571048*^9}, {3.7038610609459963`*^9, 3.703861094503195*^9}, 
+   3.703861167011538*^9, {3.7038626965558777`*^9, 3.70386272943292*^9}, {
+   3.7038628709058523`*^9, 3.703862906329825*^9}, {3.70386408996548*^9, 
+   3.703864184069276*^9}, {3.7038642246508217`*^9, 3.703864366284968*^9}, {
+   3.703864863030126*^9, 3.703864972867578*^9}, {3.703865035951942*^9, 
+   3.703865036418787*^9}, {3.703865983254047*^9, 
+   3.7038659944593153`*^9}},ExpressionUUID->"064ac51d-579a-4622-ae69-\
+15e9a7be53d9"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`angularPoints$$ = 
+    30, $CellContext`lightConeOn$$ = True, $CellContext`lightConeV$$ = 
+    0, $CellContext`lightCone\[Theta]$$ = 0, $CellContext`linesOn$$ = 
+    True, $CellContext`MeshOn$$ = False, $CellContext`plotRange$$ = 
+    27.1, $CellContext`plotRangeOn$$ = 
+    True, $CellContext`propagationPoints$$ = 20, $CellContext`SimPlaneOn$$ = 
+    True, $CellContext`simTime$$ = 0, $CellContext`velocityLineOn$$ = 
+    True, $CellContext`vr$$ = 0.67, $CellContext`v\[Theta]$$ = 
+    0, $CellContext`w$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`lightConeOn$$], True, "Light Cone"}, {
+      True, False}}, {{
+       Hold[$CellContext`MeshOn$$], False, "Mesh"}, {True, False}}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Manipulate`Place[2]}, 
+        Spacer[15]]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`velocityLineOn$$], True, "Velocity Line"}, {
+      True, False}}, {{
+       Hold[$CellContext`lightConeV$$], 0, "Light Cone Boost Magnitude"}, 0, 
+      1}, {{
+       Hold[$CellContext`lightCone\[Theta]$$], 0, "Light Cone Boost Angle"}, 
+      0, 2 Pi}, {{
+       Hold[$CellContext`w$$], 1, "Radiation Speed"}, 0, 1}, {{
+       Hold[$CellContext`w$$], 1, ""}, {
+      0 -> "0", 0.25 -> ".25c", 0.5 -> ".5c", 0.9 -> ".9c", 1 -> "c"}}, {{
+       Hold[$CellContext`vr$$], 0, "Boost Velocity Magnitude"}, 0, 1}, {{
+       Hold[$CellContext`v\[Theta]$$], 0, "Boost Velocity Angle"}, 0, 2 Pi}, {{
+       Hold[$CellContext`vr$$], 0, ""}, {
+      0 -> "0", 0.5 -> ".5c", 0.9 -> ".9c", 0.95 -> ".95c", 0.99 -> 
+       ".99c"}}, {{
+       Hold[$CellContext`SimPlaneOn$$], True, "Simultaneity Plane"}, {
+      True, False}}, {{
+       Hold[$CellContext`simTime$$], 0, "Simultaneity Plane Time"}, -10, 
+      10}, {{
+       Hold[$CellContext`linesOn$$], False, "Particle Display"}, {
+      False -> "Points", True -> "Lines"}}, {{
+       Hold[$CellContext`propagationPoints$$], 10, 
+       "Propagation Points/Distance"}, 1, 100}, {{
+       Hold[$CellContext`propagationPoints$$], 10, ""}, {1, 10, 20, 50, 
+      100}}, {{
+       Hold[$CellContext`angularPoints$$], 30, "Anglular Points"}, 1, 120}, {{
+      
+       Hold[$CellContext`angularPoints$$], 30, ""}, {1, 10, 30, 60, 120}}, {{
+       Hold[$CellContext`plotRangeOn$$], True, "Plot Range Bounded"}, {
+      True, False}}, {{
+       Hold[$CellContext`plotRange$$], 10, "Plot Range"}, 1, 100}, {
+      Hold[
+       Button[
+       "Relativistic Beaming Set-Up", {$CellContext`lightConeOn$$ = 
+         True, $CellContext`MeshOn$$ = False, $CellContext`velocityLineOn$$ = 
+         True, $CellContext`lightConeV$$ = 
+         0, $CellContext`lightCone\[Theta]$$ = 0, $CellContext`w$$ = 
+         0.75 $CellContext`c, $CellContext`vr$$ = 
+         0.8, $CellContext`v\[Theta]$$ = Pi, $CellContext`SimPlaneOn$$ = 
+         True, $CellContext`simTime$$ = 10, $CellContext`propagationPoints$$ = 
+         50, $CellContext`angularPoints$$ = 24, $CellContext`plotRangeOn$$ = 
+         True, $CellContext`plotRange$$ = 12, $CellContext`linesOn$$ = 
+         True}]], Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button[
+       "Shortcut Using Light Cone Mesh", {$CellContext`lightConeOn$$ = 
+         True, $CellContext`MeshOn$$ = True, $CellContext`velocityLineOn$$ = 
+         False, $CellContext`lightConeV$$ = 
+         0, $CellContext`lightCone\[Theta]$$ = 0, $CellContext`SimPlaneOn$$ = 
+         False, $CellContext`propagationPoints$$ = 
+         0, $CellContext`angularPoints$$ = 0, $CellContext`plotRangeOn$$ = 
+         False, $CellContext`linesOn$$ = False}]], 
+      Manipulate`Dump`ThisIsNotAControl}, {
+      Hold[
+       Button[
+       "Reset", {$CellContext`lightConeOn$$ = True, $CellContext`MeshOn$$ = 
+         False, $CellContext`velocityLineOn$$ = 
+         True, $CellContext`lightConeV$$ = 
+         0, $CellContext`lightCone\[Theta]$$ = 
+         0, $CellContext`w$$ = $CellContext`c, $CellContext`vr$$ = 
+         0, $CellContext`v\[Theta]$$ = 0, $CellContext`SimPlaneOn$$ = 
+         True, $CellContext`simTime$$ = 10, $CellContext`propagationPoints$$ = 
+         10, $CellContext`angularPoints$$ = 30, $CellContext`plotRangeOn$$ = 
+         True, $CellContext`plotRangeOn$$ = True, $CellContext`plotRange$$ = 
+         10}]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    576., {320., 325.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`lightConeOn$10155$$ = 
+    False, $CellContext`MeshOn$10156$$ = 
+    False, $CellContext`velocityLineOn$10157$$ = 
+    False, $CellContext`lightConeV$10158$$ = 
+    0, $CellContext`lightCone\[Theta]$10159$$ = 0, $CellContext`w$10160$$ = 
+    0, $CellContext`vr$10161$$ = 0, $CellContext`v\[Theta]$10162$$ = 
+    0, $CellContext`SimPlaneOn$10163$$ = False, $CellContext`simTime$10164$$ =
+     0, $CellContext`linesOn$10165$$ = 
+    False, $CellContext`propagationPoints$10166$$ = 
+    0, $CellContext`angularPoints$10167$$ = 
+    0, $CellContext`plotRangeOn$10168$$ = 
+    False, $CellContext`plotRange$10169$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`angularPoints$$ = 
+        30, $CellContext`lightConeOn$$ = True, $CellContext`lightConeV$$ = 
+        0, $CellContext`lightCone\[Theta]$$ = 0, $CellContext`linesOn$$ = 
+        False, $CellContext`MeshOn$$ = False, $CellContext`plotRange$$ = 
+        10, $CellContext`plotRangeOn$$ = 
+        True, $CellContext`propagationPoints$$ = 
+        10, $CellContext`SimPlaneOn$$ = True, $CellContext`simTime$$ = 
+        0, $CellContext`velocityLineOn$$ = True, $CellContext`vr$$ = 
+        0, $CellContext`v\[Theta]$$ = 0, $CellContext`w$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`lightConeOn$$, $CellContext`lightConeOn$10155$$, 
+         False], 
+        Hold[$CellContext`MeshOn$$, $CellContext`MeshOn$10156$$, False], 
+        Hold[$CellContext`velocityLineOn$$, \
+$CellContext`velocityLineOn$10157$$, False], 
+        Hold[$CellContext`lightConeV$$, $CellContext`lightConeV$10158$$, 0], 
+        Hold[$CellContext`lightCone\[Theta]$$, \
+$CellContext`lightCone\[Theta]$10159$$, 0], 
+        Hold[$CellContext`w$$, $CellContext`w$10160$$, 0], 
+        Hold[$CellContext`vr$$, $CellContext`vr$10161$$, 0], 
+        Hold[$CellContext`v\[Theta]$$, $CellContext`v\[Theta]$10162$$, 0], 
+        Hold[$CellContext`SimPlaneOn$$, $CellContext`SimPlaneOn$10163$$, 
+         False], 
+        Hold[$CellContext`simTime$$, $CellContext`simTime$10164$$, 0], 
+        Hold[$CellContext`linesOn$$, $CellContext`linesOn$10165$$, False], 
+        Hold[$CellContext`propagationPoints$$, \
+$CellContext`propagationPoints$10166$$, 0], 
+        Hold[$CellContext`angularPoints$$, $CellContext`angularPoints$10167$$,
+          0], 
+        Hold[$CellContext`plotRangeOn$$, $CellContext`plotRangeOn$10168$$, 
+         False], 
+        Hold[$CellContext`plotRange$$, $CellContext`plotRange$10169$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Show[
+        Graphics3D[{}, ImageSize -> Large, PlotLabel -> 
+         Style["Relativistic Beaming", Black, 15], 
+         If[$CellContext`plotRangeOn$$, 
+          PlotRange -> $CellContext`plotRange$$, {}]], 
+        If[$CellContext`linesOn$$, 
+         ParametricPlot3D[{
+           
+           Table[{$CellContext`w$$ $CellContext`c 
+             Cos[$CellContext`j 
+                2 (Pi/$CellContext`angularPoints$$) - \
+$CellContext`v\[Theta]$$] $CellContext`i, $CellContext`w$$ $CellContext`c 
+             Sin[$CellContext`j 
+                2 (Pi/$CellContext`angularPoints$$) - \
+$CellContext`v\[Theta]$$] $CellContext`i, $CellContext`i}, {$CellContext`j, 
+             0, $CellContext`angularPoints$$ - 1}], 
+           Table[
+            $CellContext`Lorentz3D[{$CellContext`w$$ $CellContext`c 
+              Cos[$CellContext`j 
+                 2 (Pi/$CellContext`angularPoints$$) - \
+$CellContext`v\[Theta]$$] $CellContext`i, $CellContext`w$$ $CellContext`c 
+              Sin[$CellContext`j 
+                 2 (Pi/$CellContext`angularPoints$$) - \
+$CellContext`v\[Theta]$$] $CellContext`i, $CellContext`i}, \
+{-$CellContext`vr$$, $CellContext`v\[Theta]$$}], {$CellContext`j, 
+             0, $CellContext`angularPoints$$ - 1}]}, {$CellContext`i, 
+           0, $CellContext`propagationPoints$$}, PlotStyle -> {Black, Red}], 
+         Graphics3D[{
+           Point[
+            Flatten[
+             
+             Table[{$CellContext`w$$ $CellContext`c 
+               Cos[$CellContext`j 
+                  2 (Pi/$CellContext`angularPoints$$) - \
+$CellContext`v\[Theta]$$] $CellContext`i, $CellContext`w$$ $CellContext`c 
+               Sin[$CellContext`j 
+                  2 (Pi/$CellContext`angularPoints$$) - \
+$CellContext`v\[Theta]$$] $CellContext`i, $CellContext`i}, {$CellContext`i, \
+$CellContext`propagationPoints$$}, {$CellContext`j, 
+               0, $CellContext`angularPoints$$ - 1}], 1]], Red, 
+           Point[
+            Flatten[
+             Table[
+              $CellContext`Lorentz3D[{$CellContext`w$$ $CellContext`c 
+                Cos[$CellContext`j 
+                   2 (Pi/$CellContext`angularPoints$$) - $CellContext`v\
+\[Theta]$$] $CellContext`i, $CellContext`w$$ $CellContext`c 
+                Sin[$CellContext`j 
+                   2 (Pi/$CellContext`angularPoints$$) - $CellContext`v\
+\[Theta]$$] $CellContext`i, $CellContext`i}, {-$CellContext`vr$$, \
+$CellContext`v\[Theta]$$}], {$CellContext`i, \
+$CellContext`propagationPoints$$}, {$CellContext`j, 
+               0, $CellContext`angularPoints$$ - 1}], 1]]}]], 
+        If[$CellContext`velocityLineOn$$, 
+         ParametricPlot3D[{$CellContext`vr$$ 
+           Cos[$CellContext`v\[Theta]$$] $CellContext`\[Tau], \
+$CellContext`vr$$ 
+           Sin[$CellContext`v\[Theta]$$] $CellContext`\[Tau], $CellContext`\
+\[Tau]}, {$CellContext`\[Tau], -10, $CellContext`propagationPoints$$}], {}], 
+        If[$CellContext`lightConeOn$$, 
+         ParametricPlot3D[
+          $CellContext`Lorentz3D[{$CellContext`c 
+            Cos[$CellContext`\[Theta]] $CellContext`\[Tau], $CellContext`c 
+            Sin[$CellContext`\[Theta]] $CellContext`\[Tau], $CellContext`\
+\[Tau]}, {$CellContext`lightConeV$$, $CellContext`lightCone\[Theta]$$}], \
+{$CellContext`\[Tau], -10, 10}, {$CellContext`\[Theta], 0, 2 Pi}, Mesh -> 
+          If[$CellContext`MeshOn$$, Full, None]], {}], 
+        If[$CellContext`SimPlaneOn$$, 
+         ParametricPlot3D[{$CellContext`x, $CellContext`y, \
+$CellContext`simTime$$}, {$CellContext`x, -10, 10}, {$CellContext`y, -10, 10},
+           Mesh -> None, PlotStyle -> {Gray, 
+            Opacity[0.5]}], {}]], 
+      "Specifications" :> {{{$CellContext`lightConeOn$$, True, 
+          "Light Cone"}, {True, False}, ControlPlacement -> 
+         1}, {{$CellContext`MeshOn$$, False, "Mesh"}, {True, False}, 
+         ControlPlacement -> 2}, 
+        Row[{
+          Manipulate`Place[1], 
+          Manipulate`Place[2]}, 
+         Spacer[
+         15]], {{$CellContext`velocityLineOn$$, True, "Velocity Line"}, {
+         True, False}}, {{$CellContext`lightConeV$$, 0, 
+          "Light Cone Boost Magnitude"}, 0, 
+         1}, {{$CellContext`lightCone\[Theta]$$, 0, "Light Cone Boost Angle"},
+          0, 2 Pi}, {{$CellContext`w$$, 1, "Radiation Speed"}, 0, 
+         1}, {{$CellContext`w$$, 1, ""}, {
+         0 -> "0", 0.25 -> ".25c", 0.5 -> ".5c", 0.9 -> ".9c", 1 -> 
+          "c"}}, {{$CellContext`vr$$, 0, "Boost Velocity Magnitude"}, 0, 
+         1}, {{$CellContext`v\[Theta]$$, 0, "Boost Velocity Angle"}, 0, 2 
+         Pi}, {{$CellContext`vr$$, 0, ""}, {
+         0 -> "0", 0.5 -> ".5c", 0.9 -> ".9c", 0.95 -> ".95c", 0.99 -> 
+          ".99c"}}, {{$CellContext`SimPlaneOn$$, True, 
+          "Simultaneity Plane"}, {
+         True, False}}, {{$CellContext`simTime$$, 0, 
+          "Simultaneity Plane Time"}, -10, 
+         10}, {{$CellContext`linesOn$$, False, "Particle Display"}, {
+         False -> "Points", True -> 
+          "Lines"}}, {{$CellContext`propagationPoints$$, 10, 
+          "Propagation Points/Distance"}, 1, 
+         100}, {{$CellContext`propagationPoints$$, 10, ""}, {1, 10, 20, 50, 
+         100}}, {{$CellContext`angularPoints$$, 30, "Anglular Points"}, 1, 
+         120}, {{$CellContext`angularPoints$$, 30, ""}, {1, 10, 30, 60, 
+         120}}, {{$CellContext`plotRangeOn$$, True, "Plot Range Bounded"}, {
+         True, False}}, {{$CellContext`plotRange$$, 10, "Plot Range"}, 1, 
+         100}, 
+        Button[
+        "Relativistic Beaming Set-Up", {$CellContext`lightConeOn$$ = 
+          True, $CellContext`MeshOn$$ = False, $CellContext`velocityLineOn$$ = 
+          True, $CellContext`lightConeV$$ = 
+          0, $CellContext`lightCone\[Theta]$$ = 0, $CellContext`w$$ = 
+          0.75 $CellContext`c, $CellContext`vr$$ = 
+          0.8, $CellContext`v\[Theta]$$ = Pi, $CellContext`SimPlaneOn$$ = 
+          True, $CellContext`simTime$$ = 10, $CellContext`propagationPoints$$ = 
+          50, $CellContext`angularPoints$$ = 24, $CellContext`plotRangeOn$$ = 
+          True, $CellContext`plotRange$$ = 12, $CellContext`linesOn$$ = 
+          True}], 
+        Button[
+        "Shortcut Using Light Cone Mesh", {$CellContext`lightConeOn$$ = 
+          True, $CellContext`MeshOn$$ = True, $CellContext`velocityLineOn$$ = 
+          False, $CellContext`lightConeV$$ = 
+          0, $CellContext`lightCone\[Theta]$$ = 0, $CellContext`SimPlaneOn$$ = 
+          False, $CellContext`propagationPoints$$ = 
+          0, $CellContext`angularPoints$$ = 0, $CellContext`plotRangeOn$$ = 
+          False, $CellContext`linesOn$$ = False}], 
+        Button[
+        "Reset", {$CellContext`lightConeOn$$ = True, $CellContext`MeshOn$$ = 
+          False, $CellContext`velocityLineOn$$ = 
+          True, $CellContext`lightConeV$$ = 
+          0, $CellContext`lightCone\[Theta]$$ = 
+          0, $CellContext`w$$ = $CellContext`c, $CellContext`vr$$ = 
+          0, $CellContext`v\[Theta]$$ = 0, $CellContext`SimPlaneOn$$ = 
+          True, $CellContext`simTime$$ = 10, $CellContext`propagationPoints$$ = 
+          10, $CellContext`angularPoints$$ = 30, $CellContext`plotRangeOn$$ = 
+          True, $CellContext`plotRangeOn$$ = True, $CellContext`plotRange$$ = 
+          10}]}, "Options" :> {ControlPlacement -> Left}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{962., {350., 355.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.7038573154191504`*^9, 3.703857351461482*^9}, 
+   3.7038576122388287`*^9, 3.703860830526609*^9, 3.703861105992124*^9, 
+   3.703861173533462*^9, 3.703862628273691*^9, 3.703862732328178*^9, 
+   3.7038629085001583`*^9, 3.7038630997101183`*^9, {3.7038643245498667`*^9, 
+   3.703864368464705*^9}, 3.7038649770221767`*^9, 3.70386503953832*^9, 
+   3.70386596021716*^9, 3.7038660006651573`*^9, 3.722616706247141*^9, 
+   3.722616867808135*^9, 
+   3.7447301726842003`*^9},ExpressionUUID->"7d9713b9-6497-4c12-8b4b-\
+d8f6f3437b46"]
+}, Open  ]],
+
+Cell[TextData[{
+ "This model allows the for the placement of events in 2-1 Minkowski Space, \
+that is, two dimensions of space x and y and 1 vertical dimension of time t \
+where events can undergo the 2-1-dimensional Lorentz transformation.\n",
+ StyleBox["The Light Cone and Proof of Lorentz Invariance",
+  FontWeight->"Bold"],
+ "\nThe yellow cone is the light cone, which can be turned on and off. As a \
+show of good faith that my Lorentz3D function does successfully map spacetime \
+points to their position in the mover\[CloseCurlyQuote]s reference frame for \
+a given velocity magnitude and angle, I have applied the Lorentz3D function \
+to the light cone with the velocity magnitude and angle controlled by the \
+slider under the light cone checkbox. You\[CloseCurlyQuote]ll observe by \
+changing these that the light cone remains in place. The distorting you see \
+is because I\[CloseCurlyQuote]m using ParametricPlot3D which carves out the \
+curve for a certain range of the parameter; subjecting the light cone to \
+Lorentzian transformations shifts points around the light cone, so it\
+\[CloseCurlyQuote]s expected that the amount reached within the same range of \
+the parameter in different directions changes, however all of the points stay \
+on the cone, which is a property of Minkowski space.\n",
+ StyleBox["Simulating Radiation with Controllable Velocity\n",
+  FontWeight->"Bold"],
+ "The black dots represent some wave propagating from the origin with \
+constant velocity in all directions, forming perfect circles in the \
+stationary reference frame. The circles get bigger as time goes up to show \
+the particles moving through space at the speed controlled by the Radiation \
+Speed slider. You can choose the radiation speed to be anything from 0 to c, \
+c of course then simulating photons. You\[CloseCurlyQuote]ll observe that if \
+you set the radiation speed to c then the particles remain constrained to the \
+light cone at all instances in time.\nSwitching to the lines view allows us \
+to look at the radiation through any simultaneity plane, as can be moved up \
+and down with the SImultaneity Plane Time slider. The lines are parametrized \
+for time in the non-moving reference frame, so as you apply larger and larger \
+boosts some of the red lines will go very far out if not constrained by the \
+Plot Range slider, which can be turned on and off, and some will shrink down \
+very small. If you would like to see all of the lines reach a certain \
+simultaneity plane without dealing with the longer red lines being \
+intractably long, keep the Plot Range slider on a low setting, and turn up \
+the Propagation Points/Distance slider so that the parameterization can draw \
+all of the lines up to your simultaneity plane of choice.\n",
+ StyleBox["A Note on Reference Frames",
+  FontWeight->"Bold"],
+ "\nThis is a somewhat strange type of diagram in that it superimposes what \
+the motion looks like from the stationary reference frame, the red \
+dots/lines, with what the motion looks like inside the primed reference \
+frame, the black dots/lines. The black dots propagating in undistorted \
+circles upwards is what the person in frame S\[CloseCurlyQuote] sees, the \
+light propagating away from them at an equal velocity in all directions with \
+even dispersion through the angles, radially symmetric. The cross sections of \
+the red lines with simultaneity planes show ovals with velocity lines \
+concentrated in the direction of motion, the Relativistic Beaming effect as \
+witnessed by the stationary observer, as well as the natural propagation of \
+the points through space, as they are indeed moving with a velocity away from \
+the stationary observer, that is, the Relativistic Beaming effect we are \
+interested in lies in the concentration of the lines around ovals on the \
+simultaneity plane, rather than with the slant of those red lines. The \
+simultaneity plane is that for the stationary observer.\n",
+ StyleBox["Using the Plot to Show Relativistic Beaming\n",
+  FontWeight->"Bold"],
+ "If you pick the lines view, slide the simultaneity plane up to the top of \
+the light cone, reduce the radiation speed and increase the propagation \
+enough to reach the simultaneity plane, then you can move the boost velocity \
+slider to watch the particle curves converge angle-wise in the direction of \
+motion, the blue line; ",
+ StyleBox["you can press \[OpenCurlyDoubleQuote]Relativistic Beaming Set-Up\
+\[CloseCurlyDoubleQuote] to set it up in this manner automatically, then all \
+you have to do is move the boost velocity slider.",
+  FontSlant->"Italic"],
+ "\n",
+ StyleBox["Explanation\n",
+  FontWeight->"Bold"],
+ "As the velocity of the radiating object increases, the boost velocity that \
+is, the particles radiating off of it more and more so need to appear to have \
+a velocity away from the stationary observer, that is, if a a light bulb is \
+flying away in the x direction from the stationary observer, the light \
+radiated by the bulb needs to appear to also have an x component. However, in \
+the case where the velocity of the light bulb is zero, the light radiating \
+off of it already has velocity c, and so when it starts moving in the x \
+direction, every vector other than the two parallel to the x motion need to \
+adopt an x component. In classical mechanics you just add the x component on \
+and the new velocity is found with the Pythagorean theorem, but here that\
+\[CloseCurlyQuote]s impossible because then the resultant velocity of the \
+light beams would be greater than c, so to adjust you can think of the system \
+siphoning away some of the velocity from the y component of whatever \
+direction the beam is originally moving in and giving that velocity to the x \
+direction. Since there is a speed limit to the universe, that is, no vector \
+can pass through the light cone, all of these vectors with increasingly \
+x-like directions bunch up towards the light cone in the x direction, causing \
+the beaming effect. This happens even with particles not originally moving at \
+the speed of light, as with the boost the resultant velocity still has to \
+obey the speed limit c, and this shifting of the velocity to the other \
+coordinate, Relativistic Beaming, is a continuous process as you accelerate \
+as opposed to something that only takes hold for light-like vectors.\n",
+ StyleBox["Shortcut Using Light Cone Mesh\n",
+  FontWeight->"Bold"],
+ "A short cut to modeling relativistic beaming, for particles moving at speed \
+c at least, is to just use the light cone with a mesh and subject it to a \
+Lorentz transformation, the changing angular spacing of the gridlines \
+illustrating exactly the same thing as our full model using radiation \
+velocity c does. Clicking the ",
+ StyleBox["Shortcut Using Light Cone Mesh ",
+  FontSlant->"Italic"],
+ "button will set this up automatically, and then all you need to do is slide \
+the Light Cone Boost Magnitude slider. Note though that the radial lines are \
+directly meaningful for our explanation of relativistic beaming, while the \
+circles part of the mesh are simultaneity curves for the moving observer, not \
+the stationary observer.\n",
+ StyleBox["Computation Note",
+  FontWeight->"Bold"],
+ "\nWhen using the lines it\[CloseCurlyQuote]s a lot of work for the computer \
+and is quite slow, so don\[CloseCurlyQuote]t use too many angular points when \
+plotting, that is, keep the number of lines below 30, closer to 20 is better.\
+\n",
+ StyleBox["Other Notes",
+  FontWeight->"Bold"],
+ "\nThe angles are purposefully set so that no matter which direction you \
+choose the boost to be there will always be a particle curve exactly opposite \
+the boost direction, which will never swing around to the direction of \
+motion. This is is to illustrate that no matter how tenuous the light \
+opposite the direction of motion gets, relativistic beaming will never shift \
+all of the light to one side, something we\[CloseCurlyQuote]re not easily \
+able to show using only finitely many particle curves.\nThe Lorentz3D \
+function takes in parameters in the same convention as the graphics \
+functions, (x,y,t), and then uses the Lorentz transformation matrix with the \
+spacetime 3-vector in the SR conventional form (t,x,y), and applies a simple \
+3x3 matrix of 1\[CloseCurlyQuote]s and 0\[CloseCurlyQuote]s to realign the \
+variables to the (x,y,t) style for the output such that the graphics \
+functions can interpret them correctly.\n14 out of the 25 lines of code are \
+just for the Manipulate function\[CloseCurlyQuote]s sliders and what not, the \
+actual code to create the model is not very long. The idea is that it uses \
+Graphics3D to plot points, and then those same points subjected to the \
+Lorentz3D function, and uses ParametricPlot3D to plot lines, swinging through \
+every time value for the points, and then does the same swinging through the \
+points after they have been subjected to Lorentz3D.\n\n",
+ StyleBox["Ajeet Gary\nUMD Undergraduate Math/CS Major\nLast Updated: \
+5/15/2017",
+  FontWeight->"Bold"]
+}], "Text",
+ CellChangeTimes->{{3.7036170828629637`*^9, 3.7036171734009666`*^9}, {
+   3.703618015651434*^9, 3.70361823854602*^9}, {3.703618627175827*^9, 
+   3.703618667533072*^9}, {3.703621460311838*^9, 3.7036214610091457`*^9}, {
+   3.703621517941546*^9, 3.7036215357314577`*^9}, {3.7036801253227177`*^9, 
+   3.70368030826812*^9}, {3.703680452105089*^9, 3.7036806570641317`*^9}, 
+   3.70368918336401*^9, {3.703689219921009*^9, 3.703689220968727*^9}, {
+   3.703801391617985*^9, 3.703801448064496*^9}, {3.7038016041809*^9, 
+   3.703801652905472*^9}, {3.7038017949029016`*^9, 3.703801823099709*^9}, {
+   3.703856894831996*^9, 3.7038569960935497`*^9}, {3.703857048253519*^9, 
+   3.703857194650914*^9}, {3.7038583311187267`*^9, 3.70385865258917*^9}, {
+   3.703862652618548*^9, 3.703862653011235*^9}, {3.7038635825615597`*^9, 
+   3.703864083065641*^9}, {3.703864495823492*^9, 3.703864750451392*^9}, {
+   3.703864801192811*^9, 3.70386483587988*^9}, {3.703865016384541*^9, 
+   3.703865156936043*^9}, {3.703865207291128*^9, 3.7038652129172277`*^9}, {
+   3.703865245726255*^9, 3.703865291543425*^9}, {3.703865395184019*^9, 
+   3.7038654330500317`*^9}, {3.703865474366056*^9, 3.7038655156913567`*^9}, {
+   3.703865571630559*^9, 3.703865646286428*^9}, {3.703865683377625*^9, 
+   3.703865709567621*^9}, {3.703865739883567*^9, 3.703865876402542*^9}, {
+   3.703865920345867*^9, 3.703865920719974*^9}, {3.703866024511785*^9, 
+   3.703866025566114*^9}, {3.703866056280992*^9, 
+   3.7038662403474703`*^9}},ExpressionUUID->"0d791f94-aa57-46c3-990b-\
+3968b1c9828c"]
+}, Open  ]]
+},
+WindowSize->{1238, 752},
+WindowMargins->{{Automatic, 98}, {Automatic, 25}},
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 216, 4, 69, "Chapter",ExpressionUUID->"d71076ed-5a73-4a5e-be3b-41ce265da2d1"],
+Cell[CellGroupData[{
+Cell[821, 30, 22250, 540, 828, "Input",ExpressionUUID->"064ac51d-579a-4622-ae69-15e9a7be53d9"],
+Cell[23074, 572, 15761, 293, 724, "Output",ExpressionUUID->"7d9713b9-6497-4c12-8b4b-d8f6f3437b46"]
+}, Open  ]],
+Cell[38850, 868, 10586, 158, 1392, "Text",ExpressionUUID->"0d791f94-aa57-46c3-990b-3968b1c9828c"]
+}, Open  ]]
+}
+]
+*)
+
